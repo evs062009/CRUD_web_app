@@ -10,14 +10,13 @@ public class MainMenu {
     private final AdminMenu adminMenu = new AdminMenu();
     private final ClientMenu clientMenu = new ClientMenu();
 
-    public void showMenu() throws IOException {
+    public void show() throws IOException {
         boolean isRunnig = true;
 
         while (isRunnig) {
             System.out.println("1. Admin");
             System.out.println("2. Client");
             System.out.println("0. Exit");
-
 
             switch (br.readLine()) {
                 case "1":

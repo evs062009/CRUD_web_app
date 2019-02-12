@@ -13,21 +13,91 @@ public class AdminMenu {
 
     public void show() throws IOException {
         while (true) {
-            showMenu();
+            System.out.println("1. Work with clients");
+            System.out.println("2. Work with products");
+            System.out.println("9. Return to previous menu");
+            System.out.println("0. Exit program");
+
+            switch (br.readLine()) {
+                case "1":
+                    showMenuWorkWithClients();
+                    break;
+                case "2":
+                    showMenuWorkWithProducts();
+                    break;
+                case "9":
+                    return;
+                case "0":
+                    System.exit(0);
+                default:
+                    System.out.println("Wrong input!!!");
+                    break;
+            }
+        }
+    }
+
+    private void showMenuWorkWithClients() throws IOException {
+        while (true) {
+            System.out.println("1. Add client");
+            System.out.println("2. Modify client");
+            System.out.println("3. Remove client");
+            System.out.println("4. List all clients");
+            System.out.println("9. Return to previous menu");
+            System.out.println("0. Exit program");
+
             switch (br.readLine()) {
                 case "1":
                     createClient();
                     break;
                 case "2":
-                    //закончить
-                    //разбить на подменю "работа с клиентами" и "работа с продуктами"
+                    modifyClient();
+                    break;
+                case "3":
+                    removeClient();
+                    break;
+                case "4":
+                    listAllClients();
                     break;
                 case "9":
                     return;
                 case "0":
-                    //!!!реализовать выход из программы
+                    System.exit(0);
                 default:
                     System.out.println("Wrong input!!!");
+                    break;
+            }
+        }
+    }
+
+    private void showMenuWorkWithProducts() throws IOException {
+        while (true) {
+            System.out.println("1. Add product");
+            System.out.println("2. Modify product");
+            System.out.println("3. Remove product");
+            System.out.println("4. List all products");
+            System.out.println("9. Return to previous menu");
+            System.out.println("0. Exit program");
+
+            switch (br.readLine()){
+                case "1":
+                    addProduct();
+                    break;
+                case "2":
+                    modifyProduct();
+                    break;
+                case "3":
+                    removeProduct();
+                    break;
+                case "4":
+                    listAllProducts();
+                    break;
+                case "9":
+                    return;
+                case "0":
+                    System.exit(0);
+                default:
+                    System.out.println("Wrong input!!!");
+                    break;
             }
         }
     }
@@ -42,12 +112,52 @@ public class AdminMenu {
         clientService.createClient(name, surname, phone);
     }
 
-    private void showMenu() {
-        System.out.println("1. Add client");
-        System.out.println("2. Modify client");
-        System.out.println("3. Remove client");
-        System.out.println("4. List all clients");
-        System.out.println("5. Add product");
-        //!!!подумать какие еще функции
+    private void modifyClient() throws IOException {
+        System.out.println("Input client id");
+        long clientID = inputLong();
+        System.out.println("Input name:");
+        String name = br.readLine();
+        System.out.println("Input surname:");
+        String surname = br.readLine();
+        System.out.println("Input phone:");
+        String phone = br.readLine();
+        clientService.modifyClient(clientID, name, surname, phone);
+    }
+
+    private void removeClient() throws IOException {
+        System.out.println("Input client id");
+        long clientID = inputLong();
+        clientService.removeClient(clientID);
+    }
+
+    private void listAllClients() {
+        clientService.listAllClients();
+    }
+
+    private void addProduct() {
+        System.out.println("!!! need to realise");
+    }
+
+    private void modifyProduct() {
+        System.out.println("!!! need to realise");
+    }
+
+    private void removeProduct() {
+        System.out.println("!!! need to realise");
+    }
+
+    private void listAllProducts() {
+        System.out.println("!!! need to realise");
+    }
+
+    private long inputLong() throws IOException {
+        while (true) {
+            String input = br.readLine();
+            try{
+                return Long.parseLong(input);
+            } catch (Exception ex){
+                System.out.println("Invalid input!!! Please repeat");
+            }
+        }
     }
 }

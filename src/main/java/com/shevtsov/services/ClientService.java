@@ -6,7 +6,12 @@ public interface ClientService {
      **/
     void createClient(String name, String surname, String phone);
 
-    void deleteClient();
+
+    void modifyClient(long clientID, String name, String surname, String phone);
+
+    void removeClient(long clientID);
+
+    void listAllClients();
 
     //подумать, что еще ()
 }

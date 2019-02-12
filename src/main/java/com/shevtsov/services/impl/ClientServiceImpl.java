@@ -12,13 +12,37 @@ public class ClientServiceImpl implements ClientService {
     public void createClient(String name, String surname, String phone) {
         Client client = new Client(name, surname, phone);
         boolean result = clientDao.saveClient(client);
-        if (result){
+        if (result) {
             System.out.println("Client saved: " + client);
         }
     }
 
     @Override
-    public void deleteClient() {
+    public void modifyClient(long id, String name, String surname, String phone) {
+        Client client = clientDao.searchClientByID(id);
+        if (client != null) {
+            if (clientDao.modifyClient(client, name, surname, phone)) {
+                System.out.println("Client modified: " + client);
+            }
+        } else {
+            System.out.println("There is no such client.");
+        }
+    }
 
+    @Override
+    public void removeClient(long id) {
+        Client client = clientDao.searchClientByID(id);
+        if (client != null) {
+            if (clientDao.removeClient(client)){
+                System.out.println("Client removed: " + client);
+            }
+        } else {
+            System.out.println("There is no such client.");
+        }
+    }
+
+    @Override
+    public void listAllClients() {
+        clientDao.listAllClients();
     }
 }
