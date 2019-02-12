@@ -11,8 +11,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void createClient(String name, String surname, String phone) {
         Client client = new Client(name, surname, phone);
-        boolean result = clientDao.saveClient(client);
-        if (result) {
+        if (clientDao.saveClient(client)) {
             System.out.println("Client saved: " + client);
         }
     }

@@ -1,15 +1,19 @@
 package com.shevtsov.view;
 
 import com.shevtsov.services.ClientService;
+import com.shevtsov.services.ProductService;
 import com.shevtsov.services.impl.ClientServiceImpl;
+import com.shevtsov.services.impl.ProductServiceImpl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 
 public class AdminMenu {
     private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private final ClientService clientService = new ClientServiceImpl();
+    private final ProductService productService = new ProductServiceImpl();
 
     public void show() throws IOException {
         while (true) {
@@ -134,20 +138,32 @@ public class AdminMenu {
         clientService.listAllClients();
     }
 
-    private void addProduct() {
-        System.out.println("!!! need to realise");
+    private void addProduct() throws IOException {
+        System.out.println("Input name:");
+        String name = br.readLine();
+        System.out.println("Input price:");
+        BigDecimal price = BigDecimal.valueOf(inputLong());
+        productService.createProduct(name, price);
     }
 
-    private void modifyProduct() {
-        System.out.println("!!! need to realise");
+    private void modifyProduct() throws IOException {
+        System.out.println("Input product id");
+        long productID = inputLong();
+        System.out.println("Input name:");
+        String name = br.readLine();
+        System.out.println("Input price:");
+        BigDecimal price = BigDecimal.valueOf(inputLong());
+        productService.modifyProduct(productID, name, price);
     }
 
-    private void removeProduct() {
-        System.out.println("!!! need to realise");
+    private void removeProduct() throws IOException {
+        System.out.println("Input product id");
+        long productID = inputLong();
+        productService.removeProduct(productID);
     }
 
     private void listAllProducts() {
-        System.out.println("!!! need to realise");
+        productService.listAllProducts();
     }
 
     private long inputLong() throws IOException {
