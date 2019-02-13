@@ -1,8 +1,10 @@
 package com.shevtsov.view;
 
 import com.shevtsov.services.ClientService;
+import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
 import com.shevtsov.services.impl.ClientServiceImpl;
+import com.shevtsov.services.impl.OrderServiceImpl;
 import com.shevtsov.services.impl.ProductServiceImpl;
 
 import java.io.BufferedReader;
@@ -14,11 +16,13 @@ public class AdminMenu {
     private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private final ClientService clientService = new ClientServiceImpl();
     private final ProductService productService = new ProductServiceImpl();
+    private final OrderService orderService = new OrderServiceImpl();
 
     public void show() throws IOException {
         while (true) {
             System.out.println("1. Work with clients");
             System.out.println("2. Work with products");
+            System.out.println("3. Work with orders");
             System.out.println("9. Return to previous menu");
             System.out.println("0. Exit program");
 
@@ -28,6 +32,9 @@ public class AdminMenu {
                     break;
                 case "2":
                     showMenuWorkWithProducts();
+                    break;
+                case "3":
+                    showMenuWorkWithOrders();
                     break;
                 case "9":
                     return;
@@ -82,7 +89,7 @@ public class AdminMenu {
             System.out.println("9. Return to previous menu");
             System.out.println("0. Exit program");
 
-            switch (br.readLine()){
+            switch (br.readLine()) {
                 case "1":
                     addProduct();
                     break;
@@ -94,6 +101,31 @@ public class AdminMenu {
                     break;
                 case "4":
                     listAllProducts();
+                    break;
+                case "9":
+                    return;
+                case "0":
+                    System.exit(0);
+                default:
+                    System.out.println("Wrong input!!!");
+                    break;
+            }
+        }
+    }
+
+    private void showMenuWorkWithOrders() throws IOException {
+        while (true) {
+            System.out.println("1. List all orders");
+            System.out.println("2. Show order");
+            System.out.println("9. Return to previous menu");
+            System.out.println("0. Exit program");
+
+            switch (br.readLine()){
+                case "1":
+                    listAllOrder();
+                    break;
+                case "2":
+                    showOrder();
                     break;
                 case "9":
                     return;
@@ -166,12 +198,22 @@ public class AdminMenu {
         productService.listAllProducts();
     }
 
+    private void listAllOrder() {
+        orderService.listAllOrder();
+    }
+
+    private void showOrder() throws IOException {
+        System.out.println("Input order id:");
+        long orderID = inputLong();
+        orderService.showOrder(orderID);
+    }
+
     private long inputLong() throws IOException {
         while (true) {
             String input = br.readLine();
-            try{
+            try {
                 return Long.parseLong(input);
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 System.out.println("Invalid input!!! Please repeat");
             }
         }
