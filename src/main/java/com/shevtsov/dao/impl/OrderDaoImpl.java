@@ -19,7 +19,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public void showOrder(Order order) {
+    public void showOrder(long order) {
         System.out.println(order);
     }
 }

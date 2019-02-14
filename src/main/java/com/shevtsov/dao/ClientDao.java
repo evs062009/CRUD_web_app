@@ -8,9 +8,11 @@ public interface ClientDao {
 
     Client searchClientByID(long id);
 
-    boolean modifyClient(Client client, String name, String surname, String phone);
+    boolean modifyClient(long client, String name, String surname, String phone);
 
-    boolean removeClient(Client client);
+    boolean removeClient(long client);
 
     void listAllClients();
+
+    Client findClientByPhone(String phone);
 }

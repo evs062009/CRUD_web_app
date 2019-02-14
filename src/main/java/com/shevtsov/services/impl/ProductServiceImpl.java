@@ -13,32 +13,26 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void createProduct(String name, BigDecimal price) {
         Product product = new Product(name, price);
-        if (productDao.saveProduct(product)){
+        if (productDao.saveProduct(product)) {
             System.out.println("Product saved: " + product);
         }
     }
 
     @Override
     public void modifyProduct(long id, String name, BigDecimal price) {
-        Product product = productDao.searchProduct(id);
-        if (product != null){
-            if (productDao.modifyProduct(product, name, price)){
-                System.out.println("Product modified: " + product);
-            } else {
-                System.out.println("There is no such client.");
-            }
+        if (productDao.modifyProduct(id)) {
+            System.out.println("Product modified");
+        } else {
+            System.out.println("Product have NOT been modified!!!");
         }
     }
 
     @Override
     public void removeProduct(long id) {
-        Product product = productDao.searchProduct(id);
-        if (product != null){
-            if (productDao.removeProduct(product)){
-                System.out.println("Product removed: " + product);
-            } else {
-                System.out.println("There is no such client.");
-            }
+        if (productDao.removeProduct(id)) {
+            System.out.println("Product removed");
+        } else {
+            System.out.println("Product have NOT been removed!!!");
         }
     }
 

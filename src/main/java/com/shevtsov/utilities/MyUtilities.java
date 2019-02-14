@@ -7,4 +7,7 @@ public class MyUtilities {
 
     public static long inputLong() {
     }
+
+    public static boolean isConfirmed() {
+    }
 }

@@ -4,7 +4,7 @@ import com.shevtsov.domain.Client;
 
 public interface Authorisation {
 
-    Client authorizeClient();
+    Client authorizeClient(String phone);
 
-    boolean authorizeAdmin();
+    boolean authorizeAdmin(String password);
 }

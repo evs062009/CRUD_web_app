@@ -18,7 +18,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public boolean modifyClient(Client client, String name, String surname, String phone) {
+    public boolean modifyClient(long client, String name, String surname, String phone) {
         System.out.println("Change name...");
         System.out.println("Change surname...");
         System.out.println("Change phone...");
@@ -26,7 +26,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public boolean removeClient(Client client) {
+    public boolean removeClient(long client) {
         System.out.println("Deleting... Please wait.");
         return true;
     }

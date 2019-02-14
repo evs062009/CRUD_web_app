@@ -1,5 +1,7 @@
 package com.shevtsov.services;
 
+import com.shevtsov.domain.Client;
+
 public interface OrderService {
 
     void listAllOrder();
@@ -8,9 +10,9 @@ public interface OrderService {
 
     void addProductToBasket(long productID);
 
-    void listBasket();
-
     void removeProductFromBasket(long productID);
 
-    void createOrder();
+    void listBasket();
+
+    void createOrder(Client currentClient);
 }

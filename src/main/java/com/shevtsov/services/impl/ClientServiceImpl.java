@@ -19,30 +19,30 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void modifyClient(long id, String name, String surname, String phone) {
-        Client client = clientDao.searchClientByID(id);
-        if (client != null) {
-            if (clientDao.modifyClient(client, name, surname, phone)) {
-                System.out.println("Client modified: " + client);
-            }
+        if (clientDao.modifyClient(id, name, surname, phone)) {
+            System.out.println("Client modified");
         } else {
-            System.out.println("There is no such client.");
+            System.out.println("Client have NOT been modified!!!");
         }
     }
 
     @Override
     public void removeClient(long id) {
-        Client client = clientDao.searchClientByID(id);
-        if (client != null) {
-            if (clientDao.removeClient(client)){
-                System.out.println("Client removed: " + client);
-            }
+        if (clientDao.removeClient(id)) {
+            System.out.println("Client removed");
         } else {
-            System.out.println("There is no such client.");
+            System.out.println("Client have NOT been removed!!!");
         }
     }
 
     @Override
     public void listAllClients() {
         clientDao.listAllClients();
+    }
+
+    @Override
+    public void modifyUserInformation(Client currentClient, String name, String surname, String phone) {
+        long clientID = currentClient.getId();
+        modifyClient(clientID, name, surname, phone);
     }
 }

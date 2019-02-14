@@ -37,7 +37,7 @@ public class StartMenu {
                     //without 'break' because we go to user menu just after registration
                 case "1":
                     if (currentClient == null) {
-                        currentClient = authorisation.authorizeClient();
+                        currentClient = authorizeClient(authorisation);
                     }
 
                     //this if must be after registration (createClient()) or authorisation (authorizeClient())
@@ -46,7 +46,7 @@ public class StartMenu {
                     }
                     break;
                 case "3":
-                    if (authorisation.authorizeAdmin()) {
+                    if (authorizeAdmin(authorisation)) {
                         adminMenu.show(clientService, productService, orderService);
                     }
                     break;
@@ -57,5 +57,17 @@ public class StartMenu {
                     break;
             }
         }
+    }
+
+    private Client authorizeClient(Authorisation authorisation) {
+        System.out.println("Input phone number:");
+        String phone = MyUtilities.inputString();
+        return authorisation.authorizeClient(phone);
+    }
+
+    private boolean authorizeAdmin(Authorisation authorisation) {
+        System.out.println("Input password:");
+        String password = MyUtilities.inputString();
+        return authorisation.authorizeAdmin(password);
     }
 }

@@ -8,11 +8,11 @@ public interface ProductDao {
     
     boolean saveProduct(Product product);
 
-    Product searchProduct(long id);
+    boolean modifyProduct(long id);
 
     boolean modifyProduct(Product product, String name, BigDecimal price);
 
-    boolean removeProduct(Product product);
+    boolean removeProduct(long product);
 
     void listAllProducts();
 }

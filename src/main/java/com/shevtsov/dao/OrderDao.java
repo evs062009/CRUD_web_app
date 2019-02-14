@@ -1,11 +1,15 @@
 package com.shevtsov.dao;
 
+import com.shevtsov.domain.Client;
 import com.shevtsov.domain.Order;
+import com.shevtsov.domain.Product;
+
+import java.util.List;
 
 public interface OrderDao {
     void listAllOrder();
 
-    Order searchOrder(long id);
+    Order findOrderByID(long id);
 
-    void showOrder(Order order);
+    void createOrder(Client currentClient, List<Product> basket);
 }

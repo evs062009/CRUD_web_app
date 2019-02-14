@@ -13,7 +13,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public Product searchProduct(long id) {
+    public boolean modifyProduct(long id) {
         System.out.println("Searching product by id...");
         return null;
     }
@@ -26,7 +26,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public boolean removeProduct(Product product) {
+    public boolean removeProduct(long product) {
         System.out.println("Deleting... Please wait.");
         return true;
     }
