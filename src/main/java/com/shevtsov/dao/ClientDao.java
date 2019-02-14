@@ -12,5 +12,5 @@ public interface ClientDao {
 
     void listAllClients();
 
-    Client findClientByPhone(String phone);
+    boolean findClientByPhone(String phone);
 }

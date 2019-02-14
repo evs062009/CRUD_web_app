@@ -9,40 +9,33 @@ public class ClientServiceImpl implements ClientService {
     private ClientDao clientDao = new ClientDaoImpl();
 
     @Override
-    public Client createClient(String name, String surname, String phone) {
+    public boolean createClient(String name, String surname, String phone) {
         Client client = new Client(name, surname, phone);
-        if (clientDao.saveClient(client)) {
-            System.out.println("Client saved: " + client);
-        }
-        return client;
+        return clientDao.saveClient(client);
     }
 
     @Override
-    public void modifyClient(long id, String name, String surname, String phone) {
-        if (clientDao.modifyClient(id, name, surname, phone)) {
-            System.out.println("Client modified");
-        } else {
-            System.out.println("Client have NOT been modified!!!");
-        }
+    public boolean modifyClient(long id, String name, String surname, String phone) {
+        return clientDao.modifyClient(id, name, surname, phone);
     }
 
     @Override
-    public void removeClient(long id) {
-        if (clientDao.removeClient(id)) {
-            System.out.println("Client removed");
-        } else {
-            System.out.println("Client have NOT been removed!!!");
-        }
+    public boolean removeClient(long id) {
+        return clientDao.removeClient(id);
     }
 
     @Override
     public void listAllClients() {
         clientDao.listAllClients();
+        System.out.println("Received collection from DAO");
+        System.out.println("Processed");
+        System.out.println("Transmitted to UI");
     }
 
     @Override
-    public void modifyUserInformation(Client currentClient, String name, String surname, String phone) {
-        long clientID = currentClient.getId();
-        modifyClient(clientID, name, surname, phone);
+    public boolean modifyUserInformation(String name, String surname, String phone) {
+        System.out.println("Define current client id");
+        long currentClientID = 0;
+        return modifyClient(currentClientID, name, surname, phone);
     }
 }

@@ -11,9 +11,9 @@ public class MyUtilities {
     }
 
     public static long inputLong() {
-        while (true){
+        while (true) {
             sc = new Scanner(System.in);
-            if (sc.hasNextLong()){
+            if (sc.hasNextLong()) {
                 return sc.nextLong();
             } else {
                 System.out.println("Invalid input!!! Try again.");

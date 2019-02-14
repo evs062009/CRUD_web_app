@@ -25,15 +25,15 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public void listAllClients() {
-        System.out.println("List of clients:");
-        System.out.println("...");
-        System.out.println("...");
+        System.out.println("Receiving data from DB...");
+        System.out.println("Creating collection...");
+        System.out.println("Transmitting to Service");
     }
 
     @Override
-    public Client findClientByPhone(String phone) {
-
-        //only for test example
-        return new Client("John", "Doe", "111");
+    public boolean findClientByPhone(String phone) {
+        System.out.println("Searching... Please wait.");
+        System.out.println("Creating object from DB data");
+        return true;
     }
 }

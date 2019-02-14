@@ -1,6 +1,5 @@
 package com.shevtsov.view;
 
-import com.shevtsov.domain.Client;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
@@ -10,7 +9,7 @@ import java.math.BigDecimal;
 
 class AdminMenu {
 
-    void show(ClientService clientService, ProductService productService, OrderService orderService){
+    void show(ClientService clientService, ProductService productService, OrderService orderService) {
         while (true) {
             System.out.println("1. Clients");
             System.out.println("2. Products");
@@ -41,7 +40,7 @@ class AdminMenu {
         }
     }
 
-    private void showMenuWorkWithClients(ClientService clientService)  {
+    private void showMenuWorkWithClients(ClientService clientService) {
         while (true) {
             System.out.println("1. Add client");
             System.out.println("2. Modify client");
@@ -61,7 +60,7 @@ class AdminMenu {
                     removeClient(clientService);
                     break;
                 case "4":
-                    clientService.listAllClients();
+                    listAllClients(clientService);
                     break;
                 case "9":
                     return;
@@ -95,7 +94,7 @@ class AdminMenu {
                     removeProduct(productService);
                     break;
                 case "4":
-                    productService.listAllProducts();
+                    listAllProducts(productService);
                     break;
                 case "9":
                     return;
@@ -109,6 +108,20 @@ class AdminMenu {
         }
     }
 
+    private void listAllClients(ClientService clientService) {
+        clientService.listAllClients();
+        System.out.println("List of clients:");
+        System.out.println("...");
+        System.out.println("...");
+    }
+
+    private void listAllProducts(ProductService productService) {
+        productService.listAllProducts();
+        System.out.println("List of products:");
+        System.out.println("...");
+        System.out.println("...");
+    }
+
     private void showMenuWorkWithOrders(OrderService orderService) {
         while (true) {
             System.out.println("1. List all orders");
@@ -116,9 +129,9 @@ class AdminMenu {
             System.out.println("9. Return to previous menu");
             System.out.println("0. Exit program");
 
-            switch (MyUtilities.inputString()){
+            switch (MyUtilities.inputString()) {
                 case "1":
-                    orderService.listAllOrder();
+                    listAllOrder(orderService);
                     break;
                 case "2":
                     showOrder(orderService);
@@ -135,14 +148,23 @@ class AdminMenu {
         }
     }
 
-    Client createClient(ClientService clientService) {
+    private void listAllOrder(OrderService orderService) {
+        orderService.listAllOrder();
+        System.out.println("List of orders:");
+        System.out.println("...");
+        System.out.println("...");
+    }
+
+    void createClient(ClientService clientService) {
         System.out.println("Input name:");
         String name = MyUtilities.inputString();
         System.out.println("Input surname:");
         String surname = MyUtilities.inputString();
         System.out.println("Input phone:");
         String phone = MyUtilities.inputString();
-        return clientService.createClient(name, surname, phone);
+        if (clientService.createClient(name, surname, phone)) {
+            System.out.println("Client saved");
+        }
     }
 
     private void modifyClient(ClientService clientService) {
@@ -154,13 +176,17 @@ class AdminMenu {
         String surname = MyUtilities.inputString();
         System.out.println("Input phone:");
         String phone = MyUtilities.inputString();
-        clientService.modifyClient(clientID, name, surname, phone);
+        if (clientService.modifyClient(clientID, name, surname, phone)) {
+            System.out.println("Client modified");
+        }
     }
 
     private void removeClient(ClientService clientService) {
         System.out.println("Input client id");
         long clientID = MyUtilities.inputLong();
-        clientService.removeClient(clientID);
+        if (clientService.removeClient(clientID)) {
+            System.out.println("Client removed");
+        }
     }
 
     private void addProduct(ProductService productService) {
@@ -168,7 +194,9 @@ class AdminMenu {
         String name = MyUtilities.inputString();
         System.out.println("Input price:");
         BigDecimal price = BigDecimal.valueOf(MyUtilities.inputLong());
-        productService.createProduct(name, price);
+        if (productService.createProduct(name, price)) {
+            System.out.println("Product saved");
+        }
     }
 
     private void modifyProduct(ProductService productService) {
@@ -178,18 +206,28 @@ class AdminMenu {
         String name = MyUtilities.inputString();
         System.out.println("Input price:");
         BigDecimal price = BigDecimal.valueOf(MyUtilities.inputLong());
-        productService.modifyProduct(productID, name, price);
+        if (productService.modifyProduct(productID, name, price)) {
+            System.out.println("Product modified");
+        }
     }
 
     private void removeProduct(ProductService productService) {
         System.out.println("Input product id");
         long productID = MyUtilities.inputLong();
-        productService.removeProduct(productID);
+        if (productService.removeProduct(productID)) {
+            System.out.println("Product removed");
+        }
     }
 
     private void showOrder(OrderService orderService) {
         System.out.println("Input order id:");
         long orderID = MyUtilities.inputLong();
-        orderService.showOrder(orderID);
+        if (orderService.findOrderByID(orderID)) {
+            System.out.println("Order:");
+            System.out.println("...");
+            System.out.println("...");
+        } else {
+            System.out.println("There is no such order.");
+        }
     }
 }

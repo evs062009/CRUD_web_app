@@ -1,30 +1,25 @@
 package com.shevtsov.dao.impl;
 
 import com.shevtsov.dao.OrderDao;
-import com.shevtsov.domain.Client;
-import com.shevtsov.domain.Order;
-import com.shevtsov.domain.Product;
-
-import java.util.ArrayList;
 
 public class OrderDaoImpl implements OrderDao {
 
     @Override
     public void listAllOrder() {
-        System.out.println("List of orders:");
-        System.out.println("...");
-        System.out.println("...");
+        System.out.println("Receiving data from DB...");
+        System.out.println("Creating collection...");
+        System.out.println("Transmitting to Service");
     }
 
     @Override
-    public Order findOrderByID(long id) {
-
-        //only for test example
-        return new Order(new Client("John", "Doe", "111"), new ArrayList<>());
+    public boolean findOrderByID(long id) {
+        System.out.println("Searching...  Please wait");
+        System.out.println("Creating object from DB data...");
+        return true;
     }
 
     @Override
-    public boolean createOrder(Client currentClient, ArrayList<Product> basket) {
+    public boolean createOrder() {
         System.out.println("Saving... Please wait");
         return true;
     }

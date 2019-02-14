@@ -11,33 +11,26 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao = new ProductDaoImpl();
 
     @Override
-    public void createProduct(String name, BigDecimal price) {
+    public boolean createProduct(String name, BigDecimal price) {
         Product product = new Product(name, price);
-        if (productDao.saveProduct(product)) {
-            System.out.println("Product saved: " + product);
-        }
+        return productDao.saveProduct(product);
     }
 
     @Override
-    public void modifyProduct(long id, String name, BigDecimal price) {
-        if (productDao.modifyProduct(id, name, price)) {
-            System.out.println("Product modified");
-        } else {
-            System.out.println("Product have NOT been modified!!!");
-        }
+    public boolean modifyProduct(long id, String name, BigDecimal price) {
+        return productDao.modifyProduct(id, name, price);
     }
 
     @Override
-    public void removeProduct(long id) {
-        if (productDao.removeProduct(id)) {
-            System.out.println("Product removed");
-        } else {
-            System.out.println("Product have NOT been removed!!!");
-        }
+    public boolean removeProduct(long id) {
+        return productDao.removeProduct(id);
     }
 
     @Override
     public void listAllProducts() {
         productDao.listAllProducts();
+        System.out.println("Received collection from DAO");
+        System.out.println("Processed");
+        System.out.println("Transmitted to UI");
     }
 }

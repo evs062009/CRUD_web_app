@@ -3,11 +3,11 @@ package com.shevtsov.services;
 import java.math.BigDecimal;
 
 public interface ProductService {
-    void createProduct(String name, BigDecimal price);
+    boolean createProduct(String name, BigDecimal price);
 
-    void modifyProduct(long id, String name, BigDecimal price);
+    boolean modifyProduct(long id, String name, BigDecimal price);
 
-    void removeProduct(long id);
+    boolean removeProduct(long id);
 
     void listAllProducts();
 }

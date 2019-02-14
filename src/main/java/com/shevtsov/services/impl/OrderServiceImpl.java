@@ -2,8 +2,6 @@ package com.shevtsov.services.impl;
 
 import com.shevtsov.dao.OrderDao;
 import com.shevtsov.dao.impl.OrderDaoImpl;
-import com.shevtsov.domain.Client;
-import com.shevtsov.domain.Order;
 import com.shevtsov.domain.Product;
 import com.shevtsov.services.OrderService;
 
@@ -14,18 +12,21 @@ public class OrderServiceImpl implements OrderService {
     private ArrayList<Product> basket = new ArrayList<>();
 
     @Override
-    public void listAllOrder() {
-        orderDao.listAllOrder();
+    public ArrayList getBasket() {
+        return basket;
     }
 
     @Override
-    public void showOrder(long id) {
-        Order order = orderDao.findOrderByID(id);
-        if (order != null) {
-            System.out.println(order);
-        } else {
-            System.out.println("There is no such order.");
-        }
+    public void listAllOrder() {
+        orderDao.listAllOrder();
+        System.out.println("Received collection from DAO");
+        System.out.println("Processed");
+        System.out.println("Transmitted to UI");
+    }
+
+    @Override
+    public boolean findOrderByID(long id) {
+        return orderDao.findOrderByID(id);
     }
 
     @Override
@@ -34,21 +35,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void listBasket() {
-        System.out.println("Your basket:");
-        System.out.println("...");
-        System.out.println("...");
-    }
-
-    @Override
     public void removeProductFromBasket(long productID) {
         System.out.println("Product removed from the basket");
     }
 
     @Override
-    public void createOrder(Client currentClient) {
-        if (orderDao.createOrder(currentClient, basket)) {
-            System.out.println("Order created");
-        }
+    public boolean createOrder() {
+        return orderDao.createOrder();
     }
 }
