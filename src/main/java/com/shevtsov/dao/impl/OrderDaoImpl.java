@@ -5,7 +5,7 @@ import com.shevtsov.dao.OrderDao;
 public class OrderDaoImpl implements OrderDao {
 
     @Override
-    public void listAllOrder() {
+    public void createOrdersList() {
         System.out.println("Receiving data from DB...");
         System.out.println("Creating collection...");
         System.out.println("Transmitting to Service");
@@ -19,7 +19,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public boolean createOrder() {
+    public boolean saveOrder() {
         System.out.println("Saving... Please wait");
         return true;
     }

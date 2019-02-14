@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void listAllProducts() {
-        productDao.listAllProducts();
+        productDao.createProductsList();
         System.out.println("Received collection from DAO");
         System.out.println("Processed");
         System.out.println("Transmitted to UI");

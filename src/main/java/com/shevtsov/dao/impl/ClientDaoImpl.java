@@ -12,7 +12,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public boolean modifyClient(long client, String name, String surname, String phone) {
+    public boolean modifyClient(long id, String newName, String newSurname, String newPhone) {
         System.out.println("Modifying... Please wait");
         return true;
     }
@@ -24,7 +24,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public void listAllClients() {
+    public void createClientsList() {
         System.out.println("Receiving data from DB...");
         System.out.println("Creating collection...");
         System.out.println("Transmitting to Service");

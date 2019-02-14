@@ -28,7 +28,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void listAllClients() {
-        clientDao.listAllClients();
+        clientDao.createClientsList();
         System.out.println("Received collection from DAO");
         System.out.println("Processed");
         System.out.println("Transmitted to UI");

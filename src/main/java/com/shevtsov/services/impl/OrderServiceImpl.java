@@ -9,7 +9,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void listAllOrder() {
-        orderDao.listAllOrder();
+        orderDao.createOrdersList();
         System.out.println("Received collection from DAO");
         System.out.println("Processed");
         System.out.println("Transmitted to UI");
@@ -34,6 +34,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean createOrder() {
         System.out.println("Processing...");
-        return orderDao.createOrder();
+        return orderDao.saveOrder();
     }
 }
