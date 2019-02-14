@@ -64,6 +64,6 @@ public class MainMenu {
     private boolean authorizeAdmin(Authorisation authorisation) {
         System.out.println("Input password:");
         String password = MyUtilities.inputString();
-        return authorisation.authorizeAdmin(password);
+        return authorisation.authorizeAdmin();
     }
 }

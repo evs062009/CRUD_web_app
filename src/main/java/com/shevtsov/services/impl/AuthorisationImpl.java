@@ -9,11 +9,12 @@ public class AuthorisationImpl implements Authorisation {
 
     @Override
     public boolean authorizeClient(String phone) {
+        System.out.println("Checking...");
         return clientDao.findClientByPhone(phone);
     }
 
     @Override
-    public boolean authorizeAdmin(String password) {
+    public boolean authorizeAdmin() {
         System.out.println("Checking...");
         return true;
     }

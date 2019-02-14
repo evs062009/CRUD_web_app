@@ -17,12 +17,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean modifyProduct(long id, String name, BigDecimal price) {
-        return productDao.modifyProduct(id, name, price);
+    public boolean modifyProduct(long id, String newName, BigDecimal newPrice) {
+        System.out.println("Processing...");
+        return productDao.modifyProduct(id, newName, newPrice);
     }
 
     @Override
     public boolean removeProduct(long id) {
+        System.out.println("Processing...");
         return productDao.removeProduct(id);
     }
 

@@ -202,11 +202,11 @@ class AdminMenu {
     private void modifyProduct(ProductService productService) {
         System.out.println("Input product id");
         long productID = MyUtilities.inputLong();
-        System.out.println("Input name:");
-        String name = MyUtilities.inputString();
-        System.out.println("Input price:");
-        BigDecimal price = BigDecimal.valueOf(MyUtilities.inputLong());
-        if (productService.modifyProduct(productID, name, price)) {
+        System.out.println("Input new name:");
+        String newName = MyUtilities.inputString();
+        System.out.println("Input new price:");
+        BigDecimal newPrice = BigDecimal.valueOf(MyUtilities.inputLong());
+        if (productService.modifyProduct(productID, newName, newPrice)) {
             System.out.println("Product modified");
         }
     }

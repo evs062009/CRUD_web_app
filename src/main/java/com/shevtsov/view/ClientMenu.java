@@ -75,12 +75,12 @@ class ClientMenu {
 
     private void modifyUserInformation(ClientService clientService) {
         System.out.println("Input new name");
-        String name = MyUtilities.inputString();
+        String newName = MyUtilities.inputString();
         System.out.println("Input new surname");
-        String surname = MyUtilities.inputString();
+        String newSurname = MyUtilities.inputString();
         System.out.println("Input new phone number");
-        String phone = MyUtilities.inputString();
-        if (clientService.modifyUserInformation(name, surname, phone)) {
+        String newPhone = MyUtilities.inputString();
+        if (clientService.modifyUserInformation(newName, newSurname, newPhone)) {
             System.out.println("Information modified");
         }
     }

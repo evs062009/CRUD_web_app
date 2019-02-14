@@ -15,12 +15,14 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean modifyClient(long id, String name, String surname, String phone) {
-        return clientDao.modifyClient(id, name, surname, phone);
+    public boolean modifyClient(long id, String newName, String newSurname, String newPhone) {
+        System.out.println("Processing...");
+        return clientDao.modifyClient(id, newName, newSurname, newPhone);
     }
 
     @Override
     public boolean removeClient(long id) {
+        System.out.println("Processing...");
         return clientDao.removeClient(id);
     }
 
@@ -33,9 +35,9 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean modifyUserInformation(String name, String surname, String phone) {
+    public boolean modifyUserInformation(String newName, String newSurname, String newPhone) {
         System.out.println("Defined current client id");
         long currentClientID = 0;
-        return modifyClient(currentClientID, name, surname, phone);
+        return modifyClient(currentClientID, newName, newSurname, newPhone);
     }
 }

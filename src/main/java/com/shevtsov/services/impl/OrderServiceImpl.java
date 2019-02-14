@@ -17,6 +17,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean findOrderByID(long id) {
+        System.out.println("Processing...");
         return orderDao.findOrderByID(id);
     }
 
@@ -32,6 +33,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean createOrder() {
+        System.out.println("Processing...");
         return orderDao.createOrder();
     }
 }
