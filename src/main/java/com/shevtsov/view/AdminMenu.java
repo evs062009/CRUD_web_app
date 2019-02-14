@@ -1,53 +1,46 @@
 package com.shevtsov.view;
 
+import com.shevtsov.domain.Client;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
-import com.shevtsov.services.impl.ClientServiceImpl;
-import com.shevtsov.services.impl.OrderServiceImpl;
-import com.shevtsov.services.impl.ProductServiceImpl;
+import com.shevtsov.utilities.MyUtilities;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.math.BigDecimal;
 
 public class AdminMenu {
-    private final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private final ClientService clientService = new ClientServiceImpl();
-    private final ProductService productService = new ProductServiceImpl();
-    private final OrderService orderService = new OrderServiceImpl();
 
-    public void show() throws IOException {
+    public void show(ClientService clientService, ProductService productService, OrderService orderService){
         while (true) {
-            System.out.println("1. Work with clients");
-            System.out.println("2. Work with products");
-            System.out.println("3. Work with orders");
+            System.out.println("1. Clients");
+            System.out.println("2. Products");
+            System.out.println("3. Orders");
             System.out.println("9. Return to previous menu");
             System.out.println("0. Exit program");
 
-            switch (br.readLine()) {
+            switch (MyUtilities.inputString()) {
                 case "1":
-                    showMenuWorkWithClients();
+                    showMenuWorkWithClients(clientService);
                     break;
                 case "2":
-                    showMenuWorkWithProducts();
+                    showMenuWorkWithProducts(productService);
                     break;
                 case "3":
-                    showMenuWorkWithOrders();
+                    showMenuWorkWithOrders(orderService);
                     break;
                 case "9":
                     return;
                 case "0":
-                    System.exit(0);
+                    System.out.println("!!!need to be implemented");
+                    break;
                 default:
-                    System.out.println("Wrong input!!!");
+                    System.out.println("Invalid input!!! Please repeat");
                     break;
             }
         }
     }
 
-    private void showMenuWorkWithClients() throws IOException {
+    private void showMenuWorkWithClients(ClientService clientService)  {
         while (true) {
             System.out.println("1. Add client");
             System.out.println("2. Modify client");
@@ -56,31 +49,31 @@ public class AdminMenu {
             System.out.println("9. Return to previous menu");
             System.out.println("0. Exit program");
 
-            switch (br.readLine()) {
+            switch (MyUtilities.inputString()) {
                 case "1":
-                    createClient();
+                    createClient(clientService);
                     break;
                 case "2":
-                    modifyClient();
+                    modifyClient(clientService);
                     break;
                 case "3":
-                    removeClient();
+                    removeClient(clientService);
                     break;
                 case "4":
-                    listAllClients();
+                    clientService.listAllClients();
                     break;
                 case "9":
                     return;
                 case "0":
-                    System.exit(0);
+                    System.out.println("need to implement");
                 default:
-                    System.out.println("Wrong input!!!");
+                    System.out.println("Invalid input!!! Please repeat");
                     break;
             }
         }
     }
 
-    private void showMenuWorkWithProducts() throws IOException {
+    private void showMenuWorkWithProducts(ProductService productService) {
         while (true) {
             System.out.println("1. Add product");
             System.out.println("2. Modify product");
@@ -89,133 +82,110 @@ public class AdminMenu {
             System.out.println("9. Return to previous menu");
             System.out.println("0. Exit program");
 
-            switch (br.readLine()) {
+            switch (MyUtilities.inputString()) {
                 case "1":
-                    addProduct();
+                    addProduct(productService);
                     break;
                 case "2":
-                    modifyProduct();
+                    modifyProduct(productService);
                     break;
                 case "3":
-                    removeProduct();
+                    removeProduct(productService);
                     break;
                 case "4":
-                    listAllProducts();
+                    productService.listAllProducts();
                     break;
                 case "9":
                     return;
                 case "0":
-                    System.exit(0);
+                    System.out.println("need to implement");
                 default:
-                    System.out.println("Wrong input!!!");
+                    System.out.println("Invalid input!!! Please repeat");
                     break;
             }
         }
     }
 
-    private void showMenuWorkWithOrders() throws IOException {
+    private void showMenuWorkWithOrders(OrderService orderService) {
         while (true) {
             System.out.println("1. List all orders");
             System.out.println("2. Show order");
             System.out.println("9. Return to previous menu");
             System.out.println("0. Exit program");
 
-            switch (br.readLine()){
+            switch (MyUtilities.inputString()){
                 case "1":
-                    listAllOrder();
+                    orderService.listAllOrder();
                     break;
                 case "2":
-                    showOrder();
+                    showOrder(orderService);
                     break;
                 case "9":
                     return;
                 case "0":
-                    System.exit(0);
+                    System.out.println("need to implement");
                 default:
-                    System.out.println("Wrong input!!!");
+                    System.out.println("Invalid input!!! Please repeat");
                     break;
             }
         }
     }
 
-    private void createClient() throws IOException {
+    Client createClient(ClientService clientService) {
         System.out.println("Input name:");
-        String name = br.readLine();
+        String name = MyUtilities.inputString();
         System.out.println("Input surname:");
-        String surname = br.readLine();
+        String surname = MyUtilities.inputString();
         System.out.println("Input phone:");
-        String phone = br.readLine();
-        clientService.createClient(name, surname, phone);
+        String phone = MyUtilities.inputString();
+        return clientService.createClient(name, surname, phone);
     }
 
-    private void modifyClient() throws IOException {
+    private void modifyClient(ClientService clientService) {
         System.out.println("Input client id");
-        long clientID = inputLong();
+        long clientID = MyUtilities.inputLong();
         System.out.println("Input name:");
-        String name = br.readLine();
+        String name = MyUtilities.inputString();
         System.out.println("Input surname:");
-        String surname = br.readLine();
+        String surname = MyUtilities.inputString();
         System.out.println("Input phone:");
-        String phone = br.readLine();
+        String phone = MyUtilities.inputString();
         clientService.modifyClient(clientID, name, surname, phone);
     }
 
-    private void removeClient() throws IOException {
+    private void removeClient(ClientService clientService) {
         System.out.println("Input client id");
-        long clientID = inputLong();
+        long clientID = MyUtilities.inputLong();
         clientService.removeClient(clientID);
     }
 
-    private void listAllClients() {
-        clientService.listAllClients();
-    }
-
-    private void addProduct() throws IOException {
+    private void addProduct(ProductService productService) {
         System.out.println("Input name:");
-        String name = br.readLine();
+        String name = MyUtilities.inputString();
         System.out.println("Input price:");
-        BigDecimal price = BigDecimal.valueOf(inputLong());
+        BigDecimal price = BigDecimal.valueOf(MyUtilities.inputLong());
         productService.createProduct(name, price);
     }
 
-    private void modifyProduct() throws IOException {
+    private void modifyProduct(ProductService productService) {
         System.out.println("Input product id");
-        long productID = inputLong();
+        long productID = MyUtilities.inputLong();
         System.out.println("Input name:");
-        String name = br.readLine();
+        String name = MyUtilities.inputString();
         System.out.println("Input price:");
-        BigDecimal price = BigDecimal.valueOf(inputLong());
+        BigDecimal price = BigDecimal.valueOf(MyUtilities.inputLong());
         productService.modifyProduct(productID, name, price);
     }
 
-    private void removeProduct() throws IOException {
+    private void removeProduct(ProductService productService) {
         System.out.println("Input product id");
-        long productID = inputLong();
+        long productID = MyUtilities.inputLong();
         productService.removeProduct(productID);
     }
 
-    private void listAllProducts() {
-        productService.listAllProducts();
-    }
-
-    private void listAllOrder() {
-        orderService.listAllOrder();
-    }
-
-    private void showOrder() throws IOException {
+    private void showOrder(OrderService orderService) {
         System.out.println("Input order id:");
-        long orderID = inputLong();
+        long orderID = MyUtilities.inputLong();
         orderService.showOrder(orderID);
-    }
-
-    private long inputLong() throws IOException {
-        while (true) {
-            String input = br.readLine();
-            try {
-                return Long.parseLong(input);
-            } catch (Exception ex) {
-                System.out.println("Invalid input!!! Please repeat");
-            }
-        }
     }
 }

@@ -9,11 +9,12 @@ public class ClientServiceImpl implements ClientService {
     private ClientDao clientDao = new ClientDaoImpl();
 
     @Override
-    public void createClient(String name, String surname, String phone) {
+    public Client createClient(String name, String surname, String phone) {
         Client client = new Client(name, surname, phone);
         if (clientDao.saveClient(client)) {
             System.out.println("Client saved: " + client);
         }
+        return client;
     }
 
     @Override
