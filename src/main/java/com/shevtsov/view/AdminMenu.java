@@ -37,6 +37,7 @@ public class AdminMenu {
                     System.out.println("Invalid input!!!");
                     break;
             }
+            System.out.println();
         }
     }
 
@@ -70,6 +71,7 @@ public class AdminMenu {
                     System.out.println("Invalid input!!!");
                     break;
             }
+            System.out.println();
         }
     }
 
@@ -103,6 +105,7 @@ public class AdminMenu {
                     System.out.println("Invalid input!!!");
                     break;
             }
+            System.out.println();
         }
     }
 
@@ -128,6 +131,7 @@ public class AdminMenu {
                     System.out.println("Invalid input!!!");
                     break;
             }
+            System.out.println();
         }
     }
 

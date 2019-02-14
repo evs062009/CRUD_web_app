@@ -11,7 +11,7 @@ public class AutorisationImpl implements Authorisation {
     @Override
     public Client authorizeClient(String phone) {
         Client currentClient = clientDao.findClientByPhone(phone);
-        if (currentClient != null){
+        if (currentClient == null){
             System.out.println("There is no client with such phone number!!!");
             return null;
         } else {

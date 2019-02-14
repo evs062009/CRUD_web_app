@@ -21,7 +21,7 @@ public class ClientMenu {
 
             switch (MyUtilities.inputString()) {
                 case "1":
-                    listAllProducts(productService);
+                    productService.listAllProducts();
                     break;
                 case "2":
                     addProductToBasket(orderService);
@@ -43,11 +43,8 @@ public class ClientMenu {
                     System.out.println("Invalid input!!!");
                     break;
             }
+            System.out.println();
         }
-    }
-
-    private void listAllProducts(ProductService productService) {
-        productService.listAllProducts();
     }
 
     private void addProductToBasket(OrderService orderService) {

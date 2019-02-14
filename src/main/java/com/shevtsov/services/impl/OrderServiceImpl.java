@@ -6,13 +6,12 @@ import com.shevtsov.domain.Client;
 import com.shevtsov.domain.Order;
 import com.shevtsov.domain.Product;
 import com.shevtsov.services.OrderService;
-import com.shevtsov.utilities.MyUtilities;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class OrderServiceImpl implements OrderService {
     OrderDao orderDao = new OrderDaoImpl();
-    private List<Product> basket;
+    private ArrayList<Product> basket;
 
     @Override
     public void listAllOrder() {
@@ -48,12 +47,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void createOrder(Client currentClient) {
-        listBasket();
-        System.out.print("Please confirm your order");
-        if (MyUtilities.isConfirmed()){
-            if (orderDao.createOrder(currentClient, basket)) {
-                System.out.println("Order created");
-            }
+        if (orderDao.createOrder(currentClient, basket)) {
+            System.out.println("Order created");
         }
     }
 }
