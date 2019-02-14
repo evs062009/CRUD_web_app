@@ -34,7 +34,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public boolean modifyUserInformation(String name, String surname, String phone) {
-        System.out.println("Define current client id");
+        System.out.println("Defined current client id");
         long currentClientID = 0;
         return modifyClient(currentClientID, name, surname, phone);
     }

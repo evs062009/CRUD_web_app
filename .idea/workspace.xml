@@ -3,24 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c9773279-e645-49c0-9492-2eed64d863aa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/ClientDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/ClientDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/OrderDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/ProductDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ClientDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ClientDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/OrderDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/OrderDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ProductDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ProductDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/Authorisation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/Authorisation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/ClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/ClientService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/AutorisationImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/AuthorisationImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/ClientServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/ClientServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/ProductServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/utilities/MyUtilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/utilities/MyUtilities.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/view/AdminMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/view/AdminMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/view/ClientMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/view/ClientMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/view/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/view/MainMenu.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -34,7 +21,46 @@
     <favorites_list name="shevtsovshop" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/view/ClientMenu.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="167">
+              <caret line="73" column="5" lean-forward="true" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/App.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/OrderServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="4" column="10" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
+              <folding>
+                <element signature="e#763#764#0" expanded="true" />
+                <element signature="e#812#813#0" expanded="true" />
+                <element signature="e#880#881#0" expanded="true" />
+                <element signature="e#945#946#0" expanded="true" />
+                <element signature="e#1018#1019#0" expanded="true" />
+                <element signature="e#1087#1088#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -50,7 +76,9 @@
       <find>Invalid input</find>
       <find>Wellcome</find>
       <find>Object</find>
+      <find>List the basket</find>
       <find>boolean|boolean|boolean</find>
+      <find>Define current client id</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -80,18 +108,18 @@
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/ProductDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/AutorisationImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/ProductServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ClientDaoImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/AuthorisationImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/OrderDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/OrderDaoImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/OrderService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/OrderServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/ClientService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/view/ClientMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/ClientServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/view/AdminMenu.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/view/MainMenu.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/utilities/MyUtilities.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/AuthorisationImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ClientDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/view/ClientMenu.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/OrderService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/OrderServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/ClientServiceImpl.java" />
       </list>
     </option>
   </component>
@@ -148,6 +176,25 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="shevtsov" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="ShevtsovShop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shevtsovshop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="shevtsov" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ShevtsovShop" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shevtsovshop" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="shevtsov" type="462c0819:PsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -156,7 +203,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550167555470" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550168411694" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -271,29 +318,37 @@
       <option name="project" value="LOCAL" />
       <updated>1550146526675</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="simplified">
+      <created>1550167588054</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1550167588054</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1618" height="870" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.5945946" visible="true" weight="0.27172503" />
-      <window_info id="Structure" order="1" sideWeight="0.4054054" side_tool="true" weight="0.27172503" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.5945946" visible="true" weight="0.27172503" />
+      <window_info id="Structure" order="1" sideWeight="0.4067086" side_tool="true" weight="0.27172503" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
-      <window_info id="Favorites" order="6" sideWeight="0.4054054" side_tool="true" visible="true" weight="0.27172503" />
+      <window_info id="Favorites" order="6" sideWeight="0.4054054" side_tool="true" weight="0.27172503" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32859176" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.25604552" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.6913229" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.56899005" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32859176" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -383,7 +438,8 @@
     <MESSAGE value="edit MyUtilities" />
     <MESSAGE value="working ver1" />
     <MESSAGE value="'yellow' adjustments" />
-    <option name="LAST_COMMIT_MESSAGE" value="'yellow' adjustments" />
+    <MESSAGE value="simplified" />
+    <option name="LAST_COMMIT_MESSAGE" value="simplified" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/pom.xml">
@@ -430,16 +486,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/view/ClientMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/view/AdminMenu.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
@@ -457,23 +503,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/view/MainMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/services/ProductService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -481,27 +510,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/services/OrderService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/services/Authorisation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/AuthorisationImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" column="13" lean-forward="true" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -523,20 +535,6 @@
             <element signature="imports" expanded="true" />
             <element signature="e#746#747#0" expanded="true" />
             <element signature="e#797#798#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/OrderServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="28" column="26" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#763#764#0" expanded="true" />
-            <element signature="e#812#813#0" expanded="true" />
-            <element signature="e#1018#1019#0" expanded="true" />
-            <element signature="e#1087#1088#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -622,16 +620,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ClientDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="36" column="20" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ProductDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
@@ -646,6 +634,77 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ClientDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="35" column="28" lean-forward="true" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/AuthorisationImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#344#345#0" expanded="true" />
+            <element signature="e#401#402#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/view/MainMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="60" column="31" selection-start-line="60" selection-start-column="31" selection-end-line="60" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="20" lean-forward="true" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/view/ClientMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="73" column="5" lean-forward="true" selection-start-line="73" selection-start-column="5" selection-end-line="73" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/services/OrderService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/OrderServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="10" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
+          <folding>
+            <element signature="e#763#764#0" expanded="true" />
+            <element signature="e#812#813#0" expanded="true" />
+            <element signature="e#880#881#0" expanded="true" />
+            <element signature="e#945#946#0" expanded="true" />
+            <element signature="e#1018#1019#0" expanded="true" />
+            <element signature="e#1087#1088#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

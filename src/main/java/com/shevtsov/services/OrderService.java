@@ -1,7 +1,5 @@
 package com.shevtsov.services;
 
-import java.util.ArrayList;
-
 public interface OrderService {
 
     void listAllOrder();
@@ -11,8 +9,6 @@ public interface OrderService {
     void addProductToBasket(long productID);
 
     void removeProductFromBasket(long productID);
-
-    ArrayList getBasket();
 
     boolean createOrder();
 }

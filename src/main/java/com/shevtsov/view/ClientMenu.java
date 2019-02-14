@@ -66,7 +66,8 @@ class ClientMenu {
 
     private void removeProductFromBasket(OrderService orderService) {
         System.out.println("List the basket");
-        System.out.println(orderService.getBasket());
+        System.out.println("...");
+        System.out.println("...");
         System.out.println("Input product id");
         long productID = MyUtilities.inputLong();
         orderService.removeProductFromBasket(productID);

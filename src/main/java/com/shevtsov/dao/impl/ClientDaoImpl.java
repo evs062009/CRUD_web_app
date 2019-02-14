@@ -33,7 +33,7 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public boolean findClientByPhone(String phone) {
         System.out.println("Searching... Please wait.");
-        System.out.println("Creating object from DB data");
+        System.out.println("Client found");
         return true;
     }
 }
