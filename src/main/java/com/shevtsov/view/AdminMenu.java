@@ -34,7 +34,7 @@ public class AdminMenu {
                     System.out.println("!!!need to be implemented");
                     break;
                 default:
-                    System.out.println("Invalid input!!! Please repeat");
+                    System.out.println("Invalid input!!!");
                     break;
             }
         }
@@ -67,7 +67,7 @@ public class AdminMenu {
                 case "0":
                     System.out.println("need to implement");
                 default:
-                    System.out.println("Invalid input!!! Please repeat");
+                    System.out.println("Invalid input!!!");
                     break;
             }
         }
@@ -100,7 +100,7 @@ public class AdminMenu {
                 case "0":
                     System.out.println("need to implement");
                 default:
-                    System.out.println("Invalid input!!! Please repeat");
+                    System.out.println("Invalid input!!!");
                     break;
             }
         }
@@ -125,7 +125,7 @@ public class AdminMenu {
                 case "0":
                     System.out.println("need to implement");
                 default:
-                    System.out.println("Invalid input!!! Please repeat");
+                    System.out.println("Invalid input!!!");
                     break;
             }
         }

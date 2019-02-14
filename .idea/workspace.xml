@@ -3,14 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c9773279-e645-49c0-9492-2eed64d863aa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/ClientDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/ClientDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/OrderDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/OrderDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/ProductDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ClientDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ClientDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/OrderDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/OrderDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ProductDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ProductDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/ProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/utilities/MyUtilities.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/utilities/MyUtilities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/view/AdminMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/view/AdminMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/view/ClientMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/view/ClientMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/shevtsov/view/StartMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/shevtsov/view/StartMenu.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -24,31 +20,7 @@
     <favorites_list name="shevtsovshop" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/dao/ClientDao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ClientDaoImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="5" column="30" lean-forward="true" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1099#1100#0" expanded="true" />
-                <element signature="e#1126#1127#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -61,6 +33,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>exit</find>
+      <find>Invalid input</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -86,21 +59,21 @@
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/App.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/Autorisation.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/ClientService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/view/ClientMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/view/AdminMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/view/StartMenu.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/AutorisationImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/ClientServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/utilities/MyUtilities.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/OrderService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/ProductServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/ProductDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ProductDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/OrderServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/OrderDao.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/OrderDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/ClientDao.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/OrderDaoImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ClientDaoImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/view/AdminMenu.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/view/StartMenu.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/utilities/MyUtilities.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/shevtsov/view/ClientMenu.java" />
       </list>
     </option>
   </component>
@@ -164,26 +137,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="shevtsov" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ShevtsovShop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shevtsovshop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="shevtsov" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
-              <item name="impl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ShevtsovShop" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shevtsovshop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="shevtsov" type="462c0819:PsiDirectoryNode" />
-              <item name="domain" type="462c0819:PsiDirectoryNode" />
+              <item name="utilities" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -193,7 +147,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550140932806" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550141142891" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -280,12 +234,18 @@
       <option name="project" value="LOCAL" />
       <updated>1550139609823</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="edit dao classes">
+      <created>1550140998922</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1550140998922</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1618" height="870" extended-state="7" />
-    <editor active="true" />
+    <frame x="-9" y="-9" width="1618" height="870" extended-state="6" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.6728307" visible="true" weight="0.27172503" />
       <window_info id="Structure" order="1" sideWeight="0.32716927" side_tool="true" visible="true" weight="0.27172503" />
@@ -389,7 +349,8 @@
     <MESSAGE value="add admin funcs with orders" />
     <MESSAGE value="edit view classes" />
     <MESSAGE value="edit services classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="edit services classes" />
+    <MESSAGE value="edit dao classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit dao classes" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/pom.xml">
@@ -428,26 +389,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
           <caret line="11" column="25" lean-forward="true" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/view/ClientMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="924">
-          <caret line="44" selection-start-line="44" selection-end-line="44" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/view/AdminMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1940">
-          <caret line="129" selection-start-line="129" selection-end-line="129" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -547,27 +488,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/utilities/MyUtilities.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" column="25" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/services/impl/ProductServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="233">
           <caret line="23" column="51" lean-forward="true" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ProductDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="588">
-          <caret line="28" column="44" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -598,16 +522,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/OrderDaoImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/domain/Client.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
@@ -619,6 +533,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ClientDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/OrderDaoImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="21" selection-start-line="21" selection-end-line="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/dao/ClientDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
@@ -626,14 +560,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ClientDaoImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/dao/impl/ProductDaoImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="30" lean-forward="true" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+        <state relative-caret-position="273">
+          <caret line="16" selection-start-line="16" selection-end-line="17" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1099#1100#0" expanded="true" />
-            <element signature="e#1126#1127#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/view/AdminMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="36" column="40" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/utilities/MyUtilities.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="34" column="1" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
+          <folding>
+            <element signature="e#188#189#0" expanded="true" />
+            <element signature="e#223#224#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/shevtsov/view/ClientMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="28" column="25" lean-forward="true" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -30,7 +30,7 @@ public class ClientMenu {
                     removeProductFromBasket(orderService);
                     break;
                 case "4":
-                    orderService.createOrder();
+                    orderService.createOrder(currentClient);
                     break;
                 case "5":
                     modifyUserInformation(currentClient, clientService);
@@ -40,7 +40,7 @@ public class ClientMenu {
                 case "0":
                     System.out.println("need to implement");
                 default:
-                    System.out.println("Invalid input!!! Please repeat");
+                    System.out.println("Invalid input!!!");
                     break;
             }
         }

@@ -53,7 +53,7 @@ public class StartMenu {
                 case "0":
                     return;
                 default:
-                    System.out.println("Invalid input!!! Please repeat");
+                    System.out.println("Invalid input!!!");
                     break;
             }
         }
