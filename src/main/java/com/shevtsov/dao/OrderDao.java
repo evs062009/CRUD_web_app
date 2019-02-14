@@ -5,7 +5,6 @@ import com.shevtsov.domain.Order;
 import com.shevtsov.domain.Product;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface OrderDao {
 

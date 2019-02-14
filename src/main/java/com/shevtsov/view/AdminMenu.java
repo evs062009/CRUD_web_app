@@ -8,9 +8,9 @@ import com.shevtsov.utilities.MyUtilities;
 
 import java.math.BigDecimal;
 
-public class AdminMenu {
+class AdminMenu {
 
-    public void show(ClientService clientService, ProductService productService, OrderService orderService){
+    void show(ClientService clientService, ProductService productService, OrderService orderService){
         while (true) {
             System.out.println("1. Clients");
             System.out.println("2. Products");

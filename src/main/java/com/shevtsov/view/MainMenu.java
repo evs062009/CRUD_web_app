@@ -56,6 +56,7 @@ public class MainMenu {
                     System.out.println("Invalid input!!!");
                     break;
             }
+            System.out.println();
         }
     }
 

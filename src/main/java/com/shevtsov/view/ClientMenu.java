@@ -6,9 +6,9 @@ import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
 import com.shevtsov.utilities.MyUtilities;
 
-public class ClientMenu {
+class ClientMenu {
 
-    public void show(Client currentClient, ClientService clientService, ProductService productService,
+    void show(Client currentClient, ClientService clientService, ProductService productService,
                      OrderService orderService) {
         while (true) {
             System.out.println("1. List all products");

@@ -10,8 +10,8 @@ import com.shevtsov.services.OrderService;
 import java.util.ArrayList;
 
 public class OrderServiceImpl implements OrderService {
-    OrderDao orderDao = new OrderDaoImpl();
-    private ArrayList<Product> basket;
+    private OrderDao orderDao = new OrderDaoImpl();
+    private ArrayList<Product> basket = new ArrayList<>();
 
     @Override
     public void listAllOrder() {
