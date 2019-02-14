@@ -51,7 +51,9 @@ public class OrderServiceImpl implements OrderService {
         listBasket();
         System.out.print("Please confirm your order");
         if (MyUtilities.isConfirmed()){
-            orderDao.createOrder(currentClient, basket);
+            if (orderDao.createOrder(currentClient, basket)) {
+                System.out.println("Order created");
+            }
         }
     }
 }

@@ -20,7 +20,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void modifyProduct(long id, String name, BigDecimal price) {
-        if (productDao.modifyProduct(id)) {
+        if (productDao.modifyProduct(id, name, price)) {
             System.out.println("Product modified");
         } else {
             System.out.println("Product have NOT been modified!!!");

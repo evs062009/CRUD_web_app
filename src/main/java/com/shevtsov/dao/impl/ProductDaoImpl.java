@@ -13,15 +13,8 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public boolean modifyProduct(long id) {
-        System.out.println("Searching product by id...");
-        return null;
-    }
-
-    @Override
-    public boolean modifyProduct(Product product, String name, BigDecimal price) {
-        System.out.println("Change name...");
-        System.out.println("Change price...");
+    public boolean modifyProduct(long id, String name, BigDecimal price) {
+        System.out.println("Modifying... Please wait");
         return true;
     }
 
@@ -33,7 +26,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void listAllProducts() {
-        System.out.println("List of product:");
+        System.out.println("List of products:");
         System.out.println("...");
         System.out.println("...");
     }

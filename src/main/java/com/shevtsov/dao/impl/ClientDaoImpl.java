@@ -12,16 +12,8 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public Client searchClientByID(long id) {
-        System.out.println("Searching client by id...");
-        return null;
-    }
-
-    @Override
     public boolean modifyClient(long client, String name, String surname, String phone) {
-        System.out.println("Change name...");
-        System.out.println("Change surname...");
-        System.out.println("Change phone...");
+        System.out.println("Modifying... Please wait");
         return true;
     }
 
@@ -36,5 +28,12 @@ public class ClientDaoImpl implements ClientDao {
         System.out.println("List of clients:");
         System.out.println("...");
         System.out.println("...");
+    }
+
+    @Override
+    public Client findClientByPhone(String phone) {
+
+        //only for test example
+        return new Client("John", "Doe", "111");
     }
 }

@@ -1,7 +1,11 @@
 package com.shevtsov.dao.impl;
 
 import com.shevtsov.dao.OrderDao;
+import com.shevtsov.domain.Client;
 import com.shevtsov.domain.Order;
+import com.shevtsov.domain.Product;
+
+import java.util.ArrayList;
 
 public class OrderDaoImpl implements OrderDao {
 
@@ -13,13 +17,15 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Order searchOrder(long id) {
-        System.out.println("Searching order by id...");
-        return null;
+    public Order findOrderByID(long id) {
+
+        //only for test example
+        return new Order(new Client("John", "Doe", "111"), new ArrayList<>());
     }
 
     @Override
-    public void showOrder(long order) {
-        System.out.println(order);
+    public boolean createOrder(Client currentClient, ArrayList<Product> basket) {
+        System.out.println("Saving... Please wait");
+        return true;
     }
 }
