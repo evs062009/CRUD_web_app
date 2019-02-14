@@ -4,11 +4,13 @@ import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
 import com.shevtsov.utilities.MyUtilities;
+import com.shevtsov.view.enums.MenuStatuses;
 
 class ClientMenu {
 
-    void show(ClientService clientService, ProductService productService, OrderService orderService) {
-        while (true) {
+    MenuStatuses show(ClientService clientService, ProductService productService, OrderService orderService) {
+        MenuStatuses menuStatuses = MenuStatuses.CONTINUE_WORK;
+        while (!menuStatuses.equals(MenuStatuses.EXIT_PROGRAM)) {
             System.out.println("1. List all products");
             System.out.println("2. Add product to the basket");
             System.out.println("3. Remove product from the basket");
@@ -34,15 +36,16 @@ class ClientMenu {
                     modifyUserInformation(clientService);
                     break;
                 case "9":
-                    return;
+                    return MenuStatuses.CONTINUE_WORK;
                 case "0":
-                    System.out.println("need to implement");
+                    return MenuStatuses.EXIT_PROGRAM;
                 default:
                     System.out.println("Invalid input!!!");
                     break;
             }
             System.out.println();
         }
+        return MenuStatuses.EXIT_PROGRAM;
     }
 
     private void listAllProducts(ProductService productService) {

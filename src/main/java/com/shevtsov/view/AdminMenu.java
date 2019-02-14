@@ -4,13 +4,15 @@ import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
 import com.shevtsov.utilities.MyUtilities;
+import com.shevtsov.view.enums.MenuStatuses;
 
 import java.math.BigDecimal;
 
 class AdminMenu {
 
-    void show(ClientService clientService, ProductService productService, OrderService orderService) {
-        while (true) {
+    MenuStatuses show(ClientService clientService, ProductService productService, OrderService orderService) {
+        MenuStatuses menuStatuses = MenuStatuses.CONTINUE_WORK;
+        while (!menuStatuses.equals(MenuStatuses.EXIT_PROGRAM)) {
             System.out.println("1. Clients");
             System.out.println("2. Products");
             System.out.println("3. Orders");
@@ -19,29 +21,30 @@ class AdminMenu {
 
             switch (MyUtilities.inputString()) {
                 case "1":
-                    showMenuWorkWithClients(clientService);
+                    menuStatuses = showMenuWorkWithClients(clientService);
                     break;
                 case "2":
-                    showMenuWorkWithProducts(productService);
+                    menuStatuses = showMenuWorkWithProducts(productService);
                     break;
                 case "3":
-                    showMenuWorkWithOrders(orderService);
+                    menuStatuses = showMenuWorkWithOrders(orderService);
                     break;
                 case "9":
-                    return;
+                    return MenuStatuses.CONTINUE_WORK;
                 case "0":
-                    System.out.println("!!!need to be implemented");
-                    break;
+                    return MenuStatuses.EXIT_PROGRAM;
                 default:
                     System.out.println("Invalid input!!!");
                     break;
             }
             System.out.println();
         }
+        return MenuStatuses.EXIT_PROGRAM;
     }
 
-    private void showMenuWorkWithClients(ClientService clientService) {
-        while (true) {
+    private MenuStatuses showMenuWorkWithClients(ClientService clientService) {
+        MenuStatuses menuStatus = MenuStatuses.CONTINUE_WORK;
+        while (!menuStatus.equals(MenuStatuses.EXIT_PROGRAM)) {
             System.out.println("1. Add client");
             System.out.println("2. Modify client");
             System.out.println("3. Remove client");
@@ -63,19 +66,21 @@ class AdminMenu {
                     listAllClients(clientService);
                     break;
                 case "9":
-                    return;
+                    return MenuStatuses.CONTINUE_WORK;
                 case "0":
-                    System.out.println("need to implement");
+                    return MenuStatuses.EXIT_PROGRAM;
                 default:
                     System.out.println("Invalid input!!!");
                     break;
             }
             System.out.println();
         }
+        return MenuStatuses.EXIT_PROGRAM;
     }
 
-    private void showMenuWorkWithProducts(ProductService productService) {
-        while (true) {
+    private MenuStatuses showMenuWorkWithProducts(ProductService productService) {
+        MenuStatuses menuStatuses = MenuStatuses.CONTINUE_WORK;
+        while (!menuStatuses.equals(MenuStatuses.EXIT_PROGRAM)) {
             System.out.println("1. Add product");
             System.out.println("2. Modify product");
             System.out.println("3. Remove product");
@@ -97,15 +102,16 @@ class AdminMenu {
                     listAllProducts(productService);
                     break;
                 case "9":
-                    return;
+                    return MenuStatuses.CONTINUE_WORK;
                 case "0":
-                    System.out.println("need to implement");
+                    return MenuStatuses.EXIT_PROGRAM;
                 default:
                     System.out.println("Invalid input!!!");
                     break;
             }
             System.out.println();
         }
+        return MenuStatuses.EXIT_PROGRAM;
     }
 
     private void listAllClients(ClientService clientService) {
@@ -122,8 +128,9 @@ class AdminMenu {
         System.out.println("...");
     }
 
-    private void showMenuWorkWithOrders(OrderService orderService) {
-        while (true) {
+    private MenuStatuses showMenuWorkWithOrders(OrderService orderService) {
+        MenuStatuses menuStatuses = MenuStatuses.CONTINUE_WORK;
+        while (!menuStatuses.equals(MenuStatuses.EXIT_PROGRAM)) {
             System.out.println("1. List all orders");
             System.out.println("2. Show order");
             System.out.println("9. Return to previous menu");
@@ -137,15 +144,16 @@ class AdminMenu {
                     showOrder(orderService);
                     break;
                 case "9":
-                    return;
+                    return MenuStatuses.CONTINUE_WORK;
                 case "0":
-                    System.out.println("need to implement");
+                    return MenuStatuses.EXIT_PROGRAM;
                 default:
                     System.out.println("Invalid input!!!");
                     break;
             }
             System.out.println();
         }
+        return MenuStatuses.EXIT_PROGRAM;
     }
 
     private void listAllOrder(OrderService orderService) {

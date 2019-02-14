@@ -9,6 +9,7 @@ import com.shevtsov.services.impl.ClientServiceImpl;
 import com.shevtsov.services.impl.OrderServiceImpl;
 import com.shevtsov.services.impl.ProductServiceImpl;
 import com.shevtsov.utilities.MyUtilities;
+import com.shevtsov.view.enums.MenuStatuses;
 
 public class MainMenu {
 
@@ -20,7 +21,8 @@ public class MainMenu {
         final ProductService productService = new ProductServiceImpl();
         final OrderService orderService = new OrderServiceImpl();
 
-        while (true) {
+        MenuStatuses menuStatuses = MenuStatuses.CONTINUE_WORK;
+        while (!menuStatuses.equals(MenuStatuses.EXIT_PROGRAM)) {
             System.out.println("1. Client authorisation");
             System.out.println("2. Client registration");
             System.out.println("3. Admin authorisation");
@@ -29,18 +31,18 @@ public class MainMenu {
             switch (MyUtilities.inputString()) {
                 case "1":
                     if (authorizeClient(authorisation)) {
-                        clientMenu.show(clientService, productService, orderService);
+                        menuStatuses = clientMenu.show(clientService, productService, orderService);
                     } else {
                         System.out.println("There is no such client!!!");
                     }
                     break;
                 case "2":
                     adminMenu.createClient(clientService);
-                    clientMenu.show(clientService, productService, orderService);
+                    menuStatuses = clientMenu.show(clientService, productService, orderService);
                     break;
                 case "3":
                     if (authorizeAdmin(authorisation)) {
-                        adminMenu.show(clientService, productService, orderService);
+                        menuStatuses = adminMenu.show(clientService, productService, orderService);
                     } else {
                         System.out.println("You are not an admin!!!");
                     }
@@ -63,7 +65,7 @@ public class MainMenu {
 
     private boolean authorizeAdmin(Authorisation authorisation) {
         System.out.println("Input password:");
-        String password = MyUtilities.inputString();
+        MyUtilities.inputString();
         return authorisation.authorizeAdmin();
     }
 }
