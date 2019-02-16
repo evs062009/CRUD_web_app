@@ -1,16 +1,28 @@
 package com.shevtsov.view;
 
+import com.shevtsov.domain.Client;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
-import com.shevtsov.utilities.MyUtilities;
+import com.shevtsov.view.utilities.MyUtilities;
 import com.shevtsov.view.enums.MenuStatuses;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
-class AdminMenu {
+public class AdminMenu {
 
-    MenuStatuses show(ClientService clientService, ProductService productService, OrderService orderService) {
+    private final ClientService clientService;
+    private final ProductService productService;
+    private final OrderService orderService;
+
+    public AdminMenu(ClientService clientService, ProductService productService, OrderService orderService) {
+        this.clientService = clientService;
+        this.productService = productService;
+        this.orderService = orderService;
+    }
+
+    MenuStatuses show() {
         MenuStatuses menuStatuses = MenuStatuses.CONTINUE_WORK;
         while (!menuStatuses.equals(MenuStatuses.EXIT_PROGRAM)) {
             System.out.println("1. Clients");
@@ -63,7 +75,7 @@ class AdminMenu {
                     removeClient(clientService);
                     break;
                 case "4":
-                    listAllClients(clientService);
+                    showAllClients(clientService);
                     break;
                 case "9":
                     return MenuStatuses.CONTINUE_WORK;
@@ -114,11 +126,11 @@ class AdminMenu {
         return MenuStatuses.EXIT_PROGRAM;
     }
 
-    private void listAllClients(ClientService clientService) {
-        clientService.listAllClients();
-        System.out.println("List of clients:");
-        System.out.println("...");
-        System.out.println("...");
+    private void showAllClients(ClientService clientService) {
+        //печатаем всех клиентов
+        for (Client client : clientService.getAllClients()) {
+            System.out.println(client);
+        }
     }
 
     private void listAllProducts(ProductService productService) {
@@ -160,7 +172,8 @@ class AdminMenu {
         orderService.listAllOrder();
         System.out.println("List of orders:");
         System.out.println("...");
-        System.out.println("...");
+        System.out.printl
+    n("...");
     }
 
     void createClient(ClientService clientService) {
@@ -168,9 +181,22 @@ class AdminMenu {
         String name = MyUtilities.inputString();
         System.out.println("Input surname:");
         String surname = MyUtilities.inputString();
+        System.out.println("Input age:");
+        int age = 0;
+
+        //перенести в утилиты в отдельный метод
+        try {
+            age = Integer.parseInt(MyUtilities.inputString());
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Input number please!!!");
+            //вызывать рекурсивно этот же метод
+        }
         System.out.println("Input phone:");
         String phone = MyUtilities.inputString();
-        if (clientService.createClient(name, surname, phone)) {
+        System.out.println("Input email:");
+        String email = MyUtilities.inputString();
+
+        if (clientService.createClient(name, surname, age, phone, email)) {
             System.out.println("Client saved");
         }
     }

@@ -5,7 +5,7 @@ import com.shevtsov.dao.impl.ClientDaoImpl;
 import com.shevtsov.services.Authorisation;
 
 public class AuthorisationImpl implements Authorisation {
-    private final ClientDao clientDao = new ClientDaoImpl();
+    private final ClientDao clientDao = ClientDaoImpl.getInstance();
 
     @Override
     public boolean authorizeClient(String phone) {

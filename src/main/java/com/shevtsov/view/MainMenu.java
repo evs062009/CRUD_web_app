@@ -4,22 +4,28 @@ import com.shevtsov.services.Authorisation;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
-import com.shevtsov.services.impl.AuthorisationImpl;
-import com.shevtsov.services.impl.ClientServiceImpl;
-import com.shevtsov.services.impl.OrderServiceImpl;
-import com.shevtsov.services.impl.ProductServiceImpl;
-import com.shevtsov.utilities.MyUtilities;
+import com.shevtsov.view.utilities.MyUtilities;
 import com.shevtsov.view.enums.MenuStatuses;
 
 public class MainMenu {
+    private final Authorisation authorisation);
+    private final AdminMenu adminMenu;
+    private final ClientMenu clientMenu;
+    private final ClientService clientService;
+    private final ProductService productService;
+    private final OrderService orderService;
+
+    public MainMenu(Authorisation authorisation, AdminMenu adminMenu, ClientMenu clientMenu,
+                    ClientService clientService, ProductService productService, OrderService orderService) {
+        this.authorisation = authorisation;
+        this.adminMenu = adminMenu;
+        this.clientMenu = clientMenu;
+        this.clientService = clientService;
+        this.productService = productService;
+        this.orderService = orderService;
+    }
 
     public void show() {
-        final Authorisation authorisation = new AuthorisationImpl();
-        final AdminMenu adminMenu = new AdminMenu();
-        final ClientMenu clientMenu = new ClientMenu();
-        final ClientService clientService = new ClientServiceImpl();
-        final ProductService productService = new ProductServiceImpl();
-        final OrderService orderService = new OrderServiceImpl();
 
         MenuStatuses menuStatuses = MenuStatuses.CONTINUE_WORK;
         while (!menuStatuses.equals(MenuStatuses.EXIT_PROGRAM)) {

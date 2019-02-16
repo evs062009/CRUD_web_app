@@ -26,7 +26,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public void createProductsList() {
-        System.out.println("Receiving data from DB...");
+        System.out.println("Receiving data from storage...");
         System.out.println("Creating collection...");
         System.out.println("Transmitting to Service");
     }

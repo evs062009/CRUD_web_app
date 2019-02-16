@@ -1,5 +1,9 @@
 package com.shevtsov.services;
 
+import com.shevtsov.domain.Client;
+
+import java.util.List;
+
 public interface ClientService {
 
     /**
@@ -9,7 +13,9 @@ public interface ClientService {
      * @param phone the phone number of new client.
      * @return true if new client was saved successfully, or false otherwise.
      */
-    boolean createClient(String name, String surname, String phone);
+    void createClient(String name, String surname, String phone);
+
+    void createClient(String name, String surname, int age, String phone, String email);
 
     /**
      * Gets data about a client, which is modified, from UI and transmits it to DAO for modifying.
@@ -34,7 +40,7 @@ public interface ClientService {
      * Receives collection of Client-objects from DAO and transmits it to UI for listing.
      * Business-logic will be added later.
      */
-    void listAllClients();
+    List<Client> getAllClients();
 
     /**
      * Gets data about a current (sign in) client, from UI and transmits it to DAO for modifying.

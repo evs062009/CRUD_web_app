@@ -7,14 +7,14 @@ import java.math.BigDecimal;
 public interface ProductDao {
 
     /**
-     * Saves Product-object to DB.
+     * Saves Product-object to storage.
      * @param product the Product-object, which is saved.
      * @return true if new product was saved successfully, or false otherwise.
      */
     boolean saveProduct(Product product);
 
     /**
-     * Modifies product data in DB.
+     * Modifies product data in storage.
      * @param id id of product, which is modified.
      * @param name new name of product, which is modified.
      * @param price new price of product, which is modified.
@@ -23,14 +23,14 @@ public interface ProductDao {
     boolean modifyProduct(long id, String name, BigDecimal price);
 
     /**
-     * Removes product in DB.
+     * Removes product in storage.
      * @param product the Product-object, which is removed.
      * @return true if product was removed successfully, or false otherwise.
      */
     boolean removeProduct(long product);
 
     /**
-     * Creates collection of Product-objects from DB and transmits it to Source for processing.
+     * Creates collection of Product-objects from storage and transmits it to Source for processing.
      */
     void createProductsList();
 }

@@ -1,12 +1,54 @@
 package com.shevtsov.view;
 
+import com.shevtsov.domain.Client;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
-import com.shevtsov.utilities.MyUtilities;
+import com.shevtsov.view.utilities.MyUtilities;
 import com.shevtsov.view.enums.MenuStatuses;
 
-class ClientMenu {
+public class ClientMenu {
+    private final ClientService clientService;
+
+    public ClientMenu(ClientService clientService) {
+        this.clientService = clientService;
+    }
+
+    private MenuStatuses showMenuWorkWithClients() {
+        MenuStatuses menuStatus = MenuStatuses.CONTINUE_WORK;
+        while (!menuStatus.equals(MenuStatuses.EXIT_PROGRAM)) {
+            System.out.println("1. Add client");
+            System.out.println("2. Modify client");
+            System.out.println("3. Remove client");
+            System.out.println("4. List all clients");
+            System.out.println("9. Return to previous menu");
+            System.out.println("0. Exit program");
+
+            switch (MyUtilities.inputString()) {
+                case "1":
+                    createClient(clientService);
+                    break;
+                case "2":
+                    modifyClient(clientService);
+                    break;
+                case "3":
+                    removeClient(clientService);
+                    break;
+                case "4":
+                    showAllClients(clientService);
+                    break;
+                case "9":
+                    return MenuStatuses.CONTINUE_WORK;
+                case "0":
+                    return MenuStatuses.EXIT_PROGRAM;
+                default:
+                    System.out.println("Invalid input!!!");
+                    break;
+            }
+            System.out.println();
+        }
+        return MenuStatuses.EXIT_PROGRAM;
+    }
 
     MenuStatuses show(ClientService clientService, ProductService productService, OrderService orderService) {
         MenuStatuses menuStatuses = MenuStatuses.CONTINUE_WORK;
@@ -87,4 +129,46 @@ class ClientMenu {
             System.out.println("Information modified");
         }
     }
+
+    void createClient(ClientService clientService) {
+        System.out.println("Input name:");
+        String name = MyUtilities.inputString();
+        System.out.println("Input surname:");
+        String surname = MyUtilities.inputString();
+        System.out.println("Input phone:");
+        String phone = MyUtilities.inputString();
+        if (clientService.createClient(name, surname, phone)) {
+            System.out.println("Client saved");
+        }
+    }
+
+    private void modifyClient(ClientService clientService) {
+        System.out.println("Input client id");
+        long clientID = MyUtilities.inputLong();
+        System.out.println("Input name:");
+        String name = MyUtilities.inputString();
+        System.out.println("Input surname:");
+        String surname = MyUtilities.inputString();
+        System.out.println("Input phone:");
+        String phone = MyUtilities.inputString();
+        if (clientService.modifyClient(clientID, name, surname, phone)) {
+            System.out.println("Client modified");
+        }
+    }
+
+    private void removeClient(ClientService clientService) {
+        System.out.println("Input client id");
+        long clientID = MyUtilities.inputLong();
+        if (clientService.removeClient(clientID)) {
+            System.out.println("Client removed");
+        }
+    }
+
+    private void showAllClients(ClientService clientService) {
+        //печатаем всех клиентов
+        for (Client client : clientService.getAllClients()) {
+            System.out.println(client);
+        }
+    }
+
 }

@@ -6,7 +6,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public void createOrdersList() {
-        System.out.println("Receiving data from DB...");
+        System.out.println("Receiving data from storage...");
         System.out.println("Creating collection...");
         System.out.println("Transmitting to Service");
     }
@@ -14,7 +14,7 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public boolean findOrderByID(long id) {
         System.out.println("Searching...  Please wait");
-        System.out.println("Creating object from DB data...");
+        System.out.println("Creating object from storage data...");
         return true;
     }
 

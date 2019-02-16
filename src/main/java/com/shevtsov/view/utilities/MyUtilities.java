@@ -1,4 +1,4 @@
-package com.shevtsov.utilities;
+package com.shevtsov.view.utilities;
 
 import java.util.Scanner;
 
@@ -12,6 +12,8 @@ public class MyUtilities {
 
     public static long inputLong() {
         while (true) {
+
+            //вместо цикла попробовать использовать рекурсию
             sc = new Scanner(System.in);
             if (sc.hasNextLong()) {
                 return sc.nextLong();

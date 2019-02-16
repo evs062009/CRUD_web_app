@@ -1,17 +1,40 @@
 package com.shevtsov.services.impl;
 
 import com.shevtsov.dao.ClientDao;
-import com.shevtsov.dao.impl.ClientDaoImpl;
 import com.shevtsov.domain.Client;
 import com.shevtsov.services.ClientService;
+import com.shevtsov.validators.ValidationService;
+
+import javax.xml.bind.ValidationException;
+import java.util.List;
 
 public class ClientServiceImpl implements ClientService {
-    private ClientDao clientDao = new ClientDaoImpl();
+
+    //депенденси инжекшин для Инверсия Контроль
+    private ClientDao clientDao;
+    private ValidationService validationService;
+
+    //конструктор для Инверсия Контроль
+    public ClientServiceImpl(ClientDao clientDao, ValidationService validationService){
+        this.validationService = validationService;
+        this.clientDao = clientDao;
+    }
 
     @Override
-    public boolean createClient(String name, String surname, String phone) {
-        Client client = new Client(name, surname, phone);
-        return clientDao.saveClient(client);
+    public void createClient(String name, String surname, String phone) {
+        this.createClient(name, surname, 0, phone, null);
+    }
+
+    @Override
+    public void createClient(String name, String surname, int age, String phone, String email) {
+        try {
+            validationService.validateAge(age);
+            Client client = new Client(name, surname, phone);
+            boolean result = clientDao.saveClient(client);
+        } catch (ValidationException ve){
+            ve.getStackTrace();
+        }
+
     }
 
     @Override
@@ -27,11 +50,12 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void listAllClients() {
-        clientDao.createClientsList();
+    public List<Client> getAllClients() {
         System.out.println("Received collection from DAO");
         System.out.println("Processed");
         System.out.println("Transmitted to UI");
+        //можно добавить логику, например сортировку
+        return clientDao.gatAllClient();
     }
 
     @Override
