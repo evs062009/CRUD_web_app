@@ -8,25 +8,27 @@ public interface ClientService {
 
     /**
      * Creates and transmits a Client-object to DAO for saving.
-     * @param name the name of new client.
-     * @param surname the surname of new client.
+     * @param name of new client.
+     * @param surname of new client.
+     * @param age of new client.
      * @param phone the phone number of new client.
+     * @param email of new client.
      * @return true if new client was saved successfully, or false otherwise.
      */
-    void createClient(String name, String surname, String phone);
-
-    void createClient(String name, String surname, int age, String phone, String email);
+    boolean createClient(String name, String surname, int age, String phone, String email);
 
     /**
      * Gets data about a client, which is modified, from UI and transmits it to DAO for modifying.
      * Confirmation request and other logic will be added later.
      * @param id id of client, which is modified.
      * @param newName new name of client, which is modified.
+     * @param age
      * @param newSurname new surname of client, which is modified.
      * @param newPhone new phone number of client, which is modified.
+     * @param email
      * @return true if client was modified successfully, or false otherwise.
      */
-    boolean modifyClient(long id, String newName, String newSurname, String newPhone);
+    boolean modifyClient(long id, String newName, String age, int newSurname, String newPhone, String email);
 
     /**
      * Gets data about a client, which is removed, from UI and transmits it to DAO for deleting.

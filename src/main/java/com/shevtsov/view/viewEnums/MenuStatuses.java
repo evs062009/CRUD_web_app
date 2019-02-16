@@ -1,4 +1,4 @@
-package com.shevtsov.view.enums;
+package com.shevtsov.view.viewEnums;
 
 public enum MenuStatuses {
     CONTINUE_WORK, EXIT_PROGRAM;

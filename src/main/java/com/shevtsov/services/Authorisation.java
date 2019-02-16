@@ -5,14 +5,14 @@ public interface Authorisation {
     /**
      * Authorizes the client by entered phone number.
      * @param phone The phone number of client, which is searched.
-     * @return for now true if client was searched, or false otherwise.
-     * Plan to change the return value to Client-object later.
+     * @return true if client was searched in storage, or false otherwise.
      */
     boolean authorizeClient(String phone);
 
     /**
-     * Checks the user for matching with the admin.
-     * @return true if the user matches, or false otherwise.
+     * Checks the input for matching with admin password.
+     * @param input users input, which is checked
+     * @return true if the input matches, or false otherwise.
      */
-    boolean authorizeAdmin();
+    boolean authorizeAdmin(String input);
 }

@@ -12,8 +12,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean createProduct(String name, BigDecimal price) {
-        Product product = new Product(name, price);
-        return productDao.saveProduct(product);
+        //add validation in future
+        boolean validation = true;
+        if (validation) {
+            Product product = new Product(name, price);
+            productDao.saveProduct(product);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

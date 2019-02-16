@@ -1,5 +1,7 @@
 package com.shevtsov.dao;
 
+import com.shevtsov.domain.Order;
+
 public interface OrderDao {
 
     /**
@@ -17,7 +19,8 @@ public interface OrderDao {
 
     /**
      * Saves Order-object in storage.
+     * @param order which is saved.
      * @return true if order was saved successfully, or false otherwise.
      */
-    boolean saveOrder();
+    boolean saveOrder(Order order);
 }

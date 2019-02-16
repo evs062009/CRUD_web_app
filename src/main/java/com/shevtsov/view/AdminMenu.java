@@ -4,14 +4,11 @@ import com.shevtsov.domain.Client;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
-import com.shevtsov.view.utilities.MyUtilities;
-import com.shevtsov.view.enums.MenuStatuses;
-
-import java.io.IOException;
+import com.shevtsov.view.viewUtilities.ViewUtilities;
+import com.shevtsov.view.viewEnums.MenuStatuses;
 import java.math.BigDecimal;
 
 public class AdminMenu {
-
     private final ClientService clientService;
     private final ProductService productService;
     private final OrderService orderService;
@@ -28,22 +25,22 @@ public class AdminMenu {
             System.out.println("1. Clients");
             System.out.println("2. Products");
             System.out.println("3. Orders");
-            System.out.println("9. Return to previous menu");
-            System.out.println("0. Exit program");
+            System.out.println("R. Return to previous menu");
+            System.out.println("E. Exit program");
 
-            switch (MyUtilities.inputString()) {
+            switch (ViewUtilities.inputString()) {
                 case "1":
-                    menuStatuses = showMenuWorkWithClients(clientService);
+                    menuStatuses = showMenuWorkWithClients();
                     break;
                 case "2":
-                    menuStatuses = showMenuWorkWithProducts(productService);
+                    menuStatuses = showMenuWorkWithProducts();
                     break;
                 case "3":
-                    menuStatuses = showMenuWorkWithOrders(orderService);
+                    menuStatuses = showMenuWorkWithOrders();
                     break;
-                case "9":
+                case "R":
                     return MenuStatuses.CONTINUE_WORK;
-                case "0":
+                case "E":
                     return MenuStatuses.EXIT_PROGRAM;
                 default:
                     System.out.println("Invalid input!!!");
@@ -54,32 +51,32 @@ public class AdminMenu {
         return MenuStatuses.EXIT_PROGRAM;
     }
 
-    private MenuStatuses showMenuWorkWithClients(ClientService clientService) {
+    private MenuStatuses showMenuWorkWithClients() {
         MenuStatuses menuStatus = MenuStatuses.CONTINUE_WORK;
         while (!menuStatus.equals(MenuStatuses.EXIT_PROGRAM)) {
             System.out.println("1. Add client");
             System.out.println("2. Modify client");
             System.out.println("3. Remove client");
             System.out.println("4. List all clients");
-            System.out.println("9. Return to previous menu");
-            System.out.println("0. Exit program");
+            System.out.println("R. Return to previous menu");
+            System.out.println("E. Exit program");
 
-            switch (MyUtilities.inputString()) {
+            switch (ViewUtilities.inputString()) {
                 case "1":
-                    createClient(clientService);
+                    createClient();
                     break;
                 case "2":
-                    modifyClient(clientService);
+                    modifyClient();
                     break;
                 case "3":
-                    removeClient(clientService);
+                    removeClient();
                     break;
                 case "4":
-                    showAllClients(clientService);
+                    showAllClients();
                     break;
-                case "9":
+                case "R":
                     return MenuStatuses.CONTINUE_WORK;
-                case "0":
+                case "E":
                     return MenuStatuses.EXIT_PROGRAM;
                 default:
                     System.out.println("Invalid input!!!");
@@ -90,28 +87,28 @@ public class AdminMenu {
         return MenuStatuses.EXIT_PROGRAM;
     }
 
-    private MenuStatuses showMenuWorkWithProducts(ProductService productService) {
+    private MenuStatuses showMenuWorkWithProducts() {
         MenuStatuses menuStatuses = MenuStatuses.CONTINUE_WORK;
         while (!menuStatuses.equals(MenuStatuses.EXIT_PROGRAM)) {
             System.out.println("1. Add product");
             System.out.println("2. Modify product");
             System.out.println("3. Remove product");
             System.out.println("4. List all products");
-            System.out.println("9. Return to previous menu");
-            System.out.println("0. Exit program");
+            System.out.println("R. Return to previous menu");
+            System.out.println("E. Exit program");
 
-            switch (MyUtilities.inputString()) {
+            switch (ViewUtilities.inputString()) {
                 case "1":
-                    addProduct(productService);
+                    addProduct();
                     break;
                 case "2":
-                    modifyProduct(productService);
+                    modifyProduct();
                     break;
                 case "3":
-                    removeProduct(productService);
+                    removeProduct();
                     break;
                 case "4":
-                    listAllProducts(productService);
+                    listAllProducts();
                     break;
                 case "9":
                     return MenuStatuses.CONTINUE_WORK;
@@ -126,142 +123,135 @@ public class AdminMenu {
         return MenuStatuses.EXIT_PROGRAM;
     }
 
-    private void showAllClients(ClientService clientService) {
-        //печатаем всех клиентов
+    private MenuStatuses showMenuWorkWithOrders() {
+        MenuStatuses menuStatuses = MenuStatuses.CONTINUE_WORK;
+        while (!menuStatuses.equals(MenuStatuses.EXIT_PROGRAM)) {
+            System.out.println("1. List all orders");
+            System.out.println("2. Modify order");
+            System.out.println("3. Remove order");
+            System.out.println("R. Return to previous menu");
+            System.out.println("E. Exit program");
+
+            switch (ViewUtilities.inputString()) {
+                case "1":
+                    listAllOrder();
+                    break;
+                case "2":
+                    ModifyOrder();
+                    break;
+                case "3":
+                    removeOrder();
+                    break;
+                case "R":
+                    return MenuStatuses.CONTINUE_WORK;
+                case "E":
+                    return MenuStatuses.EXIT_PROGRAM;
+                default:
+                    System.out.println("Invalid input!!!");
+                    break;
+            }
+            System.out.println();
+        }
+        return MenuStatuses.EXIT_PROGRAM;
+    }
+
+    private void removeOrder() {
+        111
+    }
+
+    private void ModifyOrder() {
+        111
+    }
+
+    private void showAllClients() {
         for (Client client : clientService.getAllClients()) {
             System.out.println(client);
         }
     }
 
-    private void listAllProducts(ProductService productService) {
+    private void listAllProducts() {
         productService.listAllProducts();
         System.out.println("List of products:");
         System.out.println("...");
         System.out.println("...");
     }
 
-    private MenuStatuses showMenuWorkWithOrders(OrderService orderService) {
-        MenuStatuses menuStatuses = MenuStatuses.CONTINUE_WORK;
-        while (!menuStatuses.equals(MenuStatuses.EXIT_PROGRAM)) {
-            System.out.println("1. List all orders");
-            System.out.println("2. Show order");
-            System.out.println("9. Return to previous menu");
-            System.out.println("0. Exit program");
-
-            switch (MyUtilities.inputString()) {
-                case "1":
-                    listAllOrder(orderService);
-                    break;
-                case "2":
-                    showOrder(orderService);
-                    break;
-                case "9":
-                    return MenuStatuses.CONTINUE_WORK;
-                case "0":
-                    return MenuStatuses.EXIT_PROGRAM;
-                default:
-                    System.out.println("Invalid input!!!");
-                    break;
-            }
-            System.out.println();
-        }
-        return MenuStatuses.EXIT_PROGRAM;
-    }
-
-    private void listAllOrder(OrderService orderService) {
+    private void listAllOrder() {
         orderService.listAllOrder();
         System.out.println("List of orders:");
         System.out.println("...");
-        System.out.printl
-    n("...");
+        System.out.println("...");
     }
 
-    void createClient(ClientService clientService) {
+    private void createClient() {
         System.out.println("Input name:");
-        String name = MyUtilities.inputString();
+        String name = ViewUtilities.inputString();
         System.out.println("Input surname:");
-        String surname = MyUtilities.inputString();
+        String surname = ViewUtilities.inputString();
         System.out.println("Input age:");
-        int age = 0;
-
-        //перенести в утилиты в отдельный метод
-        try {
-            age = Integer.parseInt(MyUtilities.inputString());
-        } catch (IOException | NumberFormatException e) {
-            System.out.println("Input number please!!!");
-            //вызывать рекурсивно этот же метод
-        }
-        System.out.println("Input phone:");
-        String phone = MyUtilities.inputString();
+        int age = ViewUtilities.inputInt();
+        System.out.println("Input phone number:");
+        String phone = ViewUtilities.inputString();
         System.out.println("Input email:");
-        String email = MyUtilities.inputString();
-
+        String email = ViewUtilities.inputString();
         if (clientService.createClient(name, surname, age, phone, email)) {
             System.out.println("Client saved");
         }
     }
 
-    private void modifyClient(ClientService clientService) {
+    private void modifyClient() {
         System.out.println("Input client id");
-        long clientID = MyUtilities.inputLong();
-        System.out.println("Input name:");
-        String name = MyUtilities.inputString();
-        System.out.println("Input surname:");
-        String surname = MyUtilities.inputString();
-        System.out.println("Input phone:");
-        String phone = MyUtilities.inputString();
-        if (clientService.modifyClient(clientID, name, surname, phone)) {
+        long clientID = ViewUtilities.inputLong();
+        System.out.println("Input new name:");
+        String name = ViewUtilities.inputString();
+        System.out.println("Input new surname:");
+        String surname = ViewUtilities.inputString();
+        System.out.println("Input new age:");
+        int age = ViewUtilities.inputInt();
+        System.out.println("Input new phone number:");
+        String phone = ViewUtilities.inputString();
+        System.out.println("Input email:");
+        String email = ViewUtilities.inputString();
+        if (clientService.modifyClient(clientID, name, surname, age, phone, email)) {
             System.out.println("Client modified");
         }
     }
 
-    private void removeClient(ClientService clientService) {
+    private void removeClient() {
         System.out.println("Input client id");
-        long clientID = MyUtilities.inputLong();
+        long clientID = ViewUtilities.inputLong();
         if (clientService.removeClient(clientID)) {
             System.out.println("Client removed");
         }
     }
 
-    private void addProduct(ProductService productService) {
+    private void addProduct() {
         System.out.println("Input name:");
-        String name = MyUtilities.inputString();
+        String name = ViewUtilities.inputString();
         System.out.println("Input price:");
-        BigDecimal price = BigDecimal.valueOf(MyUtilities.inputLong());
+        BigDecimal price = BigDecimal.valueOf(ViewUtilities.inputLong());
         if (productService.createProduct(name, price)) {
             System.out.println("Product saved");
         }
     }
 
-    private void modifyProduct(ProductService productService) {
+    private void modifyProduct() {
         System.out.println("Input product id");
-        long productID = MyUtilities.inputLong();
+        long productID = ViewUtilities.inputLong();
         System.out.println("Input new name:");
-        String newName = MyUtilities.inputString();
+        String newName = ViewUtilities.inputString();
         System.out.println("Input new price:");
-        BigDecimal newPrice = BigDecimal.valueOf(MyUtilities.inputLong());
+        BigDecimal newPrice = BigDecimal.valueOf(ViewUtilities.inputLong());
         if (productService.modifyProduct(productID, newName, newPrice)) {
             System.out.println("Product modified");
         }
     }
 
-    private void removeProduct(ProductService productService) {
+    private void removeProduct() {
         System.out.println("Input product id");
-        long productID = MyUtilities.inputLong();
+        long productID = ViewUtilities.inputLong();
         if (productService.removeProduct(productID)) {
             System.out.println("Product removed");
-        }
-    }
-
-    private void showOrder(OrderService orderService) {
-        System.out.println("Input order id:");
-        long orderID = MyUtilities.inputLong();
-        if (orderService.findOrderByID(orderID)) {
-            System.out.println("Order:");
-            System.out.println("...");
-            System.out.println("...");
-        } else {
-            System.out.println("There is no such order.");
         }
     }
 }
