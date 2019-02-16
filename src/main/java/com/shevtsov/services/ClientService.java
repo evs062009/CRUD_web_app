@@ -15,7 +15,7 @@ public interface ClientService {
      * @param email of new client.
      * @return true if new client was saved successfully, or false otherwise.
      */
-    boolean createClient(String name, String surname, int age, String phone, String email);
+    boolean create(String name, String surname, int age, String phone, String email);
 
     /**
      * Gets data about a client, which is modified, from UI and transmits it to DAO for modifying.
@@ -28,7 +28,7 @@ public interface ClientService {
      * @param email
      * @return true if client was modified successfully, or false otherwise.
      */
-    boolean modifyClient(long id, String newName, String age, int newSurname, String newPhone, String email);
+    boolean modify(long id, String newName, String age, int newSurname, String newPhone, String email);
 
     /**
      * Gets data about a client, which is removed, from UI and transmits it to DAO for deleting.
@@ -36,13 +36,13 @@ public interface ClientService {
      * @param id id of client, which is removed.
      * @return true if client was removed successfully, or false otherwise.
      */
-    boolean removeClient(long id);
+    boolean remove(long id);
 
     /**
      * Receives collection of Client-objects from DAO and transmits it to UI for listing.
      * Business-logic will be added later.
      */
-    List<Client> getAllClients();
+    List<Client> getAll();
 
     /**
      * Gets data about a current (sign in) client, from UI and transmits it to DAO for modifying.

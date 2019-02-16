@@ -1,12 +1,11 @@
 package com.shevtsov.dao.impl;
 
-import com.shevtsov.dao.ClientDao;
 import com.shevtsov.dao.ProductDao;
-import com.shevtsov.domain.Client;
 import com.shevtsov.domain.Product;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProductDaoImpl implements ProductDao {
@@ -17,36 +16,37 @@ public class ProductDaoImpl implements ProductDao {
     private static ProductDao productDao = new ProductDaoImpl();
 
     //constructor-singleton
-    private ProductDaoImpl(){
+    private ProductDaoImpl() {
     }
 
     //factory method for singleton
-    public static ProductDao getInstance(){
+    public static ProductDao getInstance() {
         return productDao;
     }
 
     @Override
-    public boolean saveProduct(Product product) {
-        System.out.println("Saving... Please wait.");
-        return true;
+    public void save(Product product) {
+        product.setId(generator++);
+        map.put(product.getId(), product);
     }
 
     @Override
-    public boolean modifyProduct(long id, String name, BigDecimal price) {
-        System.out.println("Modifying... Please wait");
-        return true;
+    public void modify(long id, Product product) {
+        map.put(id, product);
     }
 
     @Override
-    public boolean removeProduct(long product) {
-        System.out.println("Deleting... Please wait.");
-        return true;
+    public void remove(long id) {
+        map.remove(id);
     }
 
     @Override
-    public void createProductsList() {
-        System.out.println("Receiving data from storage...");
-        System.out.println("Creating collection...");
-        System.out.println("Transmitting to Service");
+    public List<Product> getAll() {
+        return new ArrayList<>(map.values());
+    }
+
+    @Override
+    public boolean isContainsKey(long id) {
+        return map.containsKey(id);
     }
 }

@@ -1,11 +1,14 @@
 package com.shevtsov.view;
 
 import com.shevtsov.domain.Client;
+import com.shevtsov.domain.Order;
+import com.shevtsov.domain.Product;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
 import com.shevtsov.view.viewUtilities.ViewUtilities;
 import com.shevtsov.view.viewEnums.MenuStatuses;
+
 import java.math.BigDecimal;
 
 public class AdminMenu {
@@ -108,7 +111,7 @@ public class AdminMenu {
                     removeProduct();
                     break;
                 case "4":
-                    listAllProducts();
+                    showAllProducts();
                     break;
                 case "9":
                     return MenuStatuses.CONTINUE_WORK;
@@ -156,7 +159,11 @@ public class AdminMenu {
     }
 
     private void removeOrder() {
-        111
+        System.out.println("Input order id");
+        long orderID = ViewUtilities.inputLong();
+        if (orderService.remove(orderID)){
+            System.out.println("Order removed.");
+        }
     }
 
     private void ModifyOrder() {
@@ -164,23 +171,21 @@ public class AdminMenu {
     }
 
     private void showAllClients() {
-        for (Client client : clientService.getAllClients()) {
+        for (Client client : clientService.getAll()) {
             System.out.println(client);
         }
     }
 
-    private void listAllProducts() {
-        productService.listAllProducts();
-        System.out.println("List of products:");
-        System.out.println("...");
-        System.out.println("...");
+    private void showAllProducts() {
+        for (Product product : productService.gatAll()) {
+            System.out.println(product);
+        }
     }
 
     private void listAllOrder() {
-        orderService.listAllOrder();
-        System.out.println("List of orders:");
-        System.out.println("...");
-        System.out.println("...");
+        for (Order order : orderService.getAll()) {
+            System.out.println(order);
+        }
     }
 
     private void createClient() {
@@ -194,7 +199,7 @@ public class AdminMenu {
         String phone = ViewUtilities.inputString();
         System.out.println("Input email:");
         String email = ViewUtilities.inputString();
-        if (clientService.createClient(name, surname, age, phone, email)) {
+        if (clientService.create(name, surname, age, phone, email)) {
             System.out.println("Client saved");
         }
     }
@@ -212,7 +217,7 @@ public class AdminMenu {
         String phone = ViewUtilities.inputString();
         System.out.println("Input email:");
         String email = ViewUtilities.inputString();
-        if (clientService.modifyClient(clientID, name, surname, age, phone, email)) {
+        if (clientService.modify(clientID, name, surname, age, phone, email)) {
             System.out.println("Client modified");
         }
     }
@@ -220,7 +225,7 @@ public class AdminMenu {
     private void removeClient() {
         System.out.println("Input client id");
         long clientID = ViewUtilities.inputLong();
-        if (clientService.removeClient(clientID)) {
+        if (clientService.remove(clientID)) {
             System.out.println("Client removed");
         }
     }
@@ -230,7 +235,7 @@ public class AdminMenu {
         String name = ViewUtilities.inputString();
         System.out.println("Input price:");
         BigDecimal price = BigDecimal.valueOf(ViewUtilities.inputLong());
-        if (productService.createProduct(name, price)) {
+        if (productService.create(name, price)) {
             System.out.println("Product saved");
         }
     }
@@ -242,7 +247,7 @@ public class AdminMenu {
         String newName = ViewUtilities.inputString();
         System.out.println("Input new price:");
         BigDecimal newPrice = BigDecimal.valueOf(ViewUtilities.inputLong());
-        if (productService.modifyProduct(productID, newName, newPrice)) {
+        if (productService.modify(productID, newName, newPrice)) {
             System.out.println("Product modified");
         }
     }
@@ -250,7 +255,7 @@ public class AdminMenu {
     private void removeProduct() {
         System.out.println("Input product id");
         long productID = ViewUtilities.inputLong();
-        if (productService.removeProduct(productID)) {
+        if (productService.remove(productID)) {
             System.out.println("Product removed");
         }
     }

@@ -1,6 +1,9 @@
 package com.shevtsov.services;
 
+import com.shevtsov.domain.Product;
+
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface ProductService {
 
@@ -10,7 +13,7 @@ public interface ProductService {
      * @param price the price of new product.
      * @return true if new product was saved successfully, or false otherwise.
      */
-    boolean createProduct(String name, BigDecimal price);
+    boolean create(String name, BigDecimal price);
 
     /**
      * Gets data about a product, which is modified, from UI and transmits it to DAO for modifying.
@@ -20,7 +23,7 @@ public interface ProductService {
      * @param newPrice new price of product, which is modified.
      * @return true if product was modified successfully, or false otherwise.
      */
-    boolean modifyProduct(long id, String newName, BigDecimal newPrice);
+    boolean modify(long id, String newName, BigDecimal newPrice);
 
     /**
      * Gets data about a product, which is removed, from UI and transmits it to DAO for deleting.
@@ -28,11 +31,11 @@ public interface ProductService {
      * @param id id of product, which is removed.
      * @return true if product was removed successfully, or false otherwise.
      */
-    boolean removeProduct(long id);
+    boolean remove(long id);
 
     /**
      * Receives collection of Product-objects from DAO and transmits it to UI for listing.
      * Business-logic will be added later.
      */
-    void listAllProducts();
+    List<Product> gatAll();
 }

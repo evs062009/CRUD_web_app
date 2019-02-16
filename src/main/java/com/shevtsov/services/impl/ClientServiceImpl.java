@@ -1,6 +1,7 @@
 package com.shevtsov.services.impl;
 
 import com.shevtsov.dao.ClientDao;
+import com.shevtsov.dao.impl.ClientDaoImpl;
 import com.shevtsov.domain.Client;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.validators.ValidationService;
@@ -9,19 +10,15 @@ import javax.xml.bind.ValidationException;
 import java.util.List;
 
 public class ClientServiceImpl implements ClientService {
-
-    //депенденси инжекшин для Инверсия Контроль
-    private ClientDao clientDao;
+    private ClientDao clientDao = ClientDaoImpl.getInstance();
     private ValidationService validationService;
 
-    //конструктор для Инверсия Контроль
-    public ClientServiceImpl(ClientDao clientDao, ValidationService validationService){
+    public ClientServiceImpl(ValidationService validationService){
         this.validationService = validationService;
-        this.clientDao = clientDao;
     }
 
     @Override
-    public boolean createClient(String name, String surname, int age, String phone, String email) {
+    public boolean create(String name, String surname, int age, String phone, String email) {
 
         //вставить валидацию на формат номера телефона
         //на формат мэйл
@@ -39,8 +36,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean modifyClient(long id, String newName, String newSurname, int newAge, String newPhone,
-                                String newEmail) {
+    public boolean modify(long id, String newName, String newSurname, int newAge, String newPhone,
+                          String newEmail) {
         if (clientDao.isContainsKey(id)){
             Client client = new Client(newName, newSurname, newAge, newPhone, newEmail);
             clientDao.modify(id, client);
@@ -51,7 +48,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean removeClient(long id) {
+    public boolean remove(long id) {
         if (clientDao.isContainsKey(id)){
             clientDao.remove(id);
             return true;
@@ -61,7 +58,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<Client> getAllClients() {
+    public List<Client> getAll() {
         return clientDao.gatAll();
     }
 
@@ -69,6 +66,6 @@ public class ClientServiceImpl implements ClientService {
     public boolean modifyUserInformation(String newName, String newSurname, String newPhone) {
         System.out.println("Defined current client id");
         long currentClientID = 0;
-        return modifyClient(currentClientID, newName, age, newSurname, newPhone, email);
+        return modify(currentClientID, newName, age, newSurname, newPhone, email);
     }
 }

@@ -76,7 +76,7 @@ public class ClientMenu {
         //показать все товары
         //показать товары в заказе
         createOrderMenu();
-        if (orderService.createOrder()) {
+        if (orderService.create()) {
             System.out.println("Order created");
         }
     }

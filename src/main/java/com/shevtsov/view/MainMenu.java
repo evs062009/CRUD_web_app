@@ -79,6 +79,6 @@ public class MainMenu {
         String surname = ViewUtilities.inputString();
         System.out.println("Input phone:");
         String phone = ViewUtilities.inputString();
-        return clientService.createClient(name, surname, phone);
+        return clientService.create(name, surname, phone);
     }
 }

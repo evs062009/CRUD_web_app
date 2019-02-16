@@ -2,7 +2,7 @@ package com.shevtsov.dao;
 
 import com.shevtsov.domain.Product;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 public interface ProductDao {
 
@@ -11,26 +11,27 @@ public interface ProductDao {
      * @param product the Product-object, which is saved.
      * @return true if new product was saved successfully, or false otherwise.
      */
-    boolean saveProduct(Product product);
+    void save(Product product);
 
     /**
      * Modifies product data in storage.
      * @param id id of product, which is modified.
-     * @param name new name of product, which is modified.
-     * @param price new price of product, which is modified.
+     * @param product
      * @return true if product was modified successfully, or false otherwise.
      */
-    boolean modifyProduct(long id, String name, BigDecimal price);
+    void modify(long id, Product product);
 
     /**
      * Removes product in storage.
      * @param product the Product-object, which is removed.
      * @return true if product was removed successfully, or false otherwise.
      */
-    boolean removeProduct(long product);
+    void remove(long product);
 
     /**
      * Creates collection of Product-objects from storage and transmits it to Source for processing.
      */
-    void createProductsList();
+    List<Product> getAll();
+
+    boolean isContainsKey(long id);
 }

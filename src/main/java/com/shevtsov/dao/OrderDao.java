@@ -2,12 +2,14 @@ package com.shevtsov.dao;
 
 import com.shevtsov.domain.Order;
 
+import java.util.List;
+
 public interface OrderDao {
 
     /**
      * Creates collection of Order-objects from storage and transmits it to Source for processing.
      */
-    void createOrdersList();
+    List<Order> getAll();
 
     /**
      * Finds order in storage by id.
@@ -15,12 +17,16 @@ public interface OrderDao {
      * @return for now true if order was searched, or false otherwise.
      * Plan to change the return value to Order-object later.
      */
-    boolean findOrderByID(long id);
+    boolean findByID(long id);
 
     /**
      * Saves Order-object in storage.
      * @param order which is saved.
      * @return true if order was saved successfully, or false otherwise.
      */
-    boolean saveOrder(Order order);
+    boolean save(Order order);
+
+    boolean isContainsKey(long id);
+
+    void remove(long id);
 }

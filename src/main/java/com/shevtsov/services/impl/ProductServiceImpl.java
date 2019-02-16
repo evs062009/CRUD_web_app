@@ -6,17 +6,18 @@ import com.shevtsov.domain.Product;
 import com.shevtsov.services.ProductService;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
-    private ProductDao productDao = new ProductDaoImpl();
+    private ProductDao productDao = ProductDaoImpl.getInstance();
 
     @Override
-    public boolean createProduct(String name, BigDecimal price) {
+    public boolean create(String name, BigDecimal price) {
         //add validation in future
         boolean validation = true;
         if (validation) {
             Product product = new Product(name, price);
-            productDao.saveProduct(product);
+            productDao.save(product);
             return true;
         } else {
             return false;
@@ -24,22 +25,28 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean modifyProduct(long id, String newName, BigDecimal newPrice) {
-        System.out.println("Processing...");
-        return productDao.modifyProduct(id, newName, newPrice);
+    public boolean modify(long id, String newName, BigDecimal newPrice) {
+        if (productDao.isContainsKey(id)) {
+            Product product = new Product(newName, newPrice);
+            productDao.modify(id, product);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public boolean removeProduct(long id) {
-        System.out.println("Processing...");
-        return productDao.removeProduct(id);
+    public boolean remove(long id) {
+        if (productDao.isContainsKey(id)) {
+            productDao.remove(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public void listAllProducts() {
-        productDao.createProductsList();
-        System.out.println("Received collection from DAO");
-        System.out.println("Processed");
-        System.out.println("Transmitted to UI");
+    public List<Product> gatAll() {
+        return productDao.getAll();
     }
 }

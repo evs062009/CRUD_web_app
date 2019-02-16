@@ -31,6 +31,11 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
+    public void modify(long id, Client client) {
+        map.put(id, client);
+    }
+
+    @Override
     public void remove(long id) {
         map.remove(id);
     }
@@ -55,10 +60,5 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public boolean isContainsKey(long id) {
         return map.containsKey(id);
-    }
-
-    @Override
-    public void modify(long id, Client client) {
-        map.put(id, client);
     }
 }
