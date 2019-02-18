@@ -27,8 +27,8 @@ public class ClientServiceImpl implements ClientService {
 
 //        try {
 //            validationService.validateAge(age);
-            Client client = new Client(name, surname, age, phone, email);
-            clientDao.save(client);
+        Client client = new Client(name, surname, age, phone, email);
+        authorisation.setCurrentUserID(clientDao.save(client));
             return true;
 //        } catch (ValidationException ve){
 //            ve.getStackTrace();

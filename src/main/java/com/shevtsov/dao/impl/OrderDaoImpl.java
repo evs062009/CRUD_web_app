@@ -26,7 +26,9 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public void save(Order order) {
-        order.setId(generator++);
+        if (order.getId() == -1) {
+            order.setId(generator++);
+        }
         map.put(order.getId(), order);
     }
 
@@ -40,7 +42,7 @@ public class OrderDaoImpl implements OrderDao {
         ArrayList<Order> userOrders = new ArrayList<>();
         for (Map.Entry<Long, Order> entry : map.entrySet()) {
             Order order = entry.getValue();
-            if (order.getClient().getId() == currentUserID){
+            if (order.getClient().getId() == currentUserID) {
                 userOrders.add(order);
             }
         }

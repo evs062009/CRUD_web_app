@@ -45,6 +45,7 @@ public class MainMenu {
                     break;
                 case "3":
                     if (authorizeAdmin()) {
+                        System.out.println("Welcome admin.");
                         menuStatus = adminMenu.show();
                     } else {
                         System.out.println("You are not an admin!!!");

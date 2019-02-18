@@ -33,9 +33,13 @@ public class ViewUtilities {
         }
     }
 
-    public static void showList(@org.jetbrains.annotations.NotNull List list) {
-        for (Object object : list) {
-            System.out.println(object);
+    public static void showList(List list) {
+        if (!list.isEmpty()){
+            for (Object object : list) {
+                System.out.println(object);
+            }
+        } else {
+            System.out.println("List is empty!!!");
         }
     }
 }

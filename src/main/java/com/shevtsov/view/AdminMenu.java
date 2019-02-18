@@ -1,8 +1,5 @@
 package com.shevtsov.view;
 
-import com.shevtsov.domain.Client;
-import com.shevtsov.domain.Order;
-import com.shevtsov.domain.Product;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
@@ -78,7 +75,7 @@ public class AdminMenu {
                     removeClient();
                     break;
                 case "4":
-                    showAllClients();
+                    ViewUtilities.showList(clientService.getAll());
                     break;
                 case "R":
                     return MenuStatus.CONTINUE_WORK;
@@ -114,11 +111,11 @@ public class AdminMenu {
                     removeProduct();
                     break;
                 case "4":
-                    showAllProducts();
+                    ViewUtilities.showList(productService.gatAll());
                     break;
-                case "9":
+                case "R":
                     return MenuStatus.CONTINUE_WORK;
-                case "0":
+                case "E":
                     return MenuStatus.EXIT_PROGRAM;
                 default:
                     System.out.println("Invalid input!!!");
@@ -140,7 +137,7 @@ public class AdminMenu {
 
             switch (ViewUtilities.inputString()) {
                 case "1":
-                    listAllOrder();
+                    ViewUtilities.showList(orderService.getAll());
                     break;
                 case "2":
                     modifyOrder();
@@ -176,61 +173,6 @@ public class AdminMenu {
         long orderID = ViewUtilities.inputLong();
         if (orderService.remove(orderID)) {
             System.out.println("Order removed.");
-        }
-    }
-
-//    private void modifyOrderMenu() {
-//        while (true) {
-//            System.out.println("Goods in stock:");
-//            ViewUtilities.showList(productService.gatAll());
-//            System.out.println("Goods in your order:");
-//            ViewUtilities.showList(orderService.getOrderDraftProducts());
-//
-//            System.out.println("1. Add product to the order");
-//            System.out.println("2. Remove product from the order");
-//            System.out.println("S. Save order and exit");
-//            System.out.println("E. Exit to previous menu without saving");
-//
-//            switch (ViewUtilities.inputString()) {
-//                case "1":
-//                    111
-//                    break;
-//                case "2":
-//                    111
-//                    break;
-//                case "S":
-//                    111
-//                    return;
-//                case "E":
-//                    return;
-//                default:
-//                    System.out.println("Invalid input!!!");
-//                    break;
-//            }
-//            System.out.println();
-//        }
-//    } else
-//
-//        System.out.println("There is no such order!!!");
-//    }
-//
-//}
-
-    private void showAllClients() {
-        for (Client client : clientService.getAll()) {
-            System.out.println(client);
-        }
-    }
-
-    private void showAllProducts() {
-        for (Product product : productService.gatAll()) {
-            System.out.println(product);
-        }
-    }
-
-    private void listAllOrder() {
-        for (Order order : orderService.getAll()) {
-            System.out.println(order);
         }
     }
 

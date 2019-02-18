@@ -1,5 +1,6 @@
 package com.shevtsov.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
@@ -7,15 +8,16 @@ public class Order {
     private Client client;
     private List<Product> products;
 
-    public Order(Client client, List<Product> products) {
+    public Order(Client client) {
         this.client = client;
-        this.products = products;
+        products = new ArrayList<>();
     }
 
     public Order(Order baseOrder){
         this.id = baseOrder.id;
         this.client = baseOrder.client;
-        this.products.addAll(baseOrder.products);
+        products = new ArrayList<>();
+        products.addAll(baseOrder.products);
     }
 
     public long getId() {

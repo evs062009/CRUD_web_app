@@ -11,7 +11,6 @@ import com.shevtsov.domain.Order;
 import com.shevtsov.domain.Product;
 import com.shevtsov.services.OrderService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
@@ -20,7 +19,6 @@ public class OrderServiceImpl implements OrderService {
     private final OrderDao orderDao = OrderDaoImpl.getInstance();
     private final AuthorisationImpl authorisation = AuthorisationImpl.getInstance();
     private Order orderDraft;
-//    private List<Product> basket = new ArrayList<>();
 
     @Override
     public List<Order> getAll() {
@@ -44,12 +42,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean remove(long id) {
-        if (orderDao.isContainsKey(id)) {
-            orderDao.remove(id);
-            return true;
-        } else {
-            return false;
+        Order order = orderDao.findByID(id);
+        if (order != null) {
+            if (authorisation.getCurrentUserID() == -1 ||
+                    authorisation.getCurrentUserID() == order.getClient().getId()){
+                orderDao.remove(id);
+                return true;
+            }
         }
+        return false;
     }
 
     @Override
@@ -102,7 +103,8 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void createOrderDraft() {
         Client currentClient = clientDao.findByID(authorisation.getCurrentUserID());
-        orderDraft = new Order(currentClient, new ArrayList<>());
+        orderDraft = new Order(currentClient);
+        orderDraft.setId(-1);
     }
 
     @Override

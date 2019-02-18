@@ -11,7 +11,7 @@ public interface ClientDao {
      * @param client the Client-object, which is saved.
      * @return true if new client was saved successfully, or false otherwise.
      */
-    void save(Client client);
+    long save(Client client);
 
     Client findByID(long id);
 

@@ -30,9 +30,11 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public void save(Client client) {
+    public long save(Client client) {
         client.setId(generator++);
-        map.put(client.getId(), client);
+        long clientID =client.getId();
+        map.put(clientID, client);
+        return clientID;
     }
 
     @Override
@@ -61,7 +63,7 @@ public class ClientDaoImpl implements ClientDao {
              ) {
             long key = entry.getKey();
             Client client = entry.getValue();
-            if (client.getPhone().equals(phone)){
+            if (client != null && client.getPhone() != null && client.getPhone().equals(phone)){
                 return key;
             }
         }
