@@ -10,8 +10,9 @@ import javax.xml.bind.ValidationException;
 import java.util.List;
 
 public class ClientServiceImpl implements ClientService {
-    private ClientDao clientDao = ClientDaoImpl.getInstance();
-    private ValidationService validationService;
+    private final AuthorisationImpl authorisation = AuthorisationImpl.getInstance();
+    private final ClientDao clientDao = ClientDaoImpl.getInstance();
+    private final ValidationService validationService;
 
     public ClientServiceImpl(ValidationService validationService){
         this.validationService = validationService;
@@ -63,9 +64,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean modifyUserInformation(String newName, String newSurname, String newPhone) {
-        System.out.println("Defined current client id");
-        long currentClientID = 0;
-        return modify(currentClientID, newName, age, newSurname, newPhone, email);
+    public boolean modifyUserInformation(String newName, String newSurname, int newAge, String newPhone,
+                                         String newEmail) {
+        return modify(authorisation.getCurrentUserID(), newName, newSurname, newAge, newPhone, newEmail);
     }
 }

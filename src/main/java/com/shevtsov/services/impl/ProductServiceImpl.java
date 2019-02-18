@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
-    private ProductDao productDao = ProductDaoImpl.getInstance();
+    private final ProductDao productDao = ProductDaoImpl.getInstance();
 
     @Override
     public boolean create(String name, BigDecimal price) {

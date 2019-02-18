@@ -3,7 +3,7 @@ package com.shevtsov.view;
 import com.shevtsov.services.Authorisation;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.view.viewUtilities.ViewUtilities;
-import com.shevtsov.view.viewEnums.MenuStatuses;
+import com.shevtsov.view.viewEnums.MenuStatus;
 
 public class MainMenu {
     private final Authorisation authorisation;
@@ -20,9 +20,9 @@ public class MainMenu {
     }
 
     public void show() {
-        MenuStatuses menuStatuses = MenuStatuses.CONTINUE_WORK;
+        MenuStatus menuStatuses = MenuStatus.CONTINUE_WORK;
 
-        while (!menuStatuses.equals(MenuStatuses.EXIT_PROGRAM)) {
+        while (!menuStatuses.equals(MenuStatus.EXIT_PROGRAM)) {
             System.out.println("1. Client authorisation");
             System.out.println("2. Client registration");
             System.out.println("3. Admin authorisation");
@@ -79,6 +79,6 @@ public class MainMenu {
         String surname = ViewUtilities.inputString();
         System.out.println("Input phone:");
         String phone = ViewUtilities.inputString();
-        return clientService.create(name, surname, phone);
+        return clientService.create(name, surname, 0, phone, null);
     }
 }

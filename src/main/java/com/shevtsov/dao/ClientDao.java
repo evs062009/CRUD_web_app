@@ -13,6 +13,8 @@ public interface ClientDao {
      */
     void save(Client client);
 
+    Client findByID(long id);
+
     /**
      * Removes client in storage.
      * @param id of the client, which is removed.
@@ -30,7 +32,7 @@ public interface ClientDao {
      * @param phone The phone number of client, which is searched.
      * @return Client-object if it`s found or null otherwise.
      */
-    Client findByPhone(String phone);
+    long findByPhone(String phone);
 
     boolean isContainsKey(long id);
 
@@ -41,4 +43,6 @@ public interface ClientDao {
      * @return true if client was modified successfully, or false otherwise.
      */
     void modify(long id, Client client);
+
+    Client findByID();
 }

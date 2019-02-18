@@ -1,10 +1,13 @@
 package com.shevtsov.services;
 
 import com.shevtsov.domain.Order;
+import com.shevtsov.domain.Product;
 
 import java.util.List;
 
 public interface OrderService {
+
+    List<Product> getBasket();
 
     /**
      * Receives collection of Order-objects from DAO and transmits it to UI for listing.
@@ -31,4 +34,10 @@ public interface OrderService {
     boolean create();
 
     boolean remove(long orderID);
+
+    List<Order> getUserOrders();
+
+    void addProductToBasket(long productID);
+
+    void removeProductFromBasket(long productID);
 }

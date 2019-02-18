@@ -2,17 +2,32 @@ package com.shevtsov.services.impl;
 
 import com.shevtsov.dao.ClientDao;
 import com.shevtsov.dao.impl.ClientDaoImpl;
-import com.shevtsov.domain.Client;
 import com.shevtsov.services.Authorisation;
 
 public class AuthorisationImpl implements Authorisation {
     private final ClientDao clientDao = ClientDaoImpl.getInstance();
-    private Client currentClient;
+    private long currentUserID;
+    //object-singleton
+    private static AuthorisationImpl authorisation = new AuthorisationImpl();
+
+    //constructor-singleton
+    private AuthorisationImpl() {
+    }
+
+    //factory method for singleton
+    public static AuthorisationImpl getInstance() {
+        return authorisation;
+    }
+
+
+    public long getCurrentUserID() {
+        return currentUserID;
+    }
 
     @Override
     public boolean authorizeClient(String phone) {
-        currentClient = clientDao.findByPhone(phone);
-        return currentClient != null;
+        currentUserID = clientDao.findByPhone(phone);
+        return currentUserID != -1;
     }
 
     @Override

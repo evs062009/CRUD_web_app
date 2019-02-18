@@ -1,7 +1,5 @@
 package com.shevtsov;
 
-import com.shevtsov.dao.ClientDao;
-import com.shevtsov.dao.impl.ClientDaoImpl;
 import com.shevtsov.services.Authorisation;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
@@ -18,15 +16,14 @@ import com.shevtsov.view.MainMenu;
 
 public class App {
     public static void main(String[] args) {
-        ClientDao clientDao = ClientDaoImpl.getInstance();
         ValidationService validationService = new ValidationServiceImpl();
-        ClientService clientService = new ClientServiceImpl(clientDao, validationService);
+        ClientService clientService = new ClientServiceImpl(validationService);
         ProductService productService = new ProductServiceImpl();
         OrderService orderService = new OrderServiceImpl();
-        Authorisation authorisation = new AuthorisationImpl();
+        Authorisation authorisation = AuthorisationImpl.getInstance();
         AdminMenu adminMenu = new AdminMenu(clientService, productService, orderService);
         ClientMenu clientMenu = new ClientMenu(clientService, productService, orderService);
-        MainMenu mainMenu = new MainMenu(authorisation, adminMenu, clientMenu);
+        MainMenu mainMenu = new MainMenu(authorisation, adminMenu, clientMenu,clientService);
 
         System.out.println("Welcome)");
         mainMenu.show();

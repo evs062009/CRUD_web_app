@@ -35,6 +35,18 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public List<Order> getUserOrders(long currentUserID) {
+        ArrayList<Order> userOrders = new ArrayList<>();
+        for (Map.Entry<Long, Order> entry : map.entrySet()) {
+            Order order = entry.getValue();
+            if (order.getClient().getId() == currentUserID){
+                userOrders.add(order);
+            }
+        }
+        return userOrders;
+    }
+
+    @Override
     public List<Order> getAll() {
         return new ArrayList<>(map.values());
     }

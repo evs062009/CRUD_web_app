@@ -1,10 +1,14 @@
 package com.shevtsov.view;
 
+import com.shevtsov.domain.Product;
+import com.shevtsov.domain.Order;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
 import com.shevtsov.view.viewUtilities.ViewUtilities;
-import com.shevtsov.view.viewEnums.MenuStatuses;
+import com.shevtsov.view.viewEnums.MenuStatus;
+
+import java.util.List;
 
 public class ClientMenu {
     private final ClientService clientService;
@@ -17,9 +21,9 @@ public class ClientMenu {
         this.orderService = orderService;
     }
 
-    MenuStatuses show() {
-        MenuStatuses menuStatuses = MenuStatuses.CONTINUE_WORK;
-        while (!menuStatuses.equals(MenuStatuses.EXIT_PROGRAM)) {
+    MenuStatus show() {
+        MenuStatus menuStatus = MenuStatus.CONTINUE_WORK;
+        while (!menuStatus.equals(MenuStatus.EXIT_PROGRAM)) {
             System.out.println("1. List all products");
             System.out.println("2. Create order");
             System.out.println("3. Show my orders");
@@ -30,13 +34,13 @@ public class ClientMenu {
 
             switch (ViewUtilities.inputString()) {
                 case "1":
-                    listAllProducts();
+                    showProducts(productService.gatAll());
                     break;
                 case "2":
-                    createOrder();
+                    createOrderMenu();
                     break;
                 case "3":
-                    showMyOrders();
+                    showUserOrders();
                     break;
                 case "4":
                     removeOrder();
@@ -45,61 +49,61 @@ public class ClientMenu {
                     modifyUserInformation();
                     break;
                 case "R":
-                    return MenuStatuses.CONTINUE_WORK;
+                    return MenuStatus.CONTINUE_WORK;
                 case "E":
-                    return MenuStatuses.EXIT_PROGRAM;
+                    return MenuStatus.EXIT_PROGRAM;
                 default:
                     System.out.println("Invalid input!!!");
                     break;
             }
             System.out.println();
         }
-        return MenuStatuses.EXIT_PROGRAM;
+        return MenuStatus.EXIT_PROGRAM;
     }
 
     private void removeOrder() {
-        111
+        System.out.println("Input order id");
+        long orderID = ViewUtilities.inputLong();
+        if (orderService.remove(orderID)) {
+            System.out.println("Order removed.");
+        }
     }
 
-    private void showMyOrders() {
-        111
+    private void showUserOrders() {
+        for (Order order : orderService.getUserOrders()) {
+            System.out.println(order);
+        }
     }
 
-    private void listAllProducts() {
-        productService.listAllProducts();
-        System.out.println("List of products:");
-        System.out.println("...");
-        System.out.println("...");
-    }
-
-    private void createOrder() {
-        //показать все товары
-        //показать товары в заказе
-        createOrderMenu();
-        if (orderService.create()) {
-            System.out.println("Order created");
+    private void showProducts(List<Product> products) {
+        for (Product product : products) {
+            System.out.println(product);
         }
     }
 
     private void createOrderMenu() {
         while (true) {
-            System.out.println("1. Add product to the order");
-            System.out.println("2. Remove product from the order");
+            System.out.println("Goods in stock:");
+            showProducts(productService.gatAll());
+            System.out.println("Goods in your basket:");
+            showProducts(orderService.getBasket());
+
+            System.out.println("1. Add product to the basket");
+            System.out.println("2. Remove product from the basket");
             System.out.println("S. Save order and exit");
             System.out.println("E. Exit to previous menu without saving");
 
             switch (ViewUtilities.inputString()) {
                 case "1":
-                    addProductToOrder();
+                    addProductToBasket();
                     break;
                 case "2":
-                    removeProductFromOrder();
+                    removeProductFromBasket();
                     break;
                 case "S":
-                    111
+                    orderService.create();
                     return;
                 case "E":
-                    111
                     return;
                 default:
                     System.out.println("Invalid input!!!");
@@ -108,11 +112,16 @@ public class ClientMenu {
         }
     }
 
-    private void removeProductFromOrder() {
+    private void addProductToBasket() {
+        System.out.println("Input product ID");
+        long productID = ViewUtilities.inputLong();
+        orderService.addProductToBasket(productID);
     }
 
-    private void addProductToOrder() {
-        111
+    private void removeProductFromBasket() {
+        System.out.println("Input product ID");
+        long productID = ViewUtilities.inputLong();
+        orderService.removeProductFromBasket(productID);
     }
 
     private void modifyUserInformation() {
@@ -120,9 +129,13 @@ public class ClientMenu {
         String newName = ViewUtilities.inputString();
         System.out.println("Input new surname");
         String newSurname = ViewUtilities.inputString();
+        System.out.println("Input new age:");
+        int newAge = ViewUtilities.inputInt();
         System.out.println("Input new phone number");
         String newPhone = ViewUtilities.inputString();
-        if (clientService.modifyUserInformation(newName, newSurname, newPhone)) {
+        System.out.println("Input email:");
+        String newEmail = ViewUtilities.inputString();
+        if (clientService.modifyUserInformation(newName, newSurname, newAge, newPhone, newEmail)) {
             System.out.println("Information modified");
         }
     }

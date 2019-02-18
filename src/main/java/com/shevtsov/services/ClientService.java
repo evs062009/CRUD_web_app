@@ -52,5 +52,6 @@ public interface ClientService {
      * @param newPhone new phone number of current client.
      * @return true if client was modified successfully, or false otherwise.
      */
-    boolean modifyUserInformation(String newName, String newSurname, String newPhone);
+    boolean modifyUserInformation(String newName, String newSurname, int newAge, String newPhone,
+                                  String newEmail);
 }

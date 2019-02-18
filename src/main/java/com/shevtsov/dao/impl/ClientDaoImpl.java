@@ -36,6 +36,11 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
+    public Client findByID(long id) {
+        return map.get(id);
+    }
+
+    @Override
     public void remove(long id) {
         map.remove(id);
     }
@@ -46,15 +51,16 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public Client findByPhone(String phone) {
+    public long findByPhone(String phone) {
         for (Map.Entry<Long, Client> entry: map.entrySet()
              ) {
+            long key = entry.getKey();
             Client client = entry.getValue();
             if (client.getPhone().equals(phone)){
-                return client;
+                return key;
             }
         }
-        return null;
+        return -1;
     }
 
     @Override
