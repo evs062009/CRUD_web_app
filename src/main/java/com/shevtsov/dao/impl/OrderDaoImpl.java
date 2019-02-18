@@ -25,8 +25,9 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public boolean save(Order order) {
-        return false;
+    public void save(Order order) {
+        order.setId(generator++);
+        map.put(order.getId(), order);
     }
 
     @Override

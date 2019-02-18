@@ -34,4 +34,6 @@ public interface ProductDao {
     List<Product> getAll();
 
     boolean isContainsKey(long id);
+
+    Product findByID(long id);
 }

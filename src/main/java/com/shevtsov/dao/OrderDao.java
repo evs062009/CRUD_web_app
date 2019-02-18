@@ -24,7 +24,7 @@ public interface OrderDao {
      * @param order which is saved.
      * @return true if order was saved successfully, or false otherwise.
      */
-    boolean save(Order order);
+    void save(Order order);
 
     boolean isContainsKey(long id);
 

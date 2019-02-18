@@ -49,4 +49,9 @@ public class ProductDaoImpl implements ProductDao {
     public boolean isContainsKey(long id) {
         return map.containsKey(id);
     }
+
+    @Override
+    public Product findByID(long id) {
+        return map.get(id);
+    }
 }

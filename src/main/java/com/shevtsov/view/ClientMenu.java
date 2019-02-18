@@ -101,7 +101,9 @@ public class ClientMenu {
                     removeProductFromBasket();
                     break;
                 case "S":
-                    orderService.create();
+                    if (orderService.create()) {
+                        System.out.println("Order created successfully.");
+                    }
                     return;
                 case "E":
                     return;
@@ -115,13 +117,17 @@ public class ClientMenu {
     private void addProductToBasket() {
         System.out.println("Input product ID");
         long productID = ViewUtilities.inputLong();
-        orderService.addProductToBasket(productID);
+        if (!orderService.addProductToBasket(productID)) {
+            System.out.println("There is no such product!!!");
+        }
     }
 
     private void removeProductFromBasket() {
         System.out.println("Input product ID");
         long productID = ViewUtilities.inputLong();
-        orderService.removeProductFromBasket(productID);
+        if (orderService.removeProductFromBasket(productID)) {
+            System.out.println("There is no such product!!!");
+        }
     }
 
     private void modifyUserInformation() {

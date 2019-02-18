@@ -37,7 +37,7 @@ public interface OrderService {
 
     List<Order> getUserOrders();
 
-    void addProductToBasket(long productID);
+    boolean addProductToBasket(long productID);
 
-    void removeProductFromBasket(long productID);
+    boolean removeProductFromBasket(long productID);
 }
