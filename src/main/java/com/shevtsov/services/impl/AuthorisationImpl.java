@@ -20,7 +20,7 @@ public class AuthorisationImpl implements Authorisation {
     }
 
 
-    public long getCurrentUserID() {
+    long getCurrentUserID() {
         return currentUserID;
     }
 

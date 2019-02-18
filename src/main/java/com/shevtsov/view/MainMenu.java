@@ -20,9 +20,9 @@ public class MainMenu {
     }
 
     public void show() {
-        MenuStatus menuStatuses = MenuStatus.CONTINUE_WORK;
+        MenuStatus menuStatus = MenuStatus.CONTINUE_WORK;
 
-        while (!menuStatuses.equals(MenuStatus.EXIT_PROGRAM)) {
+        while (!menuStatus.equals(MenuStatus.EXIT_PROGRAM)) {
             System.out.println("1. Client authorisation");
             System.out.println("2. Client registration");
             System.out.println("3. Admin authorisation");
@@ -31,21 +31,21 @@ public class MainMenu {
             switch (ViewUtilities.inputString()) {
                 case "1":
                     if (authorizeClient()) {
-                        menuStatuses = clientMenu.show();
+                        menuStatus = clientMenu.show();
                     } else {
                         System.out.println("There is no such client!!!");
                     }
                     break;
                 case "2":
                     if (registration()){
-                        menuStatuses = clientMenu.show();
+                        menuStatus = clientMenu.show();
                     } else {
                         System.out.println("Registration unsuccessful!!!");
                     }
                     break;
                 case "3":
                     if (authorizeAdmin()) {
-                        menuStatuses = adminMenu.show();
+                        menuStatus = adminMenu.show();
                     } else {
                         System.out.println("You are not an admin!!!");
                     }

@@ -25,15 +25,15 @@ public class ClientServiceImpl implements ClientService {
         //на формат мэйл
         //на уникальность номера телефона
 
-        try {
-            validationService.validateAge(age);
+//        try {
+//            validationService.validateAge(age);
             Client client = new Client(name, surname, age, phone, email);
             clientDao.save(client);
             return true;
-        } catch (ValidationException ve){
-            ve.getStackTrace();
-        }
-        return false;
+//        } catch (ValidationException ve){
+//            ve.getStackTrace();
+//        }
+//        return false;
     }
 
     @Override

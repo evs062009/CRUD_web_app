@@ -17,6 +17,11 @@ public class ClientDaoImpl implements ClientDao {
 
     //constructor-singleton
     private ClientDaoImpl(){
+
+        //for test example
+        Client client = new Client("Ivan", "Ivanchenko", "111");
+        client.setId(generator++);
+        map.put(client.getId(), client);
     }
 
     //factory method for singleton

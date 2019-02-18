@@ -13,6 +13,7 @@ import com.shevtsov.validators.impl.ValidationServiceImpl;
 import com.shevtsov.view.AdminMenu;
 import com.shevtsov.view.ClientMenu;
 import com.shevtsov.view.MainMenu;
+import com.shevtsov.view.OrderMenu;
 
 public class App {
     public static void main(String[] args) {
@@ -21,9 +22,10 @@ public class App {
         ProductService productService = new ProductServiceImpl();
         OrderService orderService = new OrderServiceImpl();
         Authorisation authorisation = AuthorisationImpl.getInstance();
-        AdminMenu adminMenu = new AdminMenu(clientService, productService, orderService);
-        ClientMenu clientMenu = new ClientMenu(clientService, productService, orderService);
-        MainMenu mainMenu = new MainMenu(authorisation, adminMenu, clientMenu,clientService);
+        OrderMenu orderMenu = new OrderMenu(orderService, productService);
+        AdminMenu adminMenu = new AdminMenu(clientService, productService, orderService, orderMenu);
+        ClientMenu clientMenu = new ClientMenu(clientService, productService, orderService, orderMenu);
+        MainMenu mainMenu = new MainMenu(authorisation, adminMenu, clientMenu, clientService);
 
         System.out.println("Welcome)");
         mainMenu.show();

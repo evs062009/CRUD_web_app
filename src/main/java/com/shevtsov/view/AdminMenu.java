@@ -15,16 +15,19 @@ public class AdminMenu {
     private final ClientService clientService;
     private final ProductService productService;
     private final OrderService orderService;
+    private final OrderMenu orderMenu;
 
-    public AdminMenu(ClientService clientService, ProductService productService, OrderService orderService) {
+    public AdminMenu(ClientService clientService, ProductService productService, OrderService orderService,
+                     OrderMenu orderMenu) {
         this.clientService = clientService;
         this.productService = productService;
         this.orderService = orderService;
+        this.orderMenu = orderMenu;
     }
 
     MenuStatus show() {
-        MenuStatus menuStatuses = MenuStatus.CONTINUE_WORK;
-        while (!menuStatuses.equals(MenuStatus.EXIT_PROGRAM)) {
+        MenuStatus menuStatus = MenuStatus.CONTINUE_WORK;
+        while (!menuStatus.equals(MenuStatus.EXIT_PROGRAM)) {
             System.out.println("1. Clients");
             System.out.println("2. Products");
             System.out.println("3. Orders");
@@ -33,13 +36,13 @@ public class AdminMenu {
 
             switch (ViewUtilities.inputString()) {
                 case "1":
-                    menuStatuses = showMenuWorkWithClients();
+                    menuStatus = showMenuWorkWithClients();
                     break;
                 case "2":
-                    menuStatuses = showMenuWorkWithProducts();
+                    menuStatus = showMenuWorkWithProducts();
                     break;
                 case "3":
-                    menuStatuses = showMenuWorkWithOrders();
+                    menuStatus = showMenuWorkWithOrders();
                     break;
                 case "R":
                     return MenuStatus.CONTINUE_WORK;
@@ -91,8 +94,8 @@ public class AdminMenu {
     }
 
     private MenuStatus showMenuWorkWithProducts() {
-        MenuStatus menuStatuses = MenuStatus.CONTINUE_WORK;
-        while (!menuStatuses.equals(MenuStatus.EXIT_PROGRAM)) {
+        MenuStatus menuStatus = MenuStatus.CONTINUE_WORK;
+        while (!menuStatus.equals(MenuStatus.EXIT_PROGRAM)) {
             System.out.println("1. Add product");
             System.out.println("2. Modify product");
             System.out.println("3. Remove product");
@@ -127,8 +130,8 @@ public class AdminMenu {
     }
 
     private MenuStatus showMenuWorkWithOrders() {
-        MenuStatus menuStatuses = MenuStatus.CONTINUE_WORK;
-        while (!menuStatuses.equals(MenuStatus.EXIT_PROGRAM)) {
+        MenuStatus menuStatus = MenuStatus.CONTINUE_WORK;
+        while (!menuStatus.equals(MenuStatus.EXIT_PROGRAM)) {
             System.out.println("1. List all orders");
             System.out.println("2. Modify order");
             System.out.println("3. Remove order");
@@ -158,17 +161,60 @@ public class AdminMenu {
         return MenuStatus.EXIT_PROGRAM;
     }
 
+    private void modifyOrder() {
+        System.out.println("Input order ID");
+        long orderID = ViewUtilities.inputLong();
+        if (orderService.copyOrderToDraft(orderID)) {
+            orderMenu.show();
+        } else {
+            System.out.println("There is no such order!!!");
+        }
+    }
+
     private void removeOrder() {
         System.out.println("Input order id");
         long orderID = ViewUtilities.inputLong();
-        if (orderService.remove(orderID)){
+        if (orderService.remove(orderID)) {
             System.out.println("Order removed.");
         }
     }
 
-    private void modifyOrder() {
-        111
-    }
+//    private void modifyOrderMenu() {
+//        while (true) {
+//            System.out.println("Goods in stock:");
+//            ViewUtilities.showList(productService.gatAll());
+//            System.out.println("Goods in your order:");
+//            ViewUtilities.showList(orderService.getOrderDraftProducts());
+//
+//            System.out.println("1. Add product to the order");
+//            System.out.println("2. Remove product from the order");
+//            System.out.println("S. Save order and exit");
+//            System.out.println("E. Exit to previous menu without saving");
+//
+//            switch (ViewUtilities.inputString()) {
+//                case "1":
+//                    111
+//                    break;
+//                case "2":
+//                    111
+//                    break;
+//                case "S":
+//                    111
+//                    return;
+//                case "E":
+//                    return;
+//                default:
+//                    System.out.println("Invalid input!!!");
+//                    break;
+//            }
+//            System.out.println();
+//        }
+//    } else
+//
+//        System.out.println("There is no such order!!!");
+//    }
+//
+//}
 
     private void showAllClients() {
         for (Client client : clientService.getAll()) {

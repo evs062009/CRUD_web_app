@@ -53,10 +53,8 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public boolean findByID(long id) {
-        System.out.println("Searching...  Please wait");
-        System.out.println("Creating object from storage data...");
-        return true;
+    public Order findByID(long id) {
+        return map.get(id);
     }
 
     @Override

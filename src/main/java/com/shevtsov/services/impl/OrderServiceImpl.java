@@ -19,11 +19,8 @@ public class OrderServiceImpl implements OrderService {
     private final ProductDao productDao = ProductDaoImpl.getInstance();
     private final OrderDao orderDao = OrderDaoImpl.getInstance();
     private final AuthorisationImpl authorisation = AuthorisationImpl.getInstance();
-    private List<Product> basket = new ArrayList<>();
-
-    public List<Product> getBasket() {
-        return basket;
-    }
+    private Order orderDraft;
+//    private List<Product> basket = new ArrayList<>();
 
     @Override
     public List<Order> getAll() {
@@ -31,19 +28,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean findByID(long id) {
+    public Order findByID(long id) {
         return orderDao.findByID(id);
     }
 
     @Override
-    public boolean create() {
-        if (!basket.isEmpty()){
-            Client currentClient = clientDao.findByID(authorisation.getCurrentUserID());
-            if (currentClient != null){
-                Order order = new Order(currentClient, basket);
-                orderDao.save(order);
-                return true;
-            }
+    public boolean save() {
+        List<Product> products = orderDraft.getProducts();
+        if (!products.isEmpty()) {
+            orderDao.save(orderDraft);
+            return true;
         }
         return false;
     }
@@ -64,13 +58,55 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean addProductToBasket(long productID) {
+    public boolean addProductToOrderDraft(long productID) {
         Product product = productDao.findByID(productID);
-        return (product != null);
+        if (product != null) {
+            orderDraft.getProducts().add(product);
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public boolean removeProductFromBasket(long productID) {
-        return basket.remove(productID);
+    public boolean removeProductFromOrderDraft(long productID) {
+        List<Product> products = orderDraft.getProducts();
+        for (int i = 0; i < products.size(); i++) {
+            if (products.get(i).getId() == productID) {
+                products.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean copyOrderToDraft(long id) {
+        Order order = orderDao.findByID(id);
+        if (order != null){
+            orderDraft = new Order(order);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void modifyOrderProducts(List<Product> orderProducts) {
+
+    }
+
+    @Override
+    public void modifyOrderProducts(long id, List<Product> orderProducts) {
+
+    }
+
+    @Override
+    public void createOrderDraft() {
+        Client currentClient = clientDao.findByID(authorisation.getCurrentUserID());
+        orderDraft = new Order(currentClient, new ArrayList<>());
+    }
+
+    @Override
+    public List getOrderDraftProducts() {
+        return orderDraft.getProducts();
     }
 }

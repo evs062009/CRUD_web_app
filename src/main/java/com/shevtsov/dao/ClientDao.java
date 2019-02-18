@@ -43,6 +43,4 @@ public interface ClientDao {
      * @return true if client was modified successfully, or false otherwise.
      */
     void modify(long id, Client client);
-
-    Client findByID();
 }

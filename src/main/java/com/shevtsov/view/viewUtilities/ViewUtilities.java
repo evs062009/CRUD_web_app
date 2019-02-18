@@ -1,5 +1,6 @@
 package com.shevtsov.view.viewUtilities;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class ViewUtilities {
@@ -29,6 +30,12 @@ public class ViewUtilities {
             } else {
                 System.out.println("Invalid input!!! Try again.");
             }
+        }
+    }
+
+    public static void showList(@org.jetbrains.annotations.NotNull List list) {
+        for (Object object : list) {
+            System.out.println(object);
         }
     }
 }

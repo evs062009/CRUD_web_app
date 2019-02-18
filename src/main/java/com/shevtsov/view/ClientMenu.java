@@ -1,24 +1,23 @@
 package com.shevtsov.view;
 
-import com.shevtsov.domain.Product;
-import com.shevtsov.domain.Order;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
 import com.shevtsov.view.viewUtilities.ViewUtilities;
 import com.shevtsov.view.viewEnums.MenuStatus;
 
-import java.util.List;
-
 public class ClientMenu {
     private final ClientService clientService;
     private final ProductService productService;
     private final OrderService orderService;
+    private final OrderMenu orderMenu;
 
-    public ClientMenu(ClientService clientService, ProductService productService, OrderService orderService) {
+    public ClientMenu(ClientService clientService, ProductService productService, OrderService orderService,
+                      OrderMenu orderMenu) {
         this.clientService = clientService;
         this.productService = productService;
         this.orderService = orderService;
+        this.orderMenu = orderMenu;
     }
 
     MenuStatus show() {
@@ -34,13 +33,15 @@ public class ClientMenu {
 
             switch (ViewUtilities.inputString()) {
                 case "1":
-                    showProducts(productService.gatAll());
+                    ViewUtilities.showList(productService.gatAll());
+//                    showProducts(productService.gatAll());
                     break;
                 case "2":
-                    createOrderMenu();
+                    createOrder();
                     break;
                 case "3":
-                    showUserOrders();
+                    ViewUtilities.showList(orderService.getUserOrders());
+//                    showUserOrders();
                     break;
                 case "4":
                     removeOrder();
@@ -61,6 +62,11 @@ public class ClientMenu {
         return MenuStatus.EXIT_PROGRAM;
     }
 
+    private void createOrder() {
+        orderService.createOrderDraft();
+        orderMenu.show();
+    }
+
     private void removeOrder() {
         System.out.println("Input order id");
         long orderID = ViewUtilities.inputLong();
@@ -69,66 +75,69 @@ public class ClientMenu {
         }
     }
 
-    private void showUserOrders() {
-        for (Order order : orderService.getUserOrders()) {
-            System.out.println(order);
-        }
-    }
+//    private void showUserOrders() {
+//        for (Order order : orderService.getUserOrders()) {
+//            System.out.println(order);
+//        }
+//    }
 
-    private void showProducts(List<Product> products) {
-        for (Product product : products) {
-            System.out.println(product);
-        }
-    }
+//    private void showProducts(List<Product> products) {
+//        for (Product product : products) {
+//            System.out.println(product);
+//        }
+//    }
 
-    private void createOrderMenu() {
-        while (true) {
-            System.out.println("Goods in stock:");
-            showProducts(productService.gatAll());
-            System.out.println("Goods in your basket:");
-            showProducts(orderService.getBasket());
+//    private void createOrderMenu() {
+//        orderService.createOrderDraft();
+//        while (true) {
+//            System.out.println("Goods in stock:");
+//            ViewUtilities.showList(productService.gatAll());
+////            showProducts(productService.gatAll());
+//            System.out.println("Goods in your order:");
+//            ViewUtilities.showList(orderService.getOrderDraftProducts());
+////            showProducts(orderService.getBasket());
+//
+//            System.out.println("1. Add product to the order");
+//            System.out.println("2. Remove product from the order");
+//            System.out.println("S. Save order and exit");
+//            System.out.println("E. Exit to previous menu without saving");
+//
+//            switch (ViewUtilities.inputString()) {
+//                case "1":
+//                    addProductToOrder();
+//                    break;
+//                case "2":
+//                    removeProductFromOrder();
+//                    break;
+//                case "S":
+//                    if (orderService.save()) {
+//                        System.out.println("Order created successfully.");
+//                    }
+//                    return;
+//                case "E":
+//                    return;
+//                default:
+//                    System.out.println("Invalid input!!!");
+//                    break;
+//            }
+//        }
+//    }
 
-            System.out.println("1. Add product to the basket");
-            System.out.println("2. Remove product from the basket");
-            System.out.println("S. Save order and exit");
-            System.out.println("E. Exit to previous menu without saving");
-
-            switch (ViewUtilities.inputString()) {
-                case "1":
-                    addProductToBasket();
-                    break;
-                case "2":
-                    removeProductFromBasket();
-                    break;
-                case "S":
-                    if (orderService.create()) {
-                        System.out.println("Order created successfully.");
-                    }
-                    return;
-                case "E":
-                    return;
-                default:
-                    System.out.println("Invalid input!!!");
-                    break;
-            }
-        }
-    }
-
-    private void addProductToBasket() {
-        System.out.println("Input product ID");
-        long productID = ViewUtilities.inputLong();
-        if (!orderService.addProductToBasket(productID)) {
-            System.out.println("There is no such product!!!");
-        }
-    }
-
-    private void removeProductFromBasket() {
-        System.out.println("Input product ID");
-        long productID = ViewUtilities.inputLong();
-        if (orderService.removeProductFromBasket(productID)) {
-            System.out.println("There is no such product!!!");
-        }
-    }
+//    private void addProductToOrder() {
+//        System.out.println("Input product ID");
+//        long productID = ViewUtilities.inputLong();
+//        if (!orderService.addProductToOrderDraft(productID)) {
+//            System.out.println("There is no such product!!!");
+//        }
+//    }
+//
+//    private void removeProductFromOrder() {
+//        System.out.println("Input product ID");
+//        long productID = ViewUtilities.inputLong();
+//        if (orderService.removeProductFromOrderDraft(productID)) {
+//            System.out.println("There is no such product!!!");
+//        }
+//    }
 
     private void modifyUserInformation() {
         System.out.println("Input new name");

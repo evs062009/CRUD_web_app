@@ -3,6 +3,7 @@ package com.shevtsov.dao.impl;
 import com.shevtsov.dao.ProductDao;
 import com.shevtsov.domain.Product;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,14 @@ public class ProductDaoImpl implements ProductDao {
 
     //constructor-singleton
     private ProductDaoImpl() {
+
+        //for test example
+        Product product = new Product("bread", BigDecimal.valueOf(10));
+        product.setId(generator++);
+        map.put(product.getId(), product);
+        product = new Product("butter", BigDecimal.valueOf(20));
+        product.setId(generator++);
+        map.put(product.getId(), product);
     }
 
     //factory method for singleton

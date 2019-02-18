@@ -12,6 +12,12 @@ public class Order {
         this.products = products;
     }
 
+    public Order(Order baseOrder){
+        this.id = baseOrder.id;
+        this.client = baseOrder.client;
+        this.products.addAll(baseOrder.products);
+    }
+
     public long getId() {
         return id;
     }

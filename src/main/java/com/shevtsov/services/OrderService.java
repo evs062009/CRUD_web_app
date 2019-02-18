@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface OrderService {
 
-    List<Product> getBasket();
-
     /**
      * Receives collection of Order-objects from DAO and transmits it to UI for listing.
      * Business-logic will be added later.
@@ -23,7 +21,7 @@ public interface OrderService {
      * @return for now true if order was searched, or false otherwise.
      * Plan to change the return value to Order-object later.
      */
-    boolean findByID(long id);
+    Order findByID(long id);
 
     /**
      * Plan to create Order-object and transmit it to DAO for saving later.
@@ -31,13 +29,23 @@ public interface OrderService {
      *
      * @return true if order was saved successfully, or false otherwise.
      */
-    boolean create();
-
     boolean remove(long orderID);
 
     List<Order> getUserOrders();
 
-    boolean addProductToBasket(long productID);
+    boolean addProductToOrderDraft(long productID);
 
-    boolean removeProductFromBasket(long productID);
+    boolean removeProductFromOrderDraft(long productID);
+
+    boolean copyOrderToDraft(long orderID);
+
+    void modifyOrderProducts(List<Product> orderProducts);
+
+    void modifyOrderProducts(long id, List<Product> orderProducts);
+
+    void createOrderDraft();
+
+    List getOrderDraftProducts();
+
+    boolean save();
 }

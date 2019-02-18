@@ -17,7 +17,7 @@ public interface OrderDao {
      * @return for now true if order was searched, or false otherwise.
      * Plan to change the return value to Order-object later.
      */
-    boolean findByID(long id);
+    Order findByID(long id);
 
     /**
      * Saves Order-object in storage.
