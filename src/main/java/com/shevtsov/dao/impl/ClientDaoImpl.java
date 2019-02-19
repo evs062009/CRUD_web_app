@@ -19,7 +19,7 @@ public class ClientDaoImpl implements ClientDao {
     private ClientDaoImpl(){
 
         //for test example
-        Client client = new Client("Ivan", "Ivanchenko", "111");
+        Client client = new Client("Ivan", "Ivanchenko", "0505555555");
         client.setId(generator++);
         map.put(client.getId(), client);
     }

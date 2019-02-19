@@ -24,7 +24,7 @@ public class AuthorisationImpl implements Authorisation {
         return currentUserID;
     }
 
-    public void setCurrentUserID(long currentUserID) {
+    void setCurrentUserID(long currentUserID) {
         this.currentUserID = currentUserID;
     }
 

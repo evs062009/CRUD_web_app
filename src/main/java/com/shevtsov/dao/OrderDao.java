@@ -26,8 +26,6 @@ public interface OrderDao {
      */
     void save(Order order);
 
-    boolean isContainsKey(long id);
-
     void remove(long id);
 
     List<Order> getUserOrders(long currentUserID);

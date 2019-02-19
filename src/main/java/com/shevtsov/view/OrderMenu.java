@@ -17,10 +17,8 @@ public class OrderMenu {
         while (true) {
             System.out.println("Goods in stock:");
             ViewUtilities.showList(productService.gatAll());
-//            showProducts(productService.gatAll());
             System.out.println("Goods in order:");
             ViewUtilities.showList(orderService.getOrderDraftProducts());
-//            showProducts(orderService.getBasket());
 
             System.out.println("1. Add product to the order");
             System.out.println("2. Remove product from the order");

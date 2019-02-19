@@ -26,14 +26,14 @@ public class MainMenu {
             System.out.println("1. Client authorisation");
             System.out.println("2. Client registration");
             System.out.println("3. Admin authorisation");
-            System.out.println("0. Exit");
+            System.out.println("E. Exit");
 
             switch (ViewUtilities.inputString()) {
                 case "1":
                     if (authorizeClient()) {
                         menuStatus = clientMenu.show();
                     } else {
-                        System.out.println("There is no such client!!!");
+                        System.out.println("Invalid phone number!!!");
                     }
                     break;
                 case "2":
@@ -48,7 +48,7 @@ public class MainMenu {
                         System.out.println("Welcome admin.");
                         menuStatus = adminMenu.show();
                     } else {
-                        System.out.println("You are not an admin!!!");
+                        System.out.println("Invalid password!!!");
                     }
                     break;
                 case "E":

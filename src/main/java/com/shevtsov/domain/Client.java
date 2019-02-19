@@ -14,12 +14,10 @@ public class Client {
         this.phone = phone;
     }
 
-    public Client(String name, String surname, int age, String email, String phone) {
-        this.name = name;
-        this.surname = surname;
+    public Client(String name, String surname, int age, String phone, String email) {
+        this(name, surname, phone);
         this.age = age;
         this.email = email;
-        this.phone = phone;
     }
 
     public long getId() {
@@ -77,8 +75,8 @@ public class Client {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", age=" + age +
-                ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

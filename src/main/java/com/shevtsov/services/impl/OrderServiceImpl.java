@@ -26,11 +26,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findByID(long id) {
-        return orderDao.findByID(id);
-    }
-
-    @Override
     public boolean save() {
         List<Product> products = orderDraft.getProducts();
         if (!products.isEmpty()) {
@@ -88,16 +83,6 @@ public class OrderServiceImpl implements OrderService {
             return true;
         }
         return false;
-    }
-
-    @Override
-    public void modifyOrderProducts(List<Product> orderProducts) {
-
-    }
-
-    @Override
-    public void modifyOrderProducts(long id, List<Product> orderProducts) {
-
     }
 
     @Override

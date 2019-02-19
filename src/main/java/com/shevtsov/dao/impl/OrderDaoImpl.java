@@ -58,9 +58,4 @@ public class OrderDaoImpl implements OrderDao {
     public Order findByID(long id) {
         return map.get(id);
     }
-
-    @Override
-    public boolean isContainsKey(long id) {
-        return map.containsKey(id);
-    }
 }
