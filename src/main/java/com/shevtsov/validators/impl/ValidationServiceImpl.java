@@ -18,12 +18,15 @@ public class ValidationServiceImpl implements ValidationService {
     }
 
     @Override
-    public void validatePhoneFormate(String phone) throws BusinessException {
+    public void validatePhoneFormat(String phone) throws BusinessException {
         String[] operatorCodes = {"067", "097", "050"};
-        String code = phone.substring(0, 3);
-        if (phone.length() != 10 || !Arrays.asList(operatorCodes).contains(code)) {
-            throw new BusinessException("Invalid phone format!!!");
+        if (phone != null && phone.length() == 10){
+            String code = phone.substring(0, 3);
+            if (Arrays.asList(operatorCodes).contains(code)) {
+                return;
+            }
         }
+        throw new BusinessException("Invalid phone format!!!");
     }
 
     @Override
@@ -35,8 +38,10 @@ public class ValidationServiceImpl implements ValidationService {
 
     @Override
     public void validateEmail(String email) throws BusinessException {
-        if (!email.matches(".+@.+\\.com")) {
-            throw new BusinessException("Invalid email format!!!");
+        if (email != null) {
+            if (!(email.equals("") || email.matches(".+@.+\\.com"))){
+                throw new BusinessException("Invalid email format!!!");
+            }
         }
     }
 }

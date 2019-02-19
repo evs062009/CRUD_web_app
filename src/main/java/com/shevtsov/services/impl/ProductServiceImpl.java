@@ -28,6 +28,7 @@ public class ProductServiceImpl implements ProductService {
     public boolean modify(long id, String newName, BigDecimal newPrice) {
         if (productDao.isContainsKey(id)) {
             Product product = new Product(newName, newPrice);
+            product.setId(id);
             productDao.modify(id, product);
             return true;
         } else {

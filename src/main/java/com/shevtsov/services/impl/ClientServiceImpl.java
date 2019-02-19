@@ -51,7 +51,7 @@ public class ClientServiceImpl implements ClientService {
     private Client getClientForModifying(String name, String surname, int age, String phone, String email) {
         try {
             validationService.validateAge(age);
-            validationService.validatePhoneFormate(phone);
+            validationService.validatePhoneFormat(phone);
             validationService.validateEmail(email);
             return new Client(name, surname, age, phone, email);
         } catch (BusinessException e) {

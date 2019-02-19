@@ -7,18 +7,17 @@ import com.shevtsov.services.Authorisation;
 public class AuthorisationImpl implements Authorisation {
     private final ClientDao clientDao = ClientDaoImpl.getInstance();
     private long currentUserID = -1;
-    //object-singleton
-    private static AuthorisationImpl authorisation = new AuthorisationImpl();
+    private static AuthorisationImpl instance;
 
-    //constructor-singleton
     private AuthorisationImpl() {
     }
 
-    //factory method for singleton
     public static AuthorisationImpl getInstance() {
-        return authorisation;
+        if (instance == null) {
+            instance = new AuthorisationImpl();
+        }
+        return instance;
     }
-
 
     long getCurrentUserID() {
         return currentUserID;

@@ -6,7 +6,7 @@ public interface ValidationService {
 
     void validateAge(int age) throws BusinessException;
 
-    void validatePhoneFormate(String phone) throws BusinessException;
+    void validatePhoneFormat(String phone) throws BusinessException;
 
     void validateEmail(String email) throws BusinessException;
 

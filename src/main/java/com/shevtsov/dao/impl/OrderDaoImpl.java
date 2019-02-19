@@ -9,19 +9,18 @@ import java.util.List;
 import java.util.Map;
 
 public class OrderDaoImpl implements OrderDao {
-    //storage emulation
-    private Map<Long, Order> map = new HashMap<>();
+    private Map<Long, Order> map = new HashMap<>();     //storage emulation
     private static long generator = 0;
-    //object-singleton
-    private static OrderDao orderDao = new OrderDaoImpl();
+    private static OrderDao instance;
 
-    //constructor-singleton
     private OrderDaoImpl() {
     }
 
-    //factory method for singleton
     public static OrderDao getInstance() {
-        return orderDao;
+        if (instance == null){
+            instance = new OrderDaoImpl();
+        }
+        return instance;
     }
 
     @Override

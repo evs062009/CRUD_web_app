@@ -10,27 +10,18 @@ import java.util.List;
 import java.util.Map;
 
 public class ProductDaoImpl implements ProductDao {
-    //storage emulation
-    private Map<Long, Product> map = new HashMap<>();
+    private Map<Long, Product> map = new HashMap<>();       //storage emulation
     private static long generator = 0;
-    //object-singleton
-    private static ProductDao productDao = new ProductDaoImpl();
+    private static ProductDao instance;
 
-    //constructor-singleton
     private ProductDaoImpl() {
-
-        //for test example
-        Product product = new Product("bread", BigDecimal.valueOf(10));
-        product.setId(generator++);
-        map.put(product.getId(), product);
-        product = new Product("butter", BigDecimal.valueOf(20));
-        product.setId(generator++);
-        map.put(product.getId(), product);
     }
 
-    //factory method for singleton
     public static ProductDao getInstance() {
-        return productDao;
+        if (instance == null){
+            instance = new ProductDaoImpl();
+        }
+        return instance;
     }
 
     @Override

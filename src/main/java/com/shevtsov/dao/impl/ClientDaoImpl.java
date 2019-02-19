@@ -9,24 +9,18 @@ import java.util.List;
 import java.util.Map;
 
 public class ClientDaoImpl implements ClientDao {
-    //storage emulation
-    private Map<Long, Client> map = new HashMap<>();
+    private Map<Long, Client> map = new HashMap<>();        //storage emulation
     private static long generator = 0;
-    //object-singleton
-    private static ClientDao clientDao = new ClientDaoImpl();
+    private static ClientDao instance;
 
-    //constructor-singleton
     private ClientDaoImpl(){
-
-        //for test example
-        Client client = new Client("Ivan", "Ivanchenko", "0505555555");
-        client.setId(generator++);
-        map.put(client.getId(), client);
     }
 
-    //factory method for singleton
     public static ClientDao getInstance(){
-        return clientDao;
+        if (instance == null){
+            instance = new ClientDaoImpl();
+        }
+        return instance;
     }
 
     @Override
