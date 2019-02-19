@@ -13,7 +13,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean create(String name, BigDecimal price) {
-        //add validation in future
         boolean validation = true;
         if (validation) {
             Product product = new Product(name, price);

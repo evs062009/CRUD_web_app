@@ -18,7 +18,7 @@ public class OrderServiceImpl implements OrderService {
     private final ProductDao productDao = ProductDaoImpl.getInstance();
     private final OrderDao orderDao = OrderDaoImpl.getInstance();
     private final AuthorisationImpl authorisation = AuthorisationImpl.getInstance();
-    private Order orderDraft;
+    private Order draft;
 
     @Override
     public List<Order> getAll() {
@@ -27,9 +27,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean save() {
-        List<Product> products = orderDraft.getProducts();
+        List<Product> products = draft.getProducts();
         if (!products.isEmpty()) {
-            orderDao.save(orderDraft);
+            orderDao.save(draft);
             return true;
         }
         return false;
@@ -54,18 +54,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean addProductToOrderDraft(long productID) {
+    public boolean addProductToDraft(long productID) {
         Product product = productDao.findByID(productID);
         if (product != null) {
-            orderDraft.getProducts().add(product);
+            draft.getProducts().add(product);
             return true;
         }
         return false;
     }
 
     @Override
-    public boolean removeProductFromOrderDraft(long productID) {
-        List<Product> products = orderDraft.getProducts();
+    public boolean removeProductFromDraft(long productID) {
+        List<Product> products = draft.getProducts();
         for (int i = 0; i < products.size(); i++) {
             if (products.get(i).getId() == productID) {
                 products.remove(i);
@@ -79,21 +79,21 @@ public class OrderServiceImpl implements OrderService {
     public boolean copyOrderToDraft(long id) {
         Order order = orderDao.findByID(id);
         if (order != null){
-            orderDraft = new Order(order);
+            draft = new Order(order);
             return true;
         }
         return false;
     }
 
     @Override
-    public void createOrderDraft() {
+    public void createDraft() {
         Client currentClient = clientDao.findByID(authorisation.getCurrentUserID());
-        orderDraft = new Order(currentClient);
-        orderDraft.setId(-1);
+        draft = new Order(currentClient);
+        draft.setId(-1);
     }
 
     @Override
-    public List getOrderDraftProducts() {
-        return orderDraft.getProducts();
+    public List getDraftProducts() {
+        return draft.getProducts();
     }
 }

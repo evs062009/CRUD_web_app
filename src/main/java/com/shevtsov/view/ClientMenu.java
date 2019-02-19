@@ -61,7 +61,7 @@ public class ClientMenu {
     }
 
     private void createOrder() {
-        orderService.createOrderDraft();
+        orderService.createDraft();
         orderMenu.show();
     }
 

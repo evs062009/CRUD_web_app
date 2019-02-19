@@ -18,7 +18,7 @@ public class OrderMenu {
             System.out.println("Goods in stock:");
             ViewUtilities.showList(productService.gatAll());
             System.out.println("Goods in order:");
-            ViewUtilities.showList(orderService.getOrderDraftProducts());
+            ViewUtilities.showList(orderService.getDraftProducts());
 
             System.out.println("1. Add product to the order");
             System.out.println("2. Remove product from the order");
@@ -50,7 +50,7 @@ public class OrderMenu {
     private void addProductToOrder() {
         System.out.println("Input product ID");
         long productID = ViewUtilities.inputLong();
-        if (!orderService.addProductToOrderDraft(productID)) {
+        if (!orderService.addProductToDraft(productID)) {
             System.out.println("There is no such product!!!");
         }
     }
@@ -58,7 +58,7 @@ public class OrderMenu {
     private void removeProductFromOrder() {
         System.out.println("Input product ID");
         long productID = ViewUtilities.inputLong();
-        if (orderService.removeProductFromOrderDraft(productID)) {
+        if (orderService.removeProductFromDraft(productID)) {
             System.out.println("There is no such product!!!");
         }
     }

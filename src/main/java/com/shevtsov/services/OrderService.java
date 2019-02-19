@@ -22,15 +22,15 @@ public interface OrderService {
 
     List<Order> getUserOrders();
 
-    boolean addProductToOrderDraft(long productID);
+    boolean addProductToDraft(long productID);
 
-    boolean removeProductFromOrderDraft(long productID);
+    boolean removeProductFromDraft(long productID);
 
     boolean copyOrderToDraft(long orderID);
 
-    void createOrderDraft();
+    void createDraft();
 
-    List getOrderDraftProducts();
+    List getDraftProducts();
 
     boolean save();
 }

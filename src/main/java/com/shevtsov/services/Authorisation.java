@@ -11,8 +11,8 @@ public interface Authorisation {
 
     /**
      * Checks the input for matching with admin password.
-     * @param input users input, which is checked
+     * @param password users input, which is checked
      * @return true if the input matches, or false otherwise.
      */
-    boolean authorizeAdmin(String input);
+    boolean authorizeAdmin(String password);
 }
