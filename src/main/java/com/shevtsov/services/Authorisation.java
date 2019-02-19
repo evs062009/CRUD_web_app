@@ -3,18 +3,18 @@ package com.shevtsov.services;
 public interface Authorisation {
 
     /**
-     * Authorizes the client by entered phone number.
+     * Authorizes a client by entered phone number. If the client is found, saves his id.
      *
      * @param phone The phone number of client, which is searched.
-     * @return true if client was searched in storage, or false otherwise.
+     * @return true if client was found in storage, or false otherwise.
      */
     boolean authorizeClient(String phone);
 
     /**
-     * Checks the input for matching with admin password.
+     * Checks entered password for matching with admin password.
      *
-     * @param password users input, which is checked
-     * @return true if the input matches, or false otherwise.
+     * @param password the password, which is checked
+     * @return true if the password matches, or false otherwise.
      */
     boolean authorizeAdmin(String password);
 }
