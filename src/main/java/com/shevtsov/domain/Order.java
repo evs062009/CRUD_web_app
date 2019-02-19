@@ -13,7 +13,7 @@ public class Order {
         products = new ArrayList<>();
     }
 
-    public Order(Order baseOrder){
+    public Order(Order baseOrder) {
         this.id = baseOrder.id;
         this.client = baseOrder.client;
         products = new ArrayList<>();

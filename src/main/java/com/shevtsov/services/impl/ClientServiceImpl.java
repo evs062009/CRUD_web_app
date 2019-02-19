@@ -60,13 +60,13 @@ public class ClientServiceImpl implements ClientService {
         }
     }
 
-    private Client getClientForCreating(String name, String surname, int age, String phone, String email){
+    private Client getClientForCreating(String name, String surname, int age, String phone, String email) {
         Client client = getClientForModifying(name, surname, age, phone, email);
-        if (client != null){
-            try{
+        if (client != null) {
+            try {
                 validationService.validatePhoneUniq(phone);
                 return client;
-            } catch (BusinessException e){
+            } catch (BusinessException e) {
                 e.printStackTrace();
             }
         }

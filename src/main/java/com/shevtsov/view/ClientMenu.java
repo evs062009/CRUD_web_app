@@ -10,14 +10,14 @@ public class ClientMenu {
     private final ClientService clientService;
     private final ProductService productService;
     private final OrderService orderService;
-    private final OrderMenu orderMenu;
+    private final EditOrderMenu editOrderMenu;
 
     public ClientMenu(ClientService clientService, ProductService productService, OrderService orderService,
-                      OrderMenu orderMenu) {
+                      EditOrderMenu editOrderMenu) {
         this.clientService = clientService;
         this.productService = productService;
         this.orderService = orderService;
-        this.orderMenu = orderMenu;
+        this.editOrderMenu = editOrderMenu;
     }
 
     MenuStatus show() {
@@ -62,7 +62,7 @@ public class ClientMenu {
 
     private void createOrder() {
         orderService.createDraft();
-        orderMenu.show();
+        editOrderMenu.show();
     }
 
     private void removeOrder() {

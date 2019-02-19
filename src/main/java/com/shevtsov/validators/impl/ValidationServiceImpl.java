@@ -20,7 +20,7 @@ public class ValidationServiceImpl implements ValidationService {
     @Override
     public void validatePhoneFormat(String phone) throws BusinessException {
         String[] operatorCodes = {"067", "097", "050"};
-        if (phone != null && phone.length() == 10){
+        if (phone != null && phone.length() == 10) {
             String code = phone.substring(0, 3);
             if (Arrays.asList(operatorCodes).contains(code)) {
                 return;
@@ -39,7 +39,7 @@ public class ValidationServiceImpl implements ValidationService {
     @Override
     public void validateEmail(String email) throws BusinessException {
         if (email != null) {
-            if (!(email.equals("") || email.matches(".+@.+\\.com"))){
+            if (!(email.equals("") || email.matches(".+@.+\\.com"))) {
                 throw new BusinessException("Invalid email format!!!");
             }
         }

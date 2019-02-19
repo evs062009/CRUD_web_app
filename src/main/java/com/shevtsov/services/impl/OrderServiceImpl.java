@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderDao.findByID(id);
         if (order != null) {
             if (authorisation.getCurrentUserID() == -1 ||
-                    authorisation.getCurrentUserID() == order.getClient().getId()){
+                    authorisation.getCurrentUserID() == order.getClient().getId()) {
                 orderDao.remove(id);
                 return true;
             }
@@ -78,7 +78,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public boolean copyOrderToDraft(long id) {
         Order order = orderDao.findByID(id);
-        if (order != null){
+        if (order != null) {
             draft = new Order(order);
             return true;
         }

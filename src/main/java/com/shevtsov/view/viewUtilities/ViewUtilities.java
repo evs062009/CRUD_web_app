@@ -34,7 +34,7 @@ public class ViewUtilities {
     }
 
     public static void showList(List list) {
-        if (!list.isEmpty()){
+        if (!list.isEmpty()) {
             for (Object object : list) {
                 System.out.println(object);
             }

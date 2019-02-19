@@ -17,7 +17,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     public static OrderDao getInstance() {
-        if (instance == null){
+        if (instance == null) {
             instance = new OrderDaoImpl();
         }
         return instance;

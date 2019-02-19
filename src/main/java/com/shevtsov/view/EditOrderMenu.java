@@ -4,11 +4,11 @@ import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
 import com.shevtsov.view.viewUtilities.ViewUtilities;
 
-public class OrderMenu {
+public class EditOrderMenu {
     private final OrderService orderService;
     private final ProductService productService;
 
-    public OrderMenu(OrderService orderService, ProductService productService) {
+    public EditOrderMenu(OrderService orderService, ProductService productService) {
         this.orderService = orderService;
         this.productService = productService;
     }
@@ -46,7 +46,6 @@ public class OrderMenu {
         }
     }
 
-
     private void addProductToOrder() {
         System.out.println("Input product ID");
         long productID = ViewUtilities.inputLong();
@@ -62,5 +61,4 @@ public class OrderMenu {
             System.out.println("There is no such product!!!");
         }
     }
-
 }

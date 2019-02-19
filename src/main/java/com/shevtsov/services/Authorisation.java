@@ -4,6 +4,7 @@ public interface Authorisation {
 
     /**
      * Authorizes the client by entered phone number.
+     *
      * @param phone The phone number of client, which is searched.
      * @return true if client was searched in storage, or false otherwise.
      */
@@ -11,6 +12,7 @@ public interface Authorisation {
 
     /**
      * Checks the input for matching with admin password.
+     *
      * @param password users input, which is checked
      * @return true if the input matches, or false otherwise.
      */

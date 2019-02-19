@@ -13,11 +13,11 @@ public class ClientDaoImpl implements ClientDao {
     private static long generator = 0;
     private static ClientDao instance;
 
-    private ClientDaoImpl(){
+    private ClientDaoImpl() {
     }
 
-    public static ClientDao getInstance(){
-        if (instance == null){
+    public static ClientDao getInstance() {
+        if (instance == null) {
             instance = new ClientDaoImpl();
         }
         return instance;
@@ -26,7 +26,7 @@ public class ClientDaoImpl implements ClientDao {
     @Override
     public long save(Client client) {
         client.setId(generator++);
-        long clientID =client.getId();
+        long clientID = client.getId();
         map.put(clientID, client);
         return clientID;
     }
@@ -53,11 +53,11 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public long findByPhone(String phone) {
-        for (Map.Entry<Long, Client> entry: map.entrySet()
-             ) {
+        for (Map.Entry<Long, Client> entry : map.entrySet()
+        ) {
             long key = entry.getKey();
             Client client = entry.getValue();
-            if (client != null && client.getPhone() != null && client.getPhone().equals(phone)){
+            if (client != null && client.getPhone() != null && client.getPhone().equals(phone)) {
                 return key;
             }
         }

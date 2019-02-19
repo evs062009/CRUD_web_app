@@ -3,7 +3,6 @@ package com.shevtsov.dao.impl;
 import com.shevtsov.dao.ProductDao;
 import com.shevtsov.domain.Product;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +17,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     public static ProductDao getInstance() {
-        if (instance == null){
+        if (instance == null) {
             instance = new ProductDaoImpl();
         }
         return instance;

@@ -8,6 +8,7 @@ public interface ProductDao {
 
     /**
      * Saves Product-object to storage.
+     *
      * @param product the Product-object, which is saved.
      * @return true if new product was saved successfully, or false otherwise.
      */
@@ -15,7 +16,8 @@ public interface ProductDao {
 
     /**
      * Modifies product data in storage.
-     * @param id id of product, which is modified.
+     *
+     * @param id      id of product, which is modified.
      * @param product
      * @return true if product was modified successfully, or false otherwise.
      */
@@ -23,6 +25,7 @@ public interface ProductDao {
 
     /**
      * Removes product in storage.
+     *
      * @param product the Product-object, which is removed.
      * @return true if product was removed successfully, or false otherwise.
      */
