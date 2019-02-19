@@ -26,11 +26,11 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public void save(Product product) {
         product.setId(generator++);
-        map.put(product.getId(), product);
+        save(product.getId(), product);
     }
 
     @Override
-    public void modify(long id, Product product) {
+    public void save(long id, Product product) {
         map.put(id, product);
     }
 

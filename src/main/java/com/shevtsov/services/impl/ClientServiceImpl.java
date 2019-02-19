@@ -35,7 +35,7 @@ public class ClientServiceImpl implements ClientService {
             Client client = getClientForModifying(newName, newSurname, newAge, newPhone, newEmail);
             if (client != null) {
                 client.setId(id);
-                clientDao.modify(id, client);
+                clientDao.save(id, client);
                 return true;
             }
         }

@@ -27,12 +27,12 @@ public class ClientDaoImpl implements ClientDao {
     public long save(Client client) {
         client.setId(generator++);
         long clientID = client.getId();
-        map.put(clientID, client);
+        save(clientID, client);
         return clientID;
     }
 
     @Override
-    public void modify(long id, Client client) {
+    public void save(long id, Client client) {
         map.put(id, client);
     }
 

@@ -7,28 +7,39 @@ import java.util.List;
 public interface OrderDao {
 
     /**
-     * Creates collection of Order-objects from storage and transmits it to Source for processing.
+     * Creates and returns collection of Order-objects from storage.
+     *
+     * @return collection of Order-objects from storage.
      */
     List<Order> getAll();
 
     /**
-     * Finds order in storage by id.
+     * Searches for order by id in the storage.
      *
-     * @param id id of order, which is searched.
-     * @return for now true if order was searched, or false otherwise.
-     * Plan to change the return value to Order-object later.
+     * @param id the id of the order, which is searched.
+     * @return Order-object, if such was found, or null otherwise.
      */
     Order findByID(long id);
 
     /**
-     * Saves Order-object in storage.
+     * Calculates id if needed (if current id = -1), assigns it to Order-object and saves the object to storage.
      *
-     * @param order which is saved.
-     * @return true if order was saved successfully, or false otherwise.
+     * @param order the Order-object, which is saved.
      */
     void save(Order order);
 
+    /**
+     * Removes Order-object in storage.
+     *
+     * @param id the id of Order-object, which is removed.
+     */
     void remove(long id);
 
+    /**
+     * Creates and returns collection of orders, which owner id matches to currentUserID.
+     *
+     * @param currentUserID the id of current (authorised) user
+     * @return collection of current (authorised) user`s orders
+     */
     List<Order> getUserOrders(long currentUserID);
 }

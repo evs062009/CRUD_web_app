@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
         if (productDao.isContainsKey(id)) {
             Product product = new Product(newName, newPrice);
             product.setId(id);
-            productDao.modify(id, product);
+            productDao.save(id, product);
             return true;
         } else {
             return false;

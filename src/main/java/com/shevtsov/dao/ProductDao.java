@@ -7,36 +7,47 @@ import java.util.List;
 public interface ProductDao {
 
     /**
-     * Saves Product-object to storage.
+     * Calculates id, assigns it to Product-object and calls save-method for saving the object to storage.
      *
      * @param product the Product-object, which is saved.
-     * @return true if new product was saved successfully, or false otherwise.
      */
     void save(Product product);
 
     /**
-     * Modifies product data in storage.
+     * Saves the Product-object to storage.
      *
-     * @param id      id of product, which is modified.
-     * @param product
-     * @return true if product was modified successfully, or false otherwise.
+     * @param id      the id of the Product-object, which is saved.
+     * @param product the Product-object, which is saved.
      */
-    void modify(long id, Product product);
+    void save(long id, Product product);
 
     /**
-     * Removes product in storage.
+     * Removes Product-object in storage.
      *
-     * @param product the Product-object, which is removed.
-     * @return true if product was removed successfully, or false otherwise.
+     * @param id the id of Product-object, which is removed.
      */
-    void remove(long product);
+    void remove(long id);
 
     /**
-     * Creates collection of Product-objects from storage and transmits it to Source for processing.
+     * Creates and returns collection of Product-objects from storage.
+     *
+     * @return collection of Product-objects.
      */
     List<Product> getAll();
 
+    /**
+     * Checks if there is a product with such id in the storage.
+     *
+     * @param id the id of the product, which is searched.
+     * @return true if there is a product with such id in the storage or false otherwise.
+     */
     boolean isContainsKey(long id);
 
+    /**
+     * Searches for product by id in the storage.
+     *
+     * @param id the id of the product, which is searched.
+     * @return Product-object, if such was found, or null otherwise.
+     */
     Product findByID(long id);
 }

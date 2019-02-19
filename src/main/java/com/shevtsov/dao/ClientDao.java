@@ -7,44 +7,56 @@ import java.util.List;
 public interface ClientDao {
 
     /**
-     * Saves Client-object to storage.
+     * Calculates id, assigns it to Client-object and calls save-method for saving the object to storage.
      *
      * @param client the Client-object, which is saved.
-     * @return true if new client was saved successfully, or false otherwise.
+     * @return the id of client, which was saved.
      */
     long save(Client client);
 
+    /**
+     * Saves the Client-object to storage.
+     *
+     * @param id     the id of client, which is saved.
+     * @param client the Client-object, which is saved
+     */
+    void save(long id, Client client);
+
+    /**
+     * Searches for client by id in the storage.
+     *
+     * @param id the id of the client, which is searched.
+     * @return Client-object, if such was found, or null otherwise.
+     */
     Client findByID(long id);
 
     /**
      * Removes client in storage.
      *
-     * @param id of the client, which is removed.
-     * @return true if client was removed successfully, or false otherwise.
+     * @param id the id of the client, which is removed.
      */
     void remove(long id);
 
     /**
-     * Creates collection of Client-objects from storage and transmits it to Source for processing.
+     * Creates and returns collection of Client-objects from storage.
+     *
+     * @return collection of Client-objects from storage.
      */
     List<Client> gatAll();
 
     /**
-     * Finds client in storage by phone number.
+     * Searches client in storage by phone number.
      *
      * @param phone The phone number of client, which is searched.
-     * @return Client-object if it`s found or null otherwise.
+     * @return client`s id if such client was found or -1 otherwise.
      */
     long findByPhone(String phone);
 
-    boolean isContainsKey(long id);
-
     /**
-     * Modifies client data in storage.
+     * Checks if there is a client with such id in the storage.
      *
-     * @param id     of client, which is modified.
-     * @param client new data of, which will be assigned to the client.
-     * @return true if client was modified successfully, or false otherwise.
+     * @param id the id of the client, which is searched.
+     * @return true if there is a client with such id in the storage or false otherwise.
      */
-    void modify(long id, Client client);
+    boolean isContainsKey(long id);
 }
