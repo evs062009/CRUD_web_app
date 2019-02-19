@@ -7,12 +7,6 @@ import java.util.List;
 public interface OrderService {
 
     /**
-     * Receives collection of Order-objects from DAO and transmits it to UI for listing.
-     * Business-logic will be added later.
-     */
-    List<Order> getAll();
-
-    /**
      * Plan to create Order-object and transmit it to DAO for saving later.
      * Plan to change params to Client current client and collection of Product-objects (basket).
      *
@@ -33,4 +27,9 @@ public interface OrderService {
     List getDraftProducts();
 
     boolean save();
+
+    /**
+     * Receives collection of all Order-objects from DAO and transmits it to UI for listing.
+     */
+    List<Order> getAll();
 }

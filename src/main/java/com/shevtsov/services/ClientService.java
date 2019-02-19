@@ -9,52 +9,53 @@ public interface ClientService {
     /**
      * Creates and transmits a Client-object to DAO for saving.
      *
-     * @param name    of new client.
-     * @param surname of new client.
-     * @param age     of new client.
+     * @param name    the name of new client.
+     * @param surname the surname of new client.
+     * @param age     age of new client.
      * @param phone   the phone number of new client.
-     * @param email   of new client.
-     * @return true if new client was saved successfully, or false otherwise.
+     * @param email   the email of new client.
+     * @return true if client was create successfully, or false otherwise.
      */
     boolean create(String name, String surname, int age, String phone, String email);
 
     /**
-     * Gets data about a client, which is modified, from UI and transmits it to DAO for modifying.
-     * Confirmation request and other logic will be added later.
+     * Creates modifying copy of exist Client-object and transmits to DAO for replace in storage.
+     * The presence of the object is checked.
+     * Name, surname, age, phone and email can be changed, id remains the same.
      *
      * @param id         id of client, which is modified.
      * @param newName    new name of client, which is modified.
-     * @param age
      * @param newSurname new surname of client, which is modified.
+     * @param newAge     new age of client, which is modified.
      * @param newPhone   new phone number of client, which is modified.
-     * @param email
-     * @return true if client was modified successfully, or false otherwise.
+     * @param newEmail   new email of client, which is modified.
+     * @return false if there is no such client in the storage, or true otherwise.
      */
-    boolean modify(long id, String newName, String age, int newSurname, String newPhone, String email);
+    boolean modify(long id, String newName, String newSurname, int newAge, String newPhone, String newEmail);
 
     /**
-     * Gets data about a client, which is removed, from UI and transmits it to DAO for deleting.
-     * Confirmation request and other logic will be added later.
+     * Transmits to DAO the command to remove exist Client-object from storage.
+     * The presence of the object is checked.
      *
      * @param id id of client, which is removed.
-     * @return true if client was removed successfully, or false otherwise.
+     * @return false if there is no such client in the storage, or true otherwise.
      */
     boolean remove(long id);
 
     /**
      * Receives collection of Client-objects from DAO and transmits it to UI for listing.
-     * Business-logic will be added later.
      */
     List<Client> getAll();
 
     /**
-     * Gets data about a current (sign in) client, from UI and transmits it to DAO for modifying.
-     * Confirmation request and other logic will be added later.
+     * Defines current user id and transmit the data of current user for modification.
      *
-     * @param newName    new name of current client.
-     * @param newSurname new surname of current client.
-     * @param newPhone   new phone number of current client.
-     * @return true if client was modified successfully, or false otherwise.
+     * @param newName    new name current user.
+     * @param newSurname new surname current user.
+     * @param newAge     new age of current user.
+     * @param newPhone   new phone number of current user.
+     * @param newEmail   new email of current user.
+     * @return false if there is no such user (client) in the storage, or true otherwise.
      */
     boolean modifyUserInformation(String newName, String newSurname, int newAge, String newPhone,
                                   String newEmail);
