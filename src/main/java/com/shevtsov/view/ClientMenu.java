@@ -3,6 +3,7 @@ package com.shevtsov.view;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
+import com.shevtsov.services.impl.AuthorisationImpl;
 import com.shevtsov.view.viewUtilities.ViewUtilities;
 import com.shevtsov.view.viewEnums.MenuStatus;
 
@@ -11,6 +12,7 @@ public class ClientMenu {
     private final ProductService productService;
     private final OrderService orderService;
     private final EditOrderMenu editOrderMenu;
+    private final AuthorisationImpl authorisation = AuthorisationImpl.getInstance();
 
     public ClientMenu(ClientService clientService, ProductService productService, OrderService orderService,
                       EditOrderMenu editOrderMenu) {
@@ -27,7 +29,7 @@ public class ClientMenu {
             System.out.println("2. Create order");
             System.out.println("3. Show my orders");
             System.out.println("4. Remove order");
-            System.out.println("5. Modify user information");
+            System.out.println("5. Modify account");
             System.out.println("R. Return to previous menu");
             System.out.println("E. Exit program");
 
@@ -45,7 +47,7 @@ public class ClientMenu {
                     removeOrder();
                     break;
                 case "5":
-                    modifyUserInformation();
+                    modifyAccount();
                     break;
                 case "R":
                     return MenuStatus.CONTINUE_WORK;
@@ -73,7 +75,8 @@ public class ClientMenu {
         }
     }
 
-    private void modifyUserInformation() {
+    private void modifyAccount() {
+        System.out.println(clientService.getClient(authorisation.getCurrentUserID()));
         System.out.println("Input new name");
         String newName = ViewUtilities.inputString();
         System.out.println("Input new surname");
@@ -84,7 +87,7 @@ public class ClientMenu {
         String newPhone = ViewUtilities.inputString();
         System.out.println("Input email:");
         String newEmail = ViewUtilities.inputString();
-        if (clientService.modifyUserInformation(newName, newSurname, newAge, newPhone, newEmail)) {
+        if (clientService.modifyAccount(newName, newSurname, newAge, newPhone, newEmail)) {
             System.out.println("Information modified");
         }
     }

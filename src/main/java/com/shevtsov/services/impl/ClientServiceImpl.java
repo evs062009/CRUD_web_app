@@ -43,9 +43,14 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public boolean modifyUserInformation(String newName, String newSurname, int newAge, String newPhone,
-                                         String newEmail) {
+    public boolean modifyAccount(String newName, String newSurname, int newAge, String newPhone,
+                                 String newEmail) {
         return modify(authorisation.getCurrentUserID(), newName, newSurname, newAge, newPhone, newEmail);
+    }
+
+    @Override
+    public Client getClient(long id) {
+        return clientDao.findByID(id);
     }
 
     private Client getClientForModifying(String name, String surname, int age, String phone, String email) {
