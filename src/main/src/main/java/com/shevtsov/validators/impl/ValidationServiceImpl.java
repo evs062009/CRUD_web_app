@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 public class ValidationServiceImpl implements ValidationService {
     private final ClientDao clientDao = ClientDaoImpl.getInstance();
+    private static final String[] OPERATOR_CODES = {"067", "097", "050"};
 
     @Override
     public void validateAge(int age) throws BusinessException {
@@ -19,10 +20,9 @@ public class ValidationServiceImpl implements ValidationService {
 
     @Override
     public void validatePhoneFormat(String phone) throws BusinessException {
-        String[] operatorCodes = {"067", "097", "050"};
         if (phone != null && phone.length() == 10) {
             String code = phone.substring(0, 3);
-            if (Arrays.asList(operatorCodes).contains(code)) {
+            if (Arrays.asList(OPERATOR_CODES).contains(code)) {
                 return;
             }
         }
