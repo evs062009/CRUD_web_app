@@ -42,4 +42,11 @@ public interface ProductService {
      * Receives collection of all Product-objects from DAO and transmits it to UI for listing.
      */
     List<Product> gatAll();
+
+    /**
+     * Gets from dao and returns the Product-object, what has specified id.
+     * @param id the id of the product, which is searched.
+     * @return Product-object, if such was found, or null otherwise.
+     */
+    Product getProduct(long id);
 }

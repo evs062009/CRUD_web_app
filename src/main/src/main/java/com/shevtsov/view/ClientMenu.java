@@ -1,5 +1,6 @@
 package com.shevtsov.view;
 
+import com.shevtsov.domain.Client;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
@@ -76,19 +77,24 @@ public class ClientMenu {
     }
 
     private void modifyAccount() {
-        System.out.println(clientService.getClient(authorisation.getCurrentUserID()));
-        System.out.println("Input new name");
-        String newName = ViewUtilities.inputString();
-        System.out.println("Input new surname");
-        String newSurname = ViewUtilities.inputString();
-        System.out.println("Input new age:");
-        int newAge = ViewUtilities.inputInt();
-        System.out.println("Input new phone number");
-        String newPhone = ViewUtilities.inputString();
-        System.out.println("Input email:");
-        String newEmail = ViewUtilities.inputString();
-        if (clientService.modifyAccount(newName, newSurname, newAge, newPhone, newEmail)) {
-            System.out.println("Information modified");
+        Client client = clientService.getClient(authorisation.getCurrentUserID());
+        if (client == null){
+            System.out.println("There is no such client!!!");
+        } else {
+            System.out.println(client);
+            System.out.println("Input new name");
+            String newName = ViewUtilities.inputString();
+            System.out.println("Input new surname");
+            String newSurname = ViewUtilities.inputString();
+            System.out.println("Input new age:");
+            int newAge = ViewUtilities.inputInt();
+            System.out.println("Input new phone number");
+            String newPhone = ViewUtilities.inputString();
+            System.out.println("Input email:");
+            String newEmail = ViewUtilities.inputString();
+            if (clientService.modifyAccount(newName, newSurname, newAge, newPhone, newEmail)) {
+                System.out.println("Information modified");
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.shevtsov.view;
 
+import com.shevtsov.domain.Client;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.view.viewEnums.MenuStatus;
 import com.shevtsov.view.viewUtilities.ViewUtilities;
@@ -23,13 +24,13 @@ public class MenuWorkWithClients {
 
             switch (ViewUtilities.inputString()) {
                 case "1":
-                    createClient();
+                    create();
                     break;
                 case "2":
-                    modifyClient();
+                    modify();
                     break;
                 case "3":
-                    removeClient();
+                    remove();
                     break;
                 case "4":
                     ViewUtilities.showList(clientService.getAll());
@@ -47,7 +48,7 @@ public class MenuWorkWithClients {
         return MenuStatus.EXIT_PROGRAM;
     }
 
-    private void createClient() {
+    private void create() {
         System.out.println("Input name:");
         String name = ViewUtilities.inputString();
         System.out.println("Input surname:");
@@ -63,25 +64,31 @@ public class MenuWorkWithClients {
         }
     }
 
-    private void modifyClient() {
+    private void modify() {
         System.out.println("Input client id");
         long clientID = ViewUtilities.inputLong();
-        System.out.println("Input new name:");
-        String newName = ViewUtilities.inputString();
-        System.out.println("Input new surname:");
-        String newSurname = ViewUtilities.inputString();
-        System.out.println("Input new age:");
-        int newAge = ViewUtilities.inputInt();
-        System.out.println("Input new phone number:");
-        String newPhone = ViewUtilities.inputString();
-        System.out.println("Input email:");
-        String newEmail = ViewUtilities.inputString();
-        if (clientService.modify(clientID, newName, newSurname, newAge, newPhone, newEmail)) {
-            System.out.println("Client modified");
+        Client client = clientService.getClient(clientID);
+        if (client == null){
+            System.out.println("There is no such client!!!");
+        } else {
+            System.out.println(client);
+            System.out.println("Input new name:");
+            String newName = ViewUtilities.inputString();
+            System.out.println("Input new surname:");
+            String newSurname = ViewUtilities.inputString();
+            System.out.println("Input new age:");
+            int newAge = ViewUtilities.inputInt();
+            System.out.println("Input new phone number:");
+            String newPhone = ViewUtilities.inputString();
+            System.out.println("Input email:");
+            String newEmail = ViewUtilities.inputString();
+            if (clientService.modify(clientID, newName, newSurname, newAge, newPhone, newEmail)) {
+                System.out.println("Client modified");
+            }
         }
     }
 
-    private void removeClient() {
+    private void remove() {
         System.out.println("Input client id");
         long clientID = ViewUtilities.inputLong();
         if (clientService.remove(clientID)) {

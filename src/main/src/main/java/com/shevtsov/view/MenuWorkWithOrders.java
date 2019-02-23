@@ -27,10 +27,10 @@ public class MenuWorkWithOrders {
                     ViewUtilities.showList(orderService.getAll());
                     break;
                 case "2":
-                    modifyOrder();
+                    modify();
                     break;
                 case "3":
-                    removeOrder();
+                    remove();
                     break;
                 case "R":
                     return MenuStatus.CONTINUE_WORK;
@@ -45,7 +45,7 @@ public class MenuWorkWithOrders {
         return MenuStatus.EXIT_PROGRAM;
     }
 
-    private void modifyOrder() {
+    private void modify() {
         System.out.println("Input order ID");
         long orderID = ViewUtilities.inputLong();
         if (orderService.copyOrderToDraft(orderID)) {
@@ -55,7 +55,7 @@ public class MenuWorkWithOrders {
         }
     }
 
-    private void removeOrder() {
+    private void remove() {
         System.out.println("Input order id");
         long orderID = ViewUtilities.inputLong();
         if (orderService.remove(orderID)) {

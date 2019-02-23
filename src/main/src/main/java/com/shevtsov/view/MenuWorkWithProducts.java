@@ -1,5 +1,6 @@
 package com.shevtsov.view;
 
+import com.shevtsov.domain.Product;
 import com.shevtsov.services.ProductService;
 import com.shevtsov.view.viewEnums.MenuStatus;
 import com.shevtsov.view.viewUtilities.ViewUtilities;
@@ -25,13 +26,13 @@ public class MenuWorkWithProducts {
 
             switch (ViewUtilities.inputString()) {
                 case "1":
-                    addProduct();
+                    create();
                     break;
                 case "2":
-                    modifyProduct();
+                    modify();
                     break;
                 case "3":
-                    removeProduct();
+                    remove();
                     break;
                 case "4":
                     ViewUtilities.showList(productService.gatAll());
@@ -49,7 +50,7 @@ public class MenuWorkWithProducts {
         return MenuStatus.EXIT_PROGRAM;
     }
 
-    private void addProduct() {
+    private void create() {
         System.out.println("Input name:");
         String name = ViewUtilities.inputString();
         System.out.println("Input price:");
@@ -59,19 +60,25 @@ public class MenuWorkWithProducts {
         }
     }
 
-    private void modifyProduct() {
+    private void modify() {
         System.out.println("Input product id");
         long productID = ViewUtilities.inputLong();
-        System.out.println("Input new name:");
-        String newName = ViewUtilities.inputString();
-        System.out.println("Input new price:");
-        BigDecimal newPrice = BigDecimal.valueOf(ViewUtilities.inputLong());
-        if (productService.modify(productID, newName, newPrice)) {
-            System.out.println("Product modified");
+        Product product = productService.getProduct(productID);
+        if (product == null) {
+            System.out.println("There is no such product!!!");
+        } else {
+            System.out.println(product);
+            System.out.println("Input new name:");
+            String newName = ViewUtilities.inputString();
+            System.out.println("Input new price:");
+            BigDecimal newPrice = BigDecimal.valueOf(ViewUtilities.inputLong());
+            if (productService.modify(productID, newName, newPrice)) {
+                System.out.println("Product modified");
+            }
         }
     }
 
-    private void removeProduct() {
+    private void remove() {
         System.out.println("Input product id");
         long productID = ViewUtilities.inputLong();
         if (productService.remove(productID)) {

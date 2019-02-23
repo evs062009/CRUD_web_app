@@ -32,6 +32,7 @@ public class OrderServiceImpl implements OrderService {
             orderDao.save(draft);
             return true;
         }
+        System.out.println("log: Saving has not been done!!! (there is no product in the order)");
         return false;
     }
 
@@ -45,6 +46,7 @@ public class OrderServiceImpl implements OrderService {
                 return true;
             }
         }
+        System.out.println("log: Removing has not been done!!!");
         return false;
     }
 
@@ -60,6 +62,7 @@ public class OrderServiceImpl implements OrderService {
             draft.getProducts().add(product);
             return true;
         }
+        System.out.println("log: Product has not been added (there is no such product)");
         return false;
     }
 
@@ -72,6 +75,7 @@ public class OrderServiceImpl implements OrderService {
                 return true;
             }
         }
+        System.out.println("log: Product has not been  removed (there is no such product)");
         return false;
     }
 
@@ -82,6 +86,7 @@ public class OrderServiceImpl implements OrderService {
             draft = new Order(order);
             return true;
         }
+        System.out.println("log: Copying has not been done (there is no such order)");
         return false;
     }
 

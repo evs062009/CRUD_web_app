@@ -25,6 +25,7 @@ public class ClientServiceImpl implements ClientService {
             authorisation.setCurrentUserID(clientDao.save(client));
             return true;
         }
+        System.out.println("log: Creating has not been done.");
         return false;
     }
 
@@ -38,6 +39,8 @@ public class ClientServiceImpl implements ClientService {
                 clientDao.save(id, client);
                 return true;
             }
+        } else {
+            System.out.println("log: Modify has not been done!!!");
         }
         return false;
     }
@@ -83,9 +86,9 @@ public class ClientServiceImpl implements ClientService {
         if (clientDao.isContainsKey(id)) {
             clientDao.remove(id);
             return true;
-        } else {
-            return false;
         }
+        System.out.println("log: Removing has not been done (there is no such client)");
+        return false;
     }
 
     @Override

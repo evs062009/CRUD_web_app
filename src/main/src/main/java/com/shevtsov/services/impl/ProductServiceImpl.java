@@ -19,9 +19,9 @@ public class ProductServiceImpl implements ProductService {
             Product product = new Product(name, price);
             productDao.save(product);
             return true;
-        } else {
-            return false;
         }
+        System.out.println("log: Creating has not been done");
+        return false;
     }
 
     @Override
@@ -31,9 +31,9 @@ public class ProductServiceImpl implements ProductService {
             product.setId(id);
             productDao.save(id, product);
             return true;
-        } else {
-            return false;
         }
+        System.out.println("log: Modifying has not been done (there is no such product)");
+        return false;
     }
 
     @Override
@@ -41,13 +41,18 @@ public class ProductServiceImpl implements ProductService {
         if (productDao.isContainsKey(id)) {
             productDao.remove(id);
             return true;
-        } else {
-            return false;
         }
+        System.out.println("log: Removing has not been done (there is no such product)");
+        return false;
     }
 
     @Override
     public List<Product> gatAll() {
         return productDao.getAll();
+    }
+
+    @Override
+    public Product getProduct(long id) {
+        return productDao.findByID(id);
     }
 }
