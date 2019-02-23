@@ -11,15 +11,12 @@ import java.util.Map;
 public class ClientDaoImpl implements ClientDao {
     private Map<Long, Client> map = new HashMap<>();        //storage emulation
     private static long generator = 0;
-    private static ClientDao instance;
+    private static final ClientDao instance = new ClientDaoImpl();
 
     private ClientDaoImpl() {
     }
 
     public static ClientDao getInstance() {
-        if (instance == null) {
-            instance = new ClientDaoImpl();
-        }
         return instance;
     }
 

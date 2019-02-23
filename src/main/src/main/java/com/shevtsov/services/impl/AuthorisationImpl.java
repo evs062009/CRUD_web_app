@@ -7,15 +7,12 @@ import com.shevtsov.services.Authorisation;
 public class AuthorisationImpl implements Authorisation {
     private final ClientDao clientDao = ClientDaoImpl.getInstance();
     private long currentUserID = -1;
-    private static AuthorisationImpl instance;
+    private static final AuthorisationImpl instance = new AuthorisationImpl();
 
     private AuthorisationImpl() {
     }
 
     public static AuthorisationImpl getInstance() {
-        if (instance == null) {
-            instance = new AuthorisationImpl();
-        }
         return instance;
     }
 

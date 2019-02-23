@@ -11,15 +11,12 @@ import java.util.Map;
 public class OrderDaoImpl implements OrderDao {
     private Map<Long, Order> map = new HashMap<>();     //storage emulation
     private static long generator = 0;
-    private static OrderDao instance;
+    private static final OrderDao instance = new OrderDaoImpl();
 
     private OrderDaoImpl() {
     }
 
     public static OrderDao getInstance() {
-        if (instance == null) {
-            instance = new OrderDaoImpl();
-        }
         return instance;
     }
 
