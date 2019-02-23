@@ -43,7 +43,8 @@ public interface ClientService {
     boolean remove(long id);
 
     /**
-     * Receives collection of Client-objects from DAO and transmits it to UI for listing.
+     * Returns sorted by natural comparison method list of all clients.
+     * @return list of all clients.
      */
     List<Client> getAll();
 

@@ -7,6 +7,7 @@ import com.shevtsov.exceptions.BusinessException;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.validators.ValidationService;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ClientServiceImpl implements ClientService {
@@ -93,6 +94,8 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<Client> getAll() {
-        return clientDao.gatAll();
+        List<Client> clients = clientDao.gatAll();
+        Collections.sort(clients);
+        return clients;
     }
 }

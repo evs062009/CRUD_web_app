@@ -2,7 +2,7 @@ package com.shevtsov.domain;
 
 import java.math.BigDecimal;
 
-public class Product {
+public class Product implements Comparable<Product> {
     private long id;
     private String name;
     private BigDecimal price;
@@ -43,5 +43,10 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Product o) {
+        return name.compareToIgnoreCase(o.name);
     }
 }

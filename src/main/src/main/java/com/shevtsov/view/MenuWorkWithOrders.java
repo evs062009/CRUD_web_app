@@ -1,8 +1,12 @@
 package com.shevtsov.view;
 
+import com.shevtsov.domain.Order;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.view.viewEnums.MenuStatus;
 import com.shevtsov.view.viewUtilities.ViewUtilities;
+
+import java.util.Comparator;
+import java.util.List;
 
 public class MenuWorkWithOrders {
     private final OrderService orderService;
@@ -24,7 +28,7 @@ public class MenuWorkWithOrders {
 
             switch (ViewUtilities.inputString()) {
                 case "1":
-                    ViewUtilities.showList(orderService.getAll());
+                    showAllOrders();
                     break;
                 case "2":
                     modify();
@@ -43,6 +47,12 @@ public class MenuWorkWithOrders {
             System.out.println();
         }
         return MenuStatus.EXIT_PROGRAM;
+    }
+
+    private void showAllOrders() {
+        List<Order> orders = orderService.getAll();
+        orders.sort(Comparator.comparing(Order::getClient));
+        ViewUtilities.showList(orders);
     }
 
     private void modify() {

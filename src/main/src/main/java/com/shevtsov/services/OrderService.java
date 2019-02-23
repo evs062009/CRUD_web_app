@@ -19,9 +19,7 @@ public interface OrderService {
     boolean remove(long id);
 
     /**
-     * Transmits the current user id to DAO,
-     * receives and  transmits to UI collection of current user`s orders.
-     *
+     * Returns sorted by natural comparison method list of current (sign in) user orders.
      * @return collection of user`s orders.
      */
     List<Order> getUserOrders();
@@ -73,7 +71,7 @@ public interface OrderService {
     boolean save();
 
     /**
-     * Receives collection of all Order-objects from DAO and transmits it to UI for listing.
+     * Returns sorted by natural comparison method list of all orders.
      */
     List<Order> getAll();
 }

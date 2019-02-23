@@ -6,6 +6,7 @@ import com.shevtsov.domain.Product;
 import com.shevtsov.services.ProductService;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
@@ -48,7 +49,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> gatAll() {
-        return productDao.getAll();
+        List<Product> products = productDao.getAll();
+        Collections.sort(products);
+        return products;
     }
 
     @Override

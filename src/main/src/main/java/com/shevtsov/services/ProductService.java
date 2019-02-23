@@ -39,7 +39,8 @@ public interface ProductService {
     boolean remove(long id);
 
     /**
-     * Receives collection of all Product-objects from DAO and transmits it to UI for listing.
+     * Returns sorted by natural comparison method list of all products.
+     * @return list of all products.
      */
     List<Product> gatAll();
 

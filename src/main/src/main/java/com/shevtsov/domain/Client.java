@@ -1,6 +1,6 @@
 package com.shevtsov.domain;
 
-public class Client {
+public class Client implements Comparable<Client> {
     private long id;
     private String name;
     private String surname;
@@ -72,11 +72,16 @@ public class Client {
     public String toString() {
         return "Client{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
                 ", age=" + age +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Client o) {
+        return surname.compareToIgnoreCase(o.surname);
     }
 }

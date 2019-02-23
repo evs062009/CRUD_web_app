@@ -11,6 +11,7 @@ import com.shevtsov.domain.Order;
 import com.shevtsov.domain.Product;
 import com.shevtsov.services.OrderService;
 
+import java.util.Collections;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
@@ -22,7 +23,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getAll() {
-        return orderDao.getAll();
+        List<Order> orders = orderDao.getAll();
+        Collections.sort(orders);
+        return orders;
     }
 
     @Override
@@ -52,7 +55,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getUserOrders() {
-        return orderDao.getUserOrders(authorisation.getCurrentUserID());
+        List<Order> orders = orderDao.getUserOrders(authorisation.getCurrentUserID());
+        Collections.sort(orders);
+        return orders;
+
     }
 
     @Override

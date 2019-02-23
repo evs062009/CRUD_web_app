@@ -3,7 +3,7 @@ package com.shevtsov.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public class Order implements Comparable<Order> {
     private long id;
     private Client client;
     private List<Product> products;
@@ -51,5 +51,10 @@ public class Order {
                 ", client=" + client +
                 ", products=" + products +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Order o) {
+        return (int) (id - o.id);
     }
 }
