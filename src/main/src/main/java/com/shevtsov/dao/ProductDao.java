@@ -7,19 +7,11 @@ import java.util.List;
 public interface ProductDao {
 
     /**
-     * Calculates id, assigns it to Product-object and calls save-method for saving the object to storage.
+     * Saves the Product-object to storage.
      *
      * @param product the Product-object, which is saved.
      */
     void save(Product product);
-
-    /**
-     * Saves the Product-object to storage.
-     *
-     * @param id      the id of the Product-object, which is saved.
-     * @param product the Product-object, which is saved.
-     */
-    void save(long id, Product product);
 
     /**
      * Removes Product-object in storage.

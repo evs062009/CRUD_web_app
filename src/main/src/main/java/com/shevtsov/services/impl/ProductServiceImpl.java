@@ -18,6 +18,7 @@ public class ProductServiceImpl implements ProductService {
         boolean validation = true;
         if (validation) {
             Product product = new Product(name, price);
+            product.setId(-1);
             productDao.save(product);
             return true;
         }
@@ -30,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
         if (productDao.isContainsKey(id)) {
             Product product = new Product(newName, newPrice);
             product.setId(id);
-            productDao.save(id, product);
+            productDao.save(product);
             return true;
         }
         System.out.println("log: Modifying has not been done (there is no such product)");
