@@ -11,13 +11,13 @@ import java.util.Map;
 public class ProductDaoImpl implements ProductDao {
     private Map<Long, Product> map = new HashMap<>();       //storage emulation
     private static long generator = 0;
-    private static final ProductDao instance = new ProductDaoImpl();
+    private static final ProductDao INSTANCE = new ProductDaoImpl();
 
     private ProductDaoImpl() {
     }
 
     public static ProductDao getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     @Override
