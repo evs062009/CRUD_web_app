@@ -22,15 +22,11 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public long save(Client client) {
-        client.setId(generator++);
-        long clientID = client.getId();
-        save(clientID, client);
-        return clientID;
-    }
-
-    @Override
-    public void save(long id, Client client) {
-        map.put(id, client);
+        if (client.getId() == -1){
+            client.setId(generator++);
+        }
+        map.put(client.getId(), client);
+        return client.getId();
     }
 
     @Override
@@ -50,8 +46,7 @@ public class ClientDaoImpl implements ClientDao {
 
     @Override
     public long findByPhone(String phone) {
-        for (Map.Entry<Long, Client> entry : map.entrySet()
-        ) {
+        for (Map.Entry<Long, Client> entry : map.entrySet()) {
             long key = entry.getKey();
             Client client = entry.getValue();
             if (client != null && client.getPhone() != null && client.getPhone().equals(phone)) {

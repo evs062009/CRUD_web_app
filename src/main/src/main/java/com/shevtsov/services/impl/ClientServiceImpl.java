@@ -37,7 +37,7 @@ public class ClientServiceImpl implements ClientService {
             Client client = getClientForModifying(newName, newSurname, newAge, newPhone, newEmail);
             if (client != null) {
                 client.setId(id);
-                clientDao.save(id, client);
+                clientDao.save(client);
                 return true;
             }
         } else {
@@ -74,6 +74,7 @@ public class ClientServiceImpl implements ClientService {
         if (client != null) {
             try {
                 validationService.validatePhoneUniq(phone);
+                client.setId(-1);
                 return client;
             } catch (BusinessException e) {
                 e.printStackTrace();

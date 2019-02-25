@@ -7,20 +7,12 @@ import java.util.List;
 public interface ClientDao {
 
     /**
-     * Calculates id, assigns it to Client-object and calls save-method for saving the object to storage.
+     * Saves the Client-object to storage.
      *
      * @param client the Client-object, which is saved.
      * @return the id of client, which was saved.
      */
     long save(Client client);
-
-    /**
-     * Saves the Client-object to storage.
-     *
-     * @param id     the id of client, which is saved.
-     * @param client the Client-object, which is saved
-     */
-    void save(long id, Client client);
 
     /**
      * Searches for client by id in the storage.
