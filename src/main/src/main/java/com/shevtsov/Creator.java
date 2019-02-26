@@ -13,7 +13,7 @@ import com.shevtsov.validators.impl.ValidationServiceImpl;
 import com.shevtsov.view.*;
 
 public class Creator {
-    public static MainMenu create(){
+    public MainMenu create(){
         ValidationService validationService = new ValidationServiceImpl();
         ClientService clientService = new ClientServiceImpl(validationService);
         ProductService productService = new ProductServiceImpl();
