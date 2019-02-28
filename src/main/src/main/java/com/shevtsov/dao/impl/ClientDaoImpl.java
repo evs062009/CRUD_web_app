@@ -60,4 +60,9 @@ public class ClientDaoImpl implements ClientDao {
     public boolean isContainsKey(long id) {
         return map.containsKey(id);
     }
+
+    @Override
+    public boolean modify(Client client) {
+        return false;
+    }
 }

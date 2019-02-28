@@ -47,4 +47,9 @@ public class ProductDaoImpl implements ProductDao {
     public Product findByID(long id) {
         return map.get(id);
     }
+
+    @Override
+    public boolean modify(Product product) {
+        return false;
+    }
 }

@@ -12,6 +12,11 @@ public class Product implements Comparable<Product> {
         this.price = price;
     }
 
+    public Product(long id, String name, BigDecimal price) {
+        this(name, price);
+        this.id = id;
+    }
+
     public long getId() {
         return id;
     }

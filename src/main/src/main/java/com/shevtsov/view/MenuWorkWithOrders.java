@@ -51,7 +51,9 @@ public class MenuWorkWithOrders {
 
     private void showAllOrders() {
         List<Order> orders = orderService.getAll();
-        orders.sort(Comparator.comparing(Order::getClient));
+        if (orders != null) {
+            orders.sort(Comparator.comparing(Order::getClient));
+        }
         ViewUtilities.showList(orders);
     }
 

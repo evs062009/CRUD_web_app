@@ -42,4 +42,11 @@ public interface ProductDao {
      * @return Product-object, if such was found, or null otherwise.
      */
     Product findByID(long id);
+
+    /**
+     * Modifies the Product-object data in storage.
+     * @param product the Product-object, which is modified.
+     * @return true if client is modified successfully, ot false otherwise.
+     */
+    boolean modify(Product product);
 }

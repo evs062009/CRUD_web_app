@@ -3,10 +3,7 @@ package com.shevtsov.services.impl;
 import com.shevtsov.dao.ClientDao;
 import com.shevtsov.dao.OrderDao;
 import com.shevtsov.dao.ProductDao;
-import com.shevtsov.dao.impl.ClientDBDao;
-import com.shevtsov.dao.impl.ClientDaoImpl;
-import com.shevtsov.dao.impl.OrderDaoImpl;
-import com.shevtsov.dao.impl.ProductDaoImpl;
+import com.shevtsov.dao.impl.*;
 import com.shevtsov.domain.Client;
 import com.shevtsov.domain.Order;
 import com.shevtsov.domain.Product;
@@ -17,7 +14,7 @@ import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
     private final ClientDao clientDao = ClientDBDao.getInstance();
-    private final ProductDao productDao = ProductDaoImpl.getInstance();
+    private final ProductDao productDao = ProductDBDao.getInstance();
     private final OrderDao orderDao = OrderDaoImpl.getInstance();
     private final AuthorisationImpl authorisation = AuthorisationImpl.getInstance();
     private Order draft;
@@ -25,7 +22,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getAll() {
         List<Order> orders = orderDao.getAll();
-        Collections.sort(orders);
+        if (orders != null) {
+            Collections.sort(orders);
+        }
         return orders;
     }
 
@@ -57,7 +56,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getUserOrders() {
         List<Order> orders = orderDao.getUserOrders(authorisation.getCurrentUserID());
-        Collections.sort(orders);
+        if (orders != null) {
+            Collections.sort(orders);
+        }
         return orders;
 
     }

@@ -51,4 +51,11 @@ public interface ClientDao {
      * @return true if there is a client with such id in the storage or false otherwise.
      */
     boolean isContainsKey(long id);
+
+    /**
+     * Modifies the Client-object data in storage.
+     * @param client the Client-object, which is modified.
+     * @return true if client is modified successfully, ot false otherwise.
+     */
+    boolean modify(Client client);
 }

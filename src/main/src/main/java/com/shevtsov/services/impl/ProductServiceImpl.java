@@ -1,6 +1,7 @@
 package com.shevtsov.services.impl;
 
 import com.shevtsov.dao.ProductDao;
+import com.shevtsov.dao.impl.ProductDBDao;
 import com.shevtsov.dao.impl.ProductDaoImpl;
 import com.shevtsov.domain.Product;
 import com.shevtsov.services.ProductService;
@@ -10,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
-    private final ProductDao productDao = ProductDaoImpl.getInstance();
+    private final ProductDao productDao = ProductDBDao.getInstance();
 
     @Override
     public boolean create(String name, BigDecimal price) {
@@ -31,8 +32,9 @@ public class ProductServiceImpl implements ProductService {
         if (productDao.isContainsKey(id)) {
             Product product = new Product(newName, newPrice);
             product.setId(id);
-            productDao.save(product);
-            return true;
+            if (productDao.modify(product)){
+                return true;
+            }
         }
         System.out.println("log: Modifying has not been done (there is no such product)");
         return false;
@@ -51,7 +53,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> gatAll() {
         List<Product> products = productDao.getAll();
-        Collections.sort(products);
+        if (products != null){
+            Collections.sort(products);
+        }
         return products;
     }
 

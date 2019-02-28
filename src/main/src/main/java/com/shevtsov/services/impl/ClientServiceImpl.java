@@ -38,8 +38,9 @@ public class ClientServiceImpl implements ClientService {
             Client client = getClientForModifying(newName, newSurname, newAge, newPhone, newEmail);
             if (client != null) {
                 client.setId(id);
-                clientDao.save(client);
-                return true;
+                if (clientDao.modify(client)) {
+                    return true;
+                }
             }
         } else {
             System.out.println("log: Modify has not been done!!!");
@@ -97,7 +98,9 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<Client> getAll() {
         List<Client> clients = clientDao.gatAll();
-        Collections.sort(clients);
+        if (clients != null) {
+            Collections.sort(clients);
+        }
         return clients;
     }
 }
