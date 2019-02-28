@@ -20,6 +20,11 @@ public class Client implements Comparable<Client> {
         this.email = email;
     }
 
+    public Client(long id, String name, String surname, int age, String email, String phone) {
+        this(name, surname, age, phone, email);
+        this.id = id;
+    }
+
     public long getId() {
         return id;
     }

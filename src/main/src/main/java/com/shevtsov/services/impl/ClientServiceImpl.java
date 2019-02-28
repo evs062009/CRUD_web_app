@@ -1,6 +1,7 @@
 package com.shevtsov.services.impl;
 
 import com.shevtsov.dao.ClientDao;
+import com.shevtsov.dao.impl.ClientDBDao;
 import com.shevtsov.dao.impl.ClientDaoImpl;
 import com.shevtsov.domain.Client;
 import com.shevtsov.exceptions.BusinessException;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class ClientServiceImpl implements ClientService {
     private final AuthorisationImpl authorisation = AuthorisationImpl.getInstance();
-    private final ClientDao clientDao = ClientDaoImpl.getInstance();
+    private final ClientDao clientDao = ClientDBDao.getInstance();
     private final ValidationService validationService;
 
     public ClientServiceImpl(ValidationService validationService) {

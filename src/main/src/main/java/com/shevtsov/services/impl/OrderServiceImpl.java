@@ -3,6 +3,7 @@ package com.shevtsov.services.impl;
 import com.shevtsov.dao.ClientDao;
 import com.shevtsov.dao.OrderDao;
 import com.shevtsov.dao.ProductDao;
+import com.shevtsov.dao.impl.ClientDBDao;
 import com.shevtsov.dao.impl.ClientDaoImpl;
 import com.shevtsov.dao.impl.OrderDaoImpl;
 import com.shevtsov.dao.impl.ProductDaoImpl;
@@ -15,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
-    private final ClientDao clientDao = ClientDaoImpl.getInstance();
+    private final ClientDao clientDao = ClientDBDao.getInstance();
     private final ProductDao productDao = ProductDaoImpl.getInstance();
     private final OrderDao orderDao = OrderDaoImpl.getInstance();
     private final AuthorisationImpl authorisation = AuthorisationImpl.getInstance();
