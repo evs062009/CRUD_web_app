@@ -2,11 +2,11 @@ package com.shevtsov.dao.impl;
 
 import com.shevtsov.dao.ClientDao;
 import com.shevtsov.dao.OrderDao;
-import com.shevtsov.dao.ProductDao;
 import com.shevtsov.domain.Client;
 import com.shevtsov.domain.Order;
 import com.shevtsov.domain.Product;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,6 @@ import java.util.List;
 public class OrderDBDao implements OrderDao {
     private static final OrderDao INSTANCE = new OrderDBDao();
     private static final ClientDao CLIENT_DAO = ClientDBDao.getInstance();
-    private static final ProductDao PRODUCT_DAO = ProductDBDao.getInstance();
 
     private OrderDBDao() {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
@@ -39,7 +38,7 @@ public class OrderDBDao implements OrderDao {
         List<Order> orders = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                        "SELECT * FROM ORDERS")) {
+                "SELECT * FROM ORDERS")) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     orders.add(getOrder(connection, resultSet));
@@ -56,13 +55,16 @@ public class OrderDBDao implements OrderDao {
         long id = resultSet.getLong("ID");
         Client client = CLIENT_DAO.findByID(resultSet.getLong("CLIENT_ID"));
         List<Product> products = new ArrayList<>();
-        try(PreparedStatement statement = connection.prepareStatement(
-                "SELECT PRODUCT_ID FROM SPECIFICATIONS WHERE ORDER_ID = ?")){
+        try (PreparedStatement statement = connection.prepareStatement(
+                "SELECT PRODUCT_ID, NAME, PRICE FROM SPECIFICATIONS LEFT JOIN PRODUCTS" +
+                        " ON SPECIFICATIONS.PRODUCT_ID = PRODUCTS.ID WHERE ORDER_ID = ?")) {
             statement.setLong(1, id);
             try (ResultSet resultSet1 = statement.executeQuery()) {
                 while (resultSet1.next()) {
-                    Product product = PRODUCT_DAO.findByID(resultSet1.getLong("ID"));
-                    products.add(product);
+                    long productID = resultSet.getLong("PRODUCT_ID");
+                    String name = resultSet.getString("NAME");
+                    BigDecimal price = resultSet.getBigDecimal("PRICE");
+                    products.add(new Product(productID, name, price));
                 }
             }
         }
@@ -73,7 +75,7 @@ public class OrderDBDao implements OrderDao {
     public Order findByID(long id) {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                        "SELECT * FROM ORDERS WHERE ORDER_ID = ?")) {
+                "SELECT * FROM ORDERS WHERE ID = ?")) {
             statement.setLong(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -88,15 +90,31 @@ public class OrderDBDao implements OrderDao {
 
     @Override
     public void save(Order order) {
-//        try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-//                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-//                "INSERT INTO ORDERS (CLIENT_ID) VALUES ?");
-//                //как получить id только что добавленного ордера
-////                111
-//        ) {
-//        } catch (SQLException e) {
-//            e.;
-//        }
+        try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
+                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
+                "INSERT INTO ORDERS (CLIENT_ID) VALUES (?)", Statement.RETURN_GENERATED_KEYS)) {
+            statement.setLong(1, order.getClient().getId());
+            statement.executeUpdate();
+            try (ResultSet keys = statement.getGeneratedKeys()) {
+                if (keys.next()) {
+                    long orderID = keys.getLong("ID");
+                    try (PreparedStatement statement1 = connection.prepareStatement(
+                            "INSERT INTO SPECIFICATIONS (ORDER_ID, PRODUCT_ID) VALUES (?, ?)")) {
+                        order.getProducts().forEach(product -> {
+                            try {
+                                statement1.setLong(1, orderID);
+                                statement1.setLong(2, product.getId());
+                                statement1.executeUpdate();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -125,7 +143,7 @@ public class OrderDBDao implements OrderDao {
         List<Order> userOreders = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                        "SELECT * FROM ORDERS WHERE ID = ?")) {
+                "SELECT * FROM ORDERS WHERE ID = ?")) {
             statement.setLong(1, currentUserID);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {

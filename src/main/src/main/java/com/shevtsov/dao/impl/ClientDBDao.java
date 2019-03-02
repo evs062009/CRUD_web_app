@@ -13,8 +13,8 @@ public class ClientDBDao implements ClientDao {
     private ClientDBDao() {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                        "CREATE TABLE IF NOT EXISTS CLIENTS (ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
-                "NAME VARCHAR(20),SURNAME VARCHAR(20), AGE INT, PHONE VARCHAR(20), EMAIL VARCHAR(50))")) {
+                "CREATE TABLE IF NOT EXISTS CLIENTS (ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
+                        "NAME VARCHAR(20),SURNAME VARCHAR(20), AGE INT, PHONE VARCHAR(20), EMAIL VARCHAR(50))")) {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,10 +30,14 @@ public class ClientDBDao implements ClientDao {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD);
              PreparedStatement statement = connection.prepareStatement("INSERT INTO CLIENTS (NAME, SURNAME, AGE," +
-                     "PHONE,EMAIL) VALUES (?, ?, ?, ?, ?)")) {
+                     "PHONE,EMAIL) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
             setStatementParams(client, statement);
             statement.executeUpdate();
-            return findByPhone(client.getPhone());
+            try (ResultSet keys = statement.getGeneratedKeys()) {
+                if (keys.next()) {
+                    return keys.getLong("ID");
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -52,7 +56,7 @@ public class ClientDBDao implements ClientDao {
     public Client findByID(long id) {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                        "SELECT * FROM CLIENTS WHERE ID = ?");) {
+                "SELECT * FROM CLIENTS WHERE ID = ?");) {
             statement.setLong(1, id);
             try (ResultSet resultSet = statement.executeQuery();) {
                 if (resultSet.next()) {
@@ -91,7 +95,7 @@ public class ClientDBDao implements ClientDao {
     public List<Client> gatAll() {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                        "SELECT * FROM CLIENTS")) {
+                "SELECT * FROM CLIENTS")) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 List<Client> clients = new ArrayList<>();
                 while (resultSet.next()) {
@@ -109,7 +113,7 @@ public class ClientDBDao implements ClientDao {
     public long findByPhone(String phone) {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                        "SELECT ID FROM CLIENTS WHERE PHONE = ?")) {
+                "SELECT ID FROM CLIENTS WHERE PHONE = ?")) {
             statement.setString(1, phone);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -126,7 +130,7 @@ public class ClientDBDao implements ClientDao {
     public boolean isContainsKey(long id) {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                        "SELECT ID FROM CLIENTS WHERE ID = ?")) {
+                "SELECT ID FROM CLIENTS WHERE ID = ?")) {
             statement.setLong(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 return resultSet.next();
