@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order implements Comparable<Order> {
-    private long id;
+    private Long id;
     private Client client;
     private List<Product> products;
 
@@ -26,11 +26,11 @@ public class Order implements Comparable<Order> {
         products.addAll(baseOrder.products);
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

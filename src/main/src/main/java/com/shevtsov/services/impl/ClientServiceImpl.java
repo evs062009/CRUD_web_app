@@ -76,7 +76,7 @@ public class ClientServiceImpl implements ClientService {
         if (client != null) {
             try {
                 validationService.validatePhoneUniq(phone);
-                client.setId(-1);
+                client.setId(-1L);
                 return client;
             } catch (BusinessException e) {
                 e.printStackTrace();

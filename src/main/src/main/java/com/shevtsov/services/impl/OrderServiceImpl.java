@@ -106,7 +106,7 @@ public class OrderServiceImpl implements OrderService {
     public void createDraft() {
         Client currentClient = clientDao.findByID(authorisation.getCurrentUserID());
         draft = new Order(currentClient);
-        draft.setId(-1);
+        draft.setId(-1L);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class ProductDBDao implements ProductDao {
                 "NAME VARCHAR(20), PRICE DECIMAL)")) {
             statement.execute();
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
     }
 
@@ -35,7 +35,7 @@ public class ProductDBDao implements ProductDao {
             statement.setBigDecimal(2, product.getPrice());
             statement.execute();
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
     }
 
@@ -47,26 +47,24 @@ public class ProductDBDao implements ProductDao {
             statement.setLong(1, id);
             statement.execute();
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
     }
 
     @Override
     public List<Product> getAll() {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD); Statement statement = connection.createStatement()) {
-            try(ResultSet resultSet = statement.executeQuery("SELECT * FROM PRODUCTS")){
+                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
+                        "SELECT * FROM PRODUCTS")) {
+            try(ResultSet resultSet = statement.executeQuery()){
                 List<Product> products = new ArrayList<>();
                 while (resultSet.next()){
-                    long id = resultSet.getLong(1);
-                    String name = resultSet.getString(2);
-                    BigDecimal price = resultSet.getBigDecimal(3);
-                    products.add(new Product(id, name, price));
+                    products.add(getProduct(resultSet));
                 }
                 return products;
             }
         } catch (SQLException e){
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
         return null;
     }
@@ -74,12 +72,14 @@ public class ProductDBDao implements ProductDao {
     @Override
     public boolean isContainsKey(long id) {
         try(Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD); Statement statement = connection.createStatement()){
-            try(ResultSet resultSet = statement.executeQuery("SELECT ID FROM PRODUCTS WHERE ID = '" + id + "'")){
+                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
+                        "SELECT ID FROM PRODUCTS WHERE ID = ?")){
+            statement.setLong(1, id);
+            try(ResultSet resultSet = statement.executeQuery()){
                 return resultSet.next();
             }
         } catch (SQLException e){
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
         return false;
     }
@@ -87,31 +87,38 @@ public class ProductDBDao implements ProductDao {
     @Override
     public Product findByID(long id) {
         try(Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD); Statement statement = connection.createStatement()){
-            try(ResultSet resultSet = statement.executeQuery("SELECT * FROM PRODUCTS WHERE ID = '" + id + "'")){
+                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
+                        "SELECT * FROM PRODUCTS WHERE ID = ?")){
+            statement.setLong(1, id);
+            try(ResultSet resultSet = statement.executeQuery()){
                 if (resultSet.next()){
-                    long productID = resultSet.getLong(1);
-                    String name = resultSet.getString(2);
-                    BigDecimal price = resultSet.getBigDecimal(3);
-                    return new Product(productID, name, price);
+                    return getProduct(resultSet);
                 }
             }
         } catch (SQLException e){
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
         return null;
+    }
+
+    private Product getProduct(ResultSet resultSet) throws SQLException {
+        long productID = resultSet.getLong("ID");
+        String name = resultSet.getString("NAME");
+        BigDecimal price = resultSet.getBigDecimal("PRICE");
+        return new Product(productID, name, price);
     }
 
     @Override
     public boolean modify(Product product) {
         try(Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                        "UPDATE PRODUCTS SET NAME = ?, PRICE = ? WHERE ID = '" + product.getId() + "'")){
+                        "UPDATE PRODUCTS SET NAME = ?, PRICE = ? WHERE ID = ?")){
             statement.setString(1, product.getName());
             statement.setBigDecimal(2, product.getPrice());
+            statement.setLong(3, product.getId());
             return statement.execute();
         } catch (SQLException e){
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
         return false;
     }

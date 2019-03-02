@@ -15,9 +15,9 @@ public class ClientDBDao implements ClientDao {
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
                         "CREATE TABLE IF NOT EXISTS CLIENTS (ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
                 "NAME VARCHAR(20),SURNAME VARCHAR(20), AGE INT, PHONE VARCHAR(20), EMAIL VARCHAR(50))")) {
-            statement.execute();
+            statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
     }
 
@@ -31,38 +31,48 @@ public class ClientDBDao implements ClientDao {
                 DBCostants.PASSWORD);
              PreparedStatement statement = connection.prepareStatement("INSERT INTO CLIENTS (NAME, SURNAME, AGE," +
                      "PHONE,EMAIL) VALUES (?, ?, ?, ?, ?)")) {
-            statement.setString(1, client.getName());
-            statement.setString(2, client.getSurname());
-            statement.setInt(3, client.getAge());
-            statement.setString(4, client.getPhone());
-            statement.setString(5, client.getEmail());
-            statement.execute();
+            setStatementParams(client, statement);
+            statement.executeUpdate();
             return findByPhone(client.getPhone());
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
         return -1;
+    }
+
+    private void setStatementParams(Client client, PreparedStatement statement) throws SQLException {
+        statement.setString(1, client.getName());
+        statement.setString(2, client.getSurname());
+        statement.setInt(3, client.getAge());
+        statement.setString(4, client.getPhone());
+        statement.setString(5, client.getEmail());
     }
 
     @Override
     public Client findByID(long id) {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD); Statement statement = connection.createStatement();) {
-            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM CLIENTS WHERE ID = '" + id + "'");) {
+                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
+                        "SELECT * FROM CLIENTS WHERE ID = ?");) {
+            statement.setLong(1, id);
+            try (ResultSet resultSet = statement.executeQuery();) {
                 if (resultSet.next()) {
-                    long clientID = resultSet.getLong(1);
-                    String name = resultSet.getString(2);
-                    String surname = resultSet.getString(3);
-                    int age = resultSet.getInt(4);
-                    String phone = resultSet.getString(5);
-                    String email = resultSet.getString(6);
-                    return new Client(clientID, name, surname, age, phone, email);
+                    return getClient(resultSet);
                 }
             }
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
         return null;
+    }
+
+    private Client getClient(ResultSet resultSet) throws SQLException {
+        long clientID = resultSet.getLong("ID");
+        String name = resultSet.getString("NAME");
+        String surname = resultSet.getString("SURNAME");
+        int age = resultSet.getInt("AGE");
+        String phone = resultSet.getString("PHONE");
+        String email = resultSet.getString("EMAIL");
+        return new Client(clientID, name, surname, age, phone, email);
     }
 
     @Override
@@ -73,29 +83,24 @@ public class ClientDBDao implements ClientDao {
             statement.setLong(1, id);
             statement.execute();
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
     }
 
     @Override
     public List<Client> gatAll() {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD); Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM CLIENTS")) {
+                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
+                        "SELECT * FROM CLIENTS")) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 List<Client> clients = new ArrayList<>();
                 while (resultSet.next()) {
-                    long clientID = resultSet.getLong(1);
-                    String name = resultSet.getString(2);
-                    String surname = resultSet.getString(3);
-                    int age = resultSet.getInt(4);
-                    String phone = resultSet.getString(5);
-                    String email = resultSet.getString(6);
-                    clients.add(new Client(clientID, name, surname, age, phone, email));
+                    clients.add(getClient(resultSet));
                 }
                 return clients;
             }
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
         return null;
     }
@@ -103,15 +108,16 @@ public class ClientDBDao implements ClientDao {
     @Override
     public long findByPhone(String phone) {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD); Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery("SELECT ID FROM CLIENTS WHERE PHONE = '" +
-                    phone + "'")) {
+                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
+                        "SELECT ID FROM CLIENTS WHERE PHONE = ?")) {
+            statement.setString(1, phone);
+            try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return resultSet.getLong(1);
+                    return resultSet.getLong("ID");
                 }
             }
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
         return -1;
     }
@@ -119,12 +125,14 @@ public class ClientDBDao implements ClientDao {
     @Override
     public boolean isContainsKey(long id) {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD); Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery("SELECT ID FROM CLIENTS WHERE ID = '" + id + "'")) {
+                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
+                        "SELECT ID FROM CLIENTS WHERE ID = ?")) {
+            statement.setLong(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
                 return resultSet.next();
             }
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
         return false;
     }
@@ -133,16 +141,12 @@ public class ClientDBDao implements ClientDao {
     public boolean modify(Client client) {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                "UPDATE CLIENTS SET NAME = ?, SURNAME = ?, AGE = ?, PHONE = ?, EMAIL = ? WHERE ID = '" +
-                        client.getId() + "'")) {
-            statement.setString(1, client.getName());
-            statement.setString(2, client.getSurname());
-            statement.setInt(3, client.getAge());
-            statement.setString(4, client.getPhone());
-            statement.setString(5, client.getEmail());
+                "UPDATE CLIENTS SET NAME = ?, SURNAME = ?, AGE = ?, PHONE = ?, EMAIL = ? WHERE ID = ?")) {
+            setStatementParams(client, statement);
+            statement.setLong(6, client.getId());
             return statement.execute();
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
         return false;
     }

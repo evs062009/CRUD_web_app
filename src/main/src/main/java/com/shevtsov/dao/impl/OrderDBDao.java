@@ -17,18 +17,16 @@ public class OrderDBDao implements OrderDao {
     private static final ProductDao PRODUCT_DAO = ProductDBDao.getInstance();
 
     private OrderDBDao() {
-        boolean ordersCreated = false;
-        boolean specificationCreated = false;
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD);
-             PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS ORDERS" +
-                     "(ID BIGINT PRIMARY KEY AUTO_INCREMENT, CLIENT_ID BIGINT)");
-             PreparedStatement statement1 = connection.prepareStatement("CREATE TABLE IF NOT EXISTS SPECIFICATIONS" +
-                     "(ORDER_ID BIGINT, PRODUCT_ID BIGINT)")) {
-            statement.execute();
-            statement1.execute();
+             PreparedStatement statement = connection.prepareStatement(
+                     "CREATE TABLE IF NOT EXISTS ORDERS (ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
+                             "CLIENT_ID BIGINT);" +
+                             "CREATE TABLE IF NOT EXISTS SPECIFICATIONS (ORDER_ID BIGINT, PRODUCT_ID" +
+                             " BIGINT)")) {
+            statement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
     }
 
@@ -40,28 +38,32 @@ public class OrderDBDao implements OrderDao {
     public List<Order> getAll() {
         List<Order> orders = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD); Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM ORDERS")) {
+                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
+                        "SELECT * FROM ORDERS")) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    orders.add(createOrderFromDB(statement, resultSet));
+                    orders.add(getOrder(connection, resultSet));
                 }
             }
             return orders;
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
         return null;
     }
 
-    private Order createOrderFromDB(Statement statement, ResultSet resultSet) throws SQLException {
-        long id = resultSet.getLong(1);
-        Client client = CLIENT_DAO.findByID(resultSet.getLong(2));
+    private Order getOrder(Connection connection, ResultSet resultSet) throws SQLException {
+        long id = resultSet.getLong("ID");
+        Client client = CLIENT_DAO.findByID(resultSet.getLong("CLIENT_ID"));
         List<Product> products = new ArrayList<>();
-        try (ResultSet resultSet1 = statement.executeQuery(
-                "SELECT PRODUCT_ID FROM SPECIFICATIONS WHERE ORDER_ID = '" + id + "'")) {
-            while (resultSet1.next()) {
-                Product product = PRODUCT_DAO.findByID(resultSet1.getLong(1));
-                products.add(product);
+        try(PreparedStatement statement = connection.prepareStatement(
+                "SELECT PRODUCT_ID FROM SPECIFICATIONS WHERE ORDER_ID = ?")){
+            statement.setLong(1, id);
+            try (ResultSet resultSet1 = statement.executeQuery()) {
+                while (resultSet1.next()) {
+                    Product product = PRODUCT_DAO.findByID(resultSet1.getLong("ID"));
+                    products.add(product);
+                }
             }
         }
         return new Order(id, client, products);
@@ -70,30 +72,31 @@ public class OrderDBDao implements OrderDao {
     @Override
     public Order findByID(long id) {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD); Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(
-                    "SELECT * FROM ORDERS WHERE ORDER_ID = '" + id + "'")) {
+                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
+                        "SELECT * FROM ORDERS WHERE ORDER_ID = ?")) {
+            statement.setLong(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return createOrderFromDB(statement, resultSet);
+                    return getOrder(connection, resultSet);
                 }
             }
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
         return null;
     }
 
     @Override
     public void save(Order order) {
-        try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO ORDERS (CLIENT_ID) VALUES ?");
-                //как получить id только что добавленного ордера
-//                111
-        ) {
-        } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
-        }
+//        try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
+//                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
+//                "INSERT INTO ORDERS (CLIENT_ID) VALUES ?");
+//                //как получить id только что добавленного ордера
+////                111
+//        ) {
+//        } catch (SQLException e) {
+//            e.;
+//        }
     }
 
     @Override
@@ -105,7 +108,7 @@ public class OrderDBDao implements OrderDao {
             statement.execute();
             deleteOrderSpecification(id, connection);
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
     }
 
@@ -121,16 +124,17 @@ public class OrderDBDao implements OrderDao {
     public List<Order> getUserOrders(long currentUserID) {
         List<Order> userOreders = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD); Statement statement = connection.createStatement()) {
-            try (ResultSet resultSet = statement.executeQuery(
-                    "SELECT * FROM ORDERS WHERE ID = '" + currentUserID + "'")) {
+                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
+                        "SELECT * FROM ORDERS WHERE ID = ?")) {
+            statement.setLong(1, currentUserID);
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    userOreders.add(createOrderFromDB(statement, resultSet));
+                    userOreders.add(getOrder(connection, resultSet));
                 }
                 return userOreders;
             }
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
         return null;
     }
@@ -142,7 +146,7 @@ public class OrderDBDao implements OrderDao {
             deleteOrderSpecification(draft.getId(), connection);
             addOrderSpecification(draft.getId(), draft.getProducts(), connection);
         } catch (SQLException e) {
-            System.out.println("SOMETHING GOING WRONG!!!");
+            e.printStackTrace();
         }
     }
 

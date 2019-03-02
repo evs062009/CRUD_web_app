@@ -3,7 +3,7 @@ package com.shevtsov.domain;
 import java.math.BigDecimal;
 
 public class Product implements Comparable<Product> {
-    private long id;
+    private Long id;
     private String name;
     private BigDecimal price;
 
@@ -17,11 +17,11 @@ public class Product implements Comparable<Product> {
         this.id = id;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -19,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
         boolean validation = true;
         if (validation) {
             Product product = new Product(name, price);
-            product.setId(-1);
+            product.setId(-1L);
             productDao.save(product);
             return true;
         }
