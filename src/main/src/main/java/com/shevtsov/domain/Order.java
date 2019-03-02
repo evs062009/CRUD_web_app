@@ -13,6 +13,12 @@ public class Order implements Comparable<Order> {
         products = new ArrayList<>();
     }
 
+    public Order(long id, Client client, List<Product> products) {
+        this(client);
+        this.id = id;
+        this.products = products;
+    }
+
     public Order(Order baseOrder) {
         this.id = baseOrder.id;
         this.client = baseOrder.client;

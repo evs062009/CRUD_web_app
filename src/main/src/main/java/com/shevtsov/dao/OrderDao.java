@@ -42,4 +42,11 @@ public interface OrderDao {
      * @return collection of current (authorised) user`s orders
      */
     List<Order> getUserOrders(long currentUserID);
+
+    /**
+     * Modifies the products of Order in storage.
+     *
+     * @param draft the order, contains new list of products
+     */
+    void modify(Order draft);
 }

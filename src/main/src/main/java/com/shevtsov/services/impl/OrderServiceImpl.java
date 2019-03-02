@@ -15,7 +15,7 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     private final ClientDao clientDao = ClientDBDao.getInstance();
     private final ProductDao productDao = ProductDBDao.getInstance();
-    private final OrderDao orderDao = OrderDaoImpl.getInstance();
+    private final OrderDao orderDao = OrderDBDao.getInstance();
     private final AuthorisationImpl authorisation = AuthorisationImpl.getInstance();
     private Order draft;
 
@@ -32,7 +32,11 @@ public class OrderServiceImpl implements OrderService {
     public boolean save() {
         List<Product> products = draft.getProducts();
         if (!products.isEmpty()) {
-            orderDao.save(draft);
+            if (draft.getId() == -1){
+                orderDao.save(draft);
+            } else {
+                orderDao.modify(draft);
+            }
             return true;
         }
         System.out.println("log: Saving has not been done!!! (there is no product in the order)");

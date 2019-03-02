@@ -46,6 +46,11 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public void modify(Order draft) {
+
+    }
+
+    @Override
     public List<Order> getAll() {
         return new ArrayList<>(map.values());
     }
