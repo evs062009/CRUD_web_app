@@ -95,14 +95,12 @@ public class ClientDBDao implements ClientDao {
     public List<Client> gatAll() {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM CLIENTS")) {
-            try (ResultSet resultSet = statement.executeQuery()) {
-                List<Client> clients = new ArrayList<>();
-                while (resultSet.next()) {
-                    clients.add(getClient(resultSet));
-                }
-                return clients;
+                "SELECT * FROM CLIENTS"); ResultSet resultSet = statement.executeQuery()) {
+            List<Client> clients = new ArrayList<>();
+            while (resultSet.next()) {
+                clients.add(getClient(resultSet));
             }
+            return clients;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -154,4 +152,6 @@ public class ClientDBDao implements ClientDao {
         }
         return false;
     }
+
+
 }

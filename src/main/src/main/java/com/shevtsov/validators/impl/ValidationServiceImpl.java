@@ -2,7 +2,6 @@ package com.shevtsov.validators.impl;
 
 import com.shevtsov.dao.ClientDao;
 import com.shevtsov.dao.impl.ClientDBDao;
-import com.shevtsov.dao.impl.ClientDaoImpl;
 import com.shevtsov.exceptions.BusinessException;
 import com.shevtsov.validators.ValidationService;
 

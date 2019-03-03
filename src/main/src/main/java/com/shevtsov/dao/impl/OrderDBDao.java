@@ -38,11 +38,9 @@ public class OrderDBDao implements OrderDao {
         List<Order> orders = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM ORDERS")) {
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    orders.add(getOrder(connection, resultSet));
-                }
+                "SELECT * FROM ORDERS"); ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                orders.add(getOrder(connection, resultSet));
             }
             return orders;
         } catch (SQLException e) {
@@ -61,9 +59,9 @@ public class OrderDBDao implements OrderDao {
             statement.setLong(1, id);
             try (ResultSet resultSet1 = statement.executeQuery()) {
                 while (resultSet1.next()) {
-                    long productID = resultSet.getLong("PRODUCT_ID");
-                    String name = resultSet.getString("NAME");
-                    BigDecimal price = resultSet.getBigDecimal("PRICE");
+                    long productID = resultSet1.getLong("PRODUCT_ID");
+                    String name = resultSet1.getString("NAME");
+                    BigDecimal price = resultSet1.getBigDecimal("PRICE");
                     products.add(new Product(productID, name, price));
                 }
             }

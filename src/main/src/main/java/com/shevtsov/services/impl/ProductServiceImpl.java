@@ -2,7 +2,6 @@ package com.shevtsov.services.impl;
 
 import com.shevtsov.dao.ProductDao;
 import com.shevtsov.dao.impl.ProductDBDao;
-import com.shevtsov.dao.impl.ProductDaoImpl;
 import com.shevtsov.domain.Product;
 import com.shevtsov.services.ProductService;
 

@@ -14,8 +14,8 @@ public class ProductDBDao implements ProductDao {
     private ProductDBDao() {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                        "CREATE TABLE IF NOT EXISTS PRODUCTS (ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
-                "NAME VARCHAR(20), PRICE DECIMAL)")) {
+                "CREATE TABLE IF NOT EXISTS PRODUCTS (ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
+                        "NAME VARCHAR(20), PRICE DECIMAL)")) {
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -55,15 +55,13 @@ public class ProductDBDao implements ProductDao {
     public List<Product> getAll() {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                        "SELECT * FROM PRODUCTS")) {
-            try(ResultSet resultSet = statement.executeQuery()){
-                List<Product> products = new ArrayList<>();
-                while (resultSet.next()){
-                    products.add(getProduct(resultSet));
-                }
-                return products;
+                "SELECT * FROM PRODUCTS"); ResultSet resultSet = statement.executeQuery()) {
+            List<Product> products = new ArrayList<>();
+            while (resultSet.next()) {
+                products.add(getProduct(resultSet));
             }
-        } catch (SQLException e){
+            return products;
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -71,14 +69,14 @@ public class ProductDBDao implements ProductDao {
 
     @Override
     public boolean isContainsKey(long id) {
-        try(Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
+        try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                        "SELECT ID FROM PRODUCTS WHERE ID = ?")){
+                "SELECT ID FROM PRODUCTS WHERE ID = ?")) {
             statement.setLong(1, id);
-            try(ResultSet resultSet = statement.executeQuery()){
+            try (ResultSet resultSet = statement.executeQuery()) {
                 return resultSet.next();
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
@@ -86,16 +84,16 @@ public class ProductDBDao implements ProductDao {
 
     @Override
     public Product findByID(long id) {
-        try(Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
+        try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                        "SELECT * FROM PRODUCTS WHERE ID = ?")){
+                "SELECT * FROM PRODUCTS WHERE ID = ?")) {
             statement.setLong(1, id);
-            try(ResultSet resultSet = statement.executeQuery()){
-                if (resultSet.next()){
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
                     return getProduct(resultSet);
                 }
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
@@ -110,14 +108,14 @@ public class ProductDBDao implements ProductDao {
 
     @Override
     public boolean modify(Product product) {
-        try(Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
+        try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                        "UPDATE PRODUCTS SET NAME = ?, PRICE = ? WHERE ID = ?")){
+                "UPDATE PRODUCTS SET NAME = ?, PRICE = ? WHERE ID = ?")) {
             statement.setString(1, product.getName());
             statement.setBigDecimal(2, product.getPrice());
             statement.setLong(3, product.getId());
             return statement.execute();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
