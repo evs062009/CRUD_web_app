@@ -1,6 +1,5 @@
 package com.shevtsov.dao.impl;
 
-import com.shevtsov.dao.ClientDao;
 import com.shevtsov.dao.OrderDao;
 import com.shevtsov.domain.Client;
 import com.shevtsov.domain.Order;
@@ -13,7 +12,6 @@ import java.util.List;
 
 public class OrderDBDao implements OrderDao {
     private static final OrderDao INSTANCE = new OrderDBDao();
-    private static final ClientDao CLIENT_DAO = ClientDBDao.getInstance();
 
     private OrderDBDao() {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
@@ -38,7 +36,8 @@ public class OrderDBDao implements OrderDao {
         List<Order> orders = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM ORDERS"); ResultSet resultSet = statement.executeQuery()) {
+                "SELECT ORDERS.ID, CLIENT_ID, NAME, SURNAME, AGE, PHONE, EMAIL FROM ORDERS LEFT JOIN CLIENTS " +
+                        "ON CLIENT_ID = CLIENTS.ID"); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 orders.add(getOrder(connection, resultSet));
             }
@@ -51,7 +50,13 @@ public class OrderDBDao implements OrderDao {
 
     private Order getOrder(Connection connection, ResultSet resultSet) throws SQLException {
         long id = resultSet.getLong("ID");
-        Client client = CLIENT_DAO.findByID(resultSet.getLong("CLIENT_ID"));
+        long clientID = resultSet.getLong("CLIENT_ID");
+        String name = resultSet.getString("NAME");
+        String surname = resultSet.getString("SURNAME");
+        int age = resultSet.getInt("AGE");
+        String phone = resultSet.getString("PHONE");
+        String email = resultSet.getString("EMAIL");
+        Client client = new Client(clientID, name, surname, age, phone, email);
         List<Product> products = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(
                 "SELECT PRODUCT_ID, NAME, PRICE FROM SPECIFICATIONS LEFT JOIN PRODUCTS" +
@@ -60,9 +65,9 @@ public class OrderDBDao implements OrderDao {
             try (ResultSet resultSet1 = statement.executeQuery()) {
                 while (resultSet1.next()) {
                     long productID = resultSet1.getLong("PRODUCT_ID");
-                    String name = resultSet1.getString("NAME");
+                    String productName = resultSet1.getString("NAME");
                     BigDecimal price = resultSet1.getBigDecimal("PRICE");
-                    products.add(new Product(productID, name, price));
+                    products.add(new Product(productID, productName, price));
                 }
             }
         }
@@ -73,7 +78,8 @@ public class OrderDBDao implements OrderDao {
     public Order findByID(long id) {
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM ORDERS WHERE ID = ?")) {
+                "SELECT ORDERS.ID, CLIENT_ID, NAME, SURNAME, AGE, PHONE, EMAIL FROM ORDERS LEFT JOIN CLIENTS " +
+                        "ON CLIENT_ID = CLIENTS.ID WHERE ORDERS.ID = ?")) {
             statement.setLong(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -141,7 +147,8 @@ public class OrderDBDao implements OrderDao {
         List<Order> userOreders = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
                 DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM ORDERS WHERE ID = ?")) {
+                "SELECT ORDERS.ID, CLIENT_ID, NAME, SURNAME, AGE, PHONE, EMAIL FROM ORDERS LEFT JOIN CLIENTS " +
+                        "ON CLIENT_ID = CLIENTS.ID WHERE CLIENTS.ID = ?")) {
             statement.setLong(1, currentUserID);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
