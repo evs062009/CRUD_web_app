@@ -9,13 +9,13 @@ import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class OrderDBDao implements OrderDao {
     private static final OrderDao INSTANCE = new OrderDBDao();
 
     private OrderDBDao() {
-        try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD);
+        try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "CREATE TABLE IF NOT EXISTS ORDERS (ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
                              "CLIENT_ID BIGINT);" +
@@ -32,20 +32,108 @@ public class OrderDBDao implements OrderDao {
     }
 
     @Override
-    public List<Order> getAll() {
-        List<Order> orders = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                "SELECT ORDERS.ID, CLIENT_ID, NAME, SURNAME, AGE, PHONE, EMAIL FROM ORDERS LEFT JOIN CLIENTS " +
-                        "ON CLIENT_ID = CLIENTS.ID"); ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                orders.add(getOrder(connection, resultSet));
+    public void save(Order order) {
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                "INSERT INTO ORDERS (CLIENT_ID) VALUES (?)", Statement.RETURN_GENERATED_KEYS)) {
+            statement.setLong(1, order.getClient().getId());
+            statement.executeUpdate();
+            try (ResultSet keys = statement.getGeneratedKeys()) {
+                if (keys.next()) {
+                    long orderID = keys.getLong("ID");
+                    try (PreparedStatement statement1 = connection.prepareStatement(
+                            "INSERT INTO SPECIFICATIONS (ORDER_ID, PRODUCT_ID) VALUES (?, ?)")) {
+                        order.getProducts().forEach(product -> {
+                            try {
+                                statement1.setLong(1, orderID);
+                                statement1.setLong(2, product.getId());
+                                statement1.executeUpdate();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    }
+                }
             }
-            return orders;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+    }
+
+    @Override
+    public List<Order> getAll() {
+        List<Order> orders = new ArrayList<>();
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT ORDERS.ID, CLIENT_ID, NAME, SURNAME, AGE, PHONE, EMAIL FROM ORDERS LEFT JOIN CLIENTS " +
+                             "ON CLIENT_ID = CLIENTS.ID"); ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                orders.add(getOrder(connection, resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orders;
+    }
+
+    @Override
+    public List<Order> getUserOrders(long currentUserID) {
+        List<Order> userOreders = new ArrayList<>();
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT ORDERS.ID, CLIENT_ID, NAME, SURNAME, AGE, PHONE, EMAIL FROM ORDERS LEFT JOIN CLIENTS " +
+                             "ON CLIENT_ID = CLIENTS.ID WHERE CLIENTS.ID = ?")) {
+            statement.setLong(1, currentUserID);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    userOreders.add(getOrder(connection, resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userOreders;
+    }
+
+    @Override
+    public Optional<Order> findByID(long id) {
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT ORDERS.ID, CLIENT_ID, NAME, SURNAME, AGE, PHONE, EMAIL FROM ORDERS LEFT JOIN CLIENTS " +
+                             "ON CLIENT_ID = CLIENTS.ID WHERE ORDERS.ID = ?")) {
+            statement.setLong(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return Optional.of(getOrder(connection, resultSet));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public void modify(Order draft) {
+        try (Connection connection = DBConnection.getConnection()) {
+            deleteOrderSpecification(draft.getId(), connection);
+            addOrderSpecification(draft.getId(), draft.getProducts(), connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void remove(long id) {
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement statement = connection.prepareStatement(
+                     "DELETE FROM ORDERS WHERE ID = ?")) {
+            statement.setLong(1, id);
+            statement.execute();
+            deleteOrderSpecification(id, connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private Order getOrder(Connection connection, ResultSet resultSet) throws SQLException {
@@ -74,102 +162,11 @@ public class OrderDBDao implements OrderDao {
         return new Order(id, client, products);
     }
 
-    @Override
-    public Order findByID(long id) {
-        try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                "SELECT ORDERS.ID, CLIENT_ID, NAME, SURNAME, AGE, PHONE, EMAIL FROM ORDERS LEFT JOIN CLIENTS " +
-                        "ON CLIENT_ID = CLIENTS.ID WHERE ORDERS.ID = ?")) {
-            statement.setLong(1, id);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    return getOrder(connection, resultSet);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public void save(Order order) {
-        try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO ORDERS (CLIENT_ID) VALUES (?)", Statement.RETURN_GENERATED_KEYS)) {
-            statement.setLong(1, order.getClient().getId());
-            statement.executeUpdate();
-            try (ResultSet keys = statement.getGeneratedKeys()) {
-                if (keys.next()) {
-                    long orderID = keys.getLong("ID");
-                    try (PreparedStatement statement1 = connection.prepareStatement(
-                            "INSERT INTO SPECIFICATIONS (ORDER_ID, PRODUCT_ID) VALUES (?, ?)")) {
-                        order.getProducts().forEach(product -> {
-                            try {
-                                statement1.setLong(1, orderID);
-                                statement1.setLong(2, product.getId());
-                                statement1.executeUpdate();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        });
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void remove(long id) {
-        try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                "DELETE FROM ORDERS WHERE ID = ?")) {
-            statement.setLong(1, id);
-            statement.execute();
-            deleteOrderSpecification(id, connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void deleteOrderSpecification(long orderID, Connection connection) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(
                 "DELETE FROM SPECIFICATIONS WHERE ORDER_ID = ?")) {
             statement.setLong(1, orderID);
             statement.execute();
-        }
-    }
-
-    @Override
-    public List<Order> getUserOrders(long currentUserID) {
-        List<Order> userOreders = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD); PreparedStatement statement = connection.prepareStatement(
-                "SELECT ORDERS.ID, CLIENT_ID, NAME, SURNAME, AGE, PHONE, EMAIL FROM ORDERS LEFT JOIN CLIENTS " +
-                        "ON CLIENT_ID = CLIENTS.ID WHERE CLIENTS.ID = ?")) {
-            statement.setLong(1, currentUserID);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    userOreders.add(getOrder(connection, resultSet));
-                }
-                return userOreders;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public void modify(Order draft) {
-        try (Connection connection = DriverManager.getConnection(DBCostants.DB_URL, DBCostants.LOGIN,
-                DBCostants.PASSWORD)) {
-            deleteOrderSpecification(draft.getId(), connection);
-            addOrderSpecification(draft.getId(), draft.getProducts(), connection);
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 

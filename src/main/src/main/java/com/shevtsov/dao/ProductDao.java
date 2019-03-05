@@ -3,6 +3,7 @@ package com.shevtsov.dao;
 import com.shevtsov.domain.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductDao {
 
@@ -41,7 +42,7 @@ public interface ProductDao {
      * @param id the id of the product, which is searched.
      * @return Product-object, if such was found, or null otherwise.
      */
-    Product findByID(long id);
+    Optional<Product> findByID(long id);
 
     /**
      * Modifies the Product-object data in storage.

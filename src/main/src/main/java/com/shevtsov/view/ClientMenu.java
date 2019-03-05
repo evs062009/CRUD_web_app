@@ -64,8 +64,12 @@ public class ClientMenu {
     }
 
     private void createOrder() {
-        orderService.createDraft();
-        editOrderMenu.show();
+        try{
+            orderService.createDraft();
+            editOrderMenu.show();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void removeOrder() {
@@ -77,10 +81,8 @@ public class ClientMenu {
     }
 
     private void modifyAccount() {
-        Client client = clientService.getClient(authorisation.getCurrentUserID());
-        if (client == null){
-            System.out.println("There is no such client!!!");
-        } else {
+        try {
+            Client client = clientService.getClient(authorisation.getCurrentUserID());
             System.out.println(client);
             System.out.println("Input new name");
             String newName = ViewUtilities.inputString();
@@ -95,6 +97,8 @@ public class ClientMenu {
             if (clientService.modifyAccount(newName, newSurname, newAge, newPhone, newEmail)) {
                 System.out.println("Information modified");
             }
+        } catch (Exception e ){
+            System.out.println(e.getMessage());
         }
     }
 }

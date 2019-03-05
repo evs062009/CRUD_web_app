@@ -65,6 +65,7 @@ public interface ClientService {
      * Gets from dao and returns the Client-object, what has specified id.
      * @param id the id of the client, which is searched.
      * @return Client-object, if such was found, or null otherwise.
+     * @throws com.shevtsov.exceptions.ObjectNotFoundExeption if Client not found
      */
     Client getClient(long id);
 }

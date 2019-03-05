@@ -3,6 +3,7 @@ package com.shevtsov.services.impl;
 import com.shevtsov.dao.ProductDao;
 import com.shevtsov.dao.impl.ProductDBDao;
 import com.shevtsov.domain.Product;
+import com.shevtsov.exceptions.ObjectNotFoundExeption;
 import com.shevtsov.services.ProductService;
 
 import java.math.BigDecimal;
@@ -60,6 +61,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getProduct(long id) {
-        return productDao.findByID(id);
+        return productDao.findByID(id).orElseThrow(() -> new ObjectNotFoundExeption(id));
     }
 }

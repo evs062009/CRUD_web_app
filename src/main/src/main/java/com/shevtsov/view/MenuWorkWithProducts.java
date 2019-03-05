@@ -63,10 +63,8 @@ public class MenuWorkWithProducts {
     private void modify() {
         System.out.println("Input product id");
         long productID = ViewUtilities.inputLong();
-        Product product = productService.getProduct(productID);
-        if (product == null) {
-            System.out.println("There is no such product!!!");
-        } else {
+        try {
+            Product product = productService.getProduct(productID);
             System.out.println(product);
             System.out.println("Input new name:");
             String newName = ViewUtilities.inputString();
@@ -75,6 +73,8 @@ public class MenuWorkWithProducts {
             if (productService.modify(productID, newName, newPrice)) {
                 System.out.println("Product modified");
             }
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 

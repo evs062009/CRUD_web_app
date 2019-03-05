@@ -67,10 +67,8 @@ public class MenuWorkWithClients {
     private void modify() {
         System.out.println("Input client id");
         long clientID = ViewUtilities.inputLong();
-        Client client = clientService.getClient(clientID);
-        if (client == null){
-            System.out.println("There is no such client!!!");
-        } else {
+        try{
+            Client client = clientService.getClient(clientID);
             System.out.println(client);
             System.out.println("Input new name:");
             String newName = ViewUtilities.inputString();
@@ -85,6 +83,8 @@ public class MenuWorkWithClients {
             if (clientService.modify(clientID, newName, newSurname, newAge, newPhone, newEmail)) {
                 System.out.println("Client modified");
             }
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 

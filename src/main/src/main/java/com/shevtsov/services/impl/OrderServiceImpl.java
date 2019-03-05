@@ -7,6 +7,7 @@ import com.shevtsov.dao.impl.*;
 import com.shevtsov.domain.Client;
 import com.shevtsov.domain.Order;
 import com.shevtsov.domain.Product;
+import com.shevtsov.exceptions.ObjectNotFoundExeption;
 import com.shevtsov.services.OrderService;
 
 import java.util.Collections;
@@ -45,8 +46,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean remove(long id) {
-        Order order = orderDao.findByID(id);
-        if (order != null) {
+        if (orderDao.findByID(id).isPresent()) {
+            Order order = orderDao.findByID(id).get();
             if (authorisation.getCurrentUserID() == -1 ||
                     authorisation.getCurrentUserID() == order.getClient().getId()) {
                 orderDao.remove(id);
@@ -68,14 +69,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public boolean addProductToDraft(long productID) {
-        Product product = productDao.findByID(productID);
-        if (product != null) {
+    public boolean addProductToDraft(long productID) throws ObjectNotFoundExeption {
+        boolean isPresent = productDao.findByID(productID).isPresent();
+        if (isPresent){
+            Product product = productDao.findByID(productID).get();
             draft.getProducts().add(product);
-            return true;
         }
-        System.out.println("log: Product has not been added (there is no such product)");
-        return false;
+        return isPresent;
     }
 
     @Override
@@ -93,8 +93,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public boolean copyOrderToDraft(long id) {
-        Order order = orderDao.findByID(id);
-        if (order != null) {
+        if (orderDao.findByID(id).isPresent()) {
+            Order order = orderDao.findByID(id).get();
             draft = new Order(order);
             return true;
         }
@@ -104,7 +104,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void createDraft() {
-        Client currentClient = clientDao.findByID(authorisation.getCurrentUserID());
+        long id = authorisation.getCurrentUserID();
+        Client currentClient = clientDao.findByID(id)
+                .orElseThrow(() -> new ObjectNotFoundExeption(id));
         draft = new Order(currentClient);
         draft.setId(-1L);
     }

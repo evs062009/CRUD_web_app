@@ -4,11 +4,13 @@ import com.shevtsov.dao.ClientDao;
 import com.shevtsov.dao.impl.ClientDBDao;
 import com.shevtsov.domain.Client;
 import com.shevtsov.exceptions.BusinessException;
+import com.shevtsov.exceptions.ObjectNotFoundExeption;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.validators.ValidationService;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class ClientServiceImpl implements ClientService {
     private final AuthorisationImpl authorisation = AuthorisationImpl.getInstance();
@@ -55,7 +57,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client getClient(long id) {
-        return clientDao.findByID(id);
+        return clientDao.findByID(id).orElseThrow(() -> new ObjectNotFoundExeption(id));
     }
 
     private Client getClientForModifying(String name, String surname, int age, String phone, String email) {

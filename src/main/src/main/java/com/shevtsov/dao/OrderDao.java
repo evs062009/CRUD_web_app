@@ -3,6 +3,7 @@ package com.shevtsov.dao;
 import com.shevtsov.domain.Order;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OrderDao {
 
@@ -19,7 +20,7 @@ public interface OrderDao {
      * @param id the id of the order, which is searched.
      * @return Order-object, if such was found, or null otherwise.
      */
-    Order findByID(long id);
+    Optional<Order> findByID(long id);
 
     /**
      * Calculates id if needed (if current id = -1), assigns it to Order-object and saves the object to storage.

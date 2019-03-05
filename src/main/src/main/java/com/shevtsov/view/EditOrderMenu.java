@@ -49,7 +49,7 @@ public class EditOrderMenu {
     private void addProductToOrder() {
         System.out.println("Input product ID");
         long productID = ViewUtilities.inputLong();
-        if (!orderService.addProductToDraft(productID)) {
+        if (!orderService.addProductToDraft(productID)){
             System.out.println("There is no such product!!!");
         }
     }

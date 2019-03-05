@@ -3,6 +3,7 @@ package com.shevtsov.dao;
 import com.shevtsov.domain.Client;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ClientDao {
 
@@ -20,7 +21,7 @@ public interface ClientDao {
      * @param id the id of the client, which is searched.
      * @return Client-object, if such was found, or null otherwise.
      */
-    Client findByID(long id);
+    Optional<Client> findByID(long id);
 
     /**
      * Removes client in storage.
