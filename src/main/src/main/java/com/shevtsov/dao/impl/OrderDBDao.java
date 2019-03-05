@@ -43,15 +43,11 @@ public class OrderDBDao implements OrderDao {
                     long orderID = keys.getLong("ID");
                     try (PreparedStatement statement1 = connection.prepareStatement(
                             "INSERT INTO SPECIFICATIONS (ORDER_ID, PRODUCT_ID) VALUES (?, ?)")) {
-                        order.getProducts().forEach(product -> {
-                            try {
-                                statement1.setLong(1, orderID);
-                                statement1.setLong(2, product.getId());
-                                statement1.executeUpdate();
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                        });
+                        for (Product product : order.getProducts()) {
+                            statement1.setLong(1, orderID);
+                            statement1.setLong(2, product.getId());
+                            statement1.executeUpdate();
+                        }
                     }
                 }
             }
@@ -174,14 +170,10 @@ public class OrderDBDao implements OrderDao {
         try (PreparedStatement statement = connection.prepareStatement(
                 "INSERT INTO SPECIFICATIONS (ORDER_ID, PRODUCT_ID) VALUES (?, ?)")) {
             statement.setLong(1, id);
-            products.forEach(product -> {
-                try {
-                    statement.setLong(2, product.getId());
-                    statement.execute();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            });
+            for (Product product : products) {
+                statement.setLong(2, product.getId());
+                statement.execute();
+            }
         }
     }
 }
