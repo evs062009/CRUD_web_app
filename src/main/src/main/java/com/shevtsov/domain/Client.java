@@ -1,10 +1,10 @@
 package com.shevtsov.domain;
 
-public class Client {
-    private long id;
+public class Client implements Comparable<Client> {
+    private Long id;
     private String name;
     private String surname;
-    private int age;
+    private Integer age;
     private String email;
     private String phone;
 
@@ -14,19 +14,22 @@ public class Client {
         this.phone = phone;
     }
 
-    public Client(String name, String surname, int age, String email, String phone) {
-        this.name = name;
-        this.surname = surname;
+    public Client(String name, String surname, int age, String phone, String email) {
+        this(name, surname, phone);
         this.age = age;
         this.email = email;
-        this.phone = phone;
     }
 
-    public long getId() {
+    public Client(long id, String name, String surname, int age, String phone, String email) {
+        this(name, surname, age, phone, email);
+        this.id = id;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,11 +49,11 @@ public class Client {
         this.surname = surname;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -74,11 +77,16 @@ public class Client {
     public String toString() {
         return "Client{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
+                ", name='" + name + '\'' +
                 ", age=" + age +
-                ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Client o) {
+        return surname.compareToIgnoreCase(o.surname);
     }
 }
