@@ -10,28 +10,23 @@ import java.util.List;
 import java.util.Optional;
 
 public class ProductDBDao implements ProductDao {
-    private static final ProductDao INSTANCE = new ProductDBDao();
 
-    private ProductDBDao() {
+    public ProductDBDao() {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                "CREATE TABLE IF NOT EXISTS PRODUCTS (ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
-                        "NAME VARCHAR(20), PRICE DECIMAL)")) {
+                     "CREATE TABLE IF NOT EXISTS PRODUCTS (ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
+                             "NAME VARCHAR(20), PRICE DECIMAL)")) {
             statement.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public static ProductDao getInstance() {
-        return INSTANCE;
-    }
-
     @Override
     public void save(Product product) {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO PRODUCTS (NAME, PRICE) VALUES (?, ?)")) {
+                     "INSERT INTO PRODUCTS (NAME, PRICE) VALUES (?, ?)")) {
             statement.setString(1, product.getName());
             statement.setBigDecimal(2, product.getPrice());
             statement.execute();
@@ -45,7 +40,7 @@ public class ProductDBDao implements ProductDao {
         List<Product> products = new ArrayList<>();
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM PRODUCTS"); ResultSet resultSet = statement.executeQuery()) {
+                     "SELECT * FROM PRODUCTS"); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 products.add(getProduct(resultSet));
             }
@@ -59,7 +54,7 @@ public class ProductDBDao implements ProductDao {
     public Optional<Product> findByID(long id) {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM PRODUCTS WHERE ID = ?")) {
+                     "SELECT * FROM PRODUCTS WHERE ID = ?")) {
             statement.setLong(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {

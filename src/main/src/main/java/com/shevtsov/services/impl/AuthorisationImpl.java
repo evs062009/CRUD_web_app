@@ -1,19 +1,14 @@
 package com.shevtsov.services.impl;
 
 import com.shevtsov.dao.ClientDao;
-import com.shevtsov.dao.impl.ClientDBDao;
 import com.shevtsov.services.Authorisation;
 
 public class AuthorisationImpl implements Authorisation {
-    private final ClientDao clientDao = ClientDBDao.getInstance();
+    private ClientDao clientDao;
     private long currentUserID = -1;
-    private static final AuthorisationImpl INSTANCE = new AuthorisationImpl();
 
-    private AuthorisationImpl() {
-    }
-
-    public static AuthorisationImpl getInstance() {
-        return INSTANCE;
+    public AuthorisationImpl(ClientDao clientDao) {
+        this.clientDao = clientDao;
     }
 
     public long getCurrentUserID() {

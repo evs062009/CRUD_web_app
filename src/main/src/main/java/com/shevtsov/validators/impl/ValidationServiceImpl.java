@@ -1,15 +1,18 @@
 package com.shevtsov.validators.impl;
 
 import com.shevtsov.dao.ClientDao;
-import com.shevtsov.dao.impl.ClientDBDao;
 import com.shevtsov.exceptions.BusinessException;
 import com.shevtsov.validators.ValidationService;
 
 import java.util.Arrays;
 
 public class ValidationServiceImpl implements ValidationService {
-    private final ClientDao clientDao = ClientDBDao.getInstance();
+    private /*final */ClientDao clientDao/* = ClientDBDao.getInstance()*/;
     private static final String[] OPERATOR_CODES = {"067", "097", "050"};
+
+    public ValidationServiceImpl(ClientDao clientDao) {
+        this.clientDao = clientDao;
+    }
 
     @Override
     public void validateAge(int age) throws BusinessException {

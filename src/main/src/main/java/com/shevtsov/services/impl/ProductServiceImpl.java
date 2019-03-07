@@ -1,7 +1,6 @@
 package com.shevtsov.services.impl;
 
 import com.shevtsov.dao.ProductDao;
-import com.shevtsov.dao.impl.ProductDBDao;
 import com.shevtsov.domain.Product;
 import com.shevtsov.exceptions.ObjectNotFoundExeption;
 import com.shevtsov.services.ProductService;
@@ -11,7 +10,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class ProductServiceImpl implements ProductService {
-    private final ProductDao productDao = ProductDBDao.getInstance();
+    private ProductDao productDao;
+
+    public ProductServiceImpl(ProductDao productDao) {
+        this.productDao = productDao;
+    }
 
     @Override
     public boolean create(String name, BigDecimal price) {

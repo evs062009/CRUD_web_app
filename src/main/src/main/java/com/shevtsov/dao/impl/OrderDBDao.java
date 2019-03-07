@@ -12,9 +12,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class OrderDBDao implements OrderDao {
-    private static final OrderDao INSTANCE = new OrderDBDao();
 
-    private OrderDBDao() {
+    public OrderDBDao() {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "CREATE TABLE IF NOT EXISTS ORDERS (ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
@@ -27,15 +26,11 @@ public class OrderDBDao implements OrderDao {
         }
     }
 
-    public static OrderDao getInstance() {
-        return INSTANCE;
-    }
-
     @Override
     public void save(Order order) {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO ORDERS (CLIENT_ID) VALUES (?)", Statement.RETURN_GENERATED_KEYS)) {
+                     "INSERT INTO ORDERS (CLIENT_ID) VALUES (?)", Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, order.getClient().getId());
             statement.executeUpdate();
             try (ResultSet keys = statement.getGeneratedKeys()) {

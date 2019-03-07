@@ -1,6 +1,11 @@
 package com.shevtsov;
 
-import com.shevtsov.services.Authorisation;
+import com.shevtsov.dao.ClientDao;
+import com.shevtsov.dao.OrderDao;
+import com.shevtsov.dao.ProductDao;
+import com.shevtsov.dao.impl.ClientDBDao;
+import com.shevtsov.dao.impl.OrderDBDao;
+import com.shevtsov.dao.impl.ProductDBDao;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
@@ -14,17 +19,21 @@ import com.shevtsov.view.*;
 
 public class Creator {
     public MainMenu create(){
-        ValidationService validationService = new ValidationServiceImpl();
-        ClientService clientService = new ClientServiceImpl(validationService);
-        ProductService productService = new ProductServiceImpl();
-        OrderService orderService = new OrderServiceImpl();
-        Authorisation authorisation = AuthorisationImpl.getInstance();
+        ClientDao clientDao = new ClientDBDao();
+        ProductDao productDao = new ProductDBDao();
+        OrderDao orderDao = new OrderDBDao();
+        ValidationService validationService = new ValidationServiceImpl(clientDao);
+        AuthorisationImpl authorisation = new AuthorisationImpl(clientDao);
+        ClientService clientService = new ClientServiceImpl(validationService, clientDao, authorisation);
+        ProductService productService = new ProductServiceImpl(productDao);
+        OrderService orderService = new OrderServiceImpl(clientDao, authorisation, orderDao, productDao);
         EditOrderMenu editOrderMenu = new EditOrderMenu(orderService, productService);
         MenuWorkWithClients menuWorkWithClients = new MenuWorkWithClients(clientService);
         MenuWorkWithProducts menuWorkWithProducts = new MenuWorkWithProducts(productService);
         MenuWorkWithOrders menuWorkWithOrders = new MenuWorkWithOrders(orderService, editOrderMenu);
         AdminMenu adminMenu = new AdminMenu(menuWorkWithClients, menuWorkWithProducts, menuWorkWithOrders);
-        ClientMenu clientMenu = new ClientMenu(clientService, productService, orderService, editOrderMenu);
+        ClientMenu clientMenu = new ClientMenu(clientService, productService, orderService, editOrderMenu,
+                authorisation);
         return new MainMenu(authorisation, adminMenu, clientMenu, clientService);
     }
 }

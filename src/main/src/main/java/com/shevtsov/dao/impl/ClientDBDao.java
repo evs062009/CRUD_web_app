@@ -9,21 +9,16 @@ import java.util.List;
 import java.util.Optional;
 
 public class ClientDBDao implements ClientDao {
-    private static final ClientDao INSTANCE = new ClientDBDao();
 
-    private ClientDBDao() {
+    public ClientDBDao() {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                "CREATE TABLE IF NOT EXISTS CLIENTS (ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
-                        "NAME VARCHAR(20),SURNAME VARCHAR(20), AGE INT, PHONE VARCHAR(20), EMAIL VARCHAR(50))")) {
+                     "CREATE TABLE IF NOT EXISTS CLIENTS (ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
+                             "NAME VARCHAR(20),SURNAME VARCHAR(20), AGE INT, PHONE VARCHAR(20), EMAIL VARCHAR(50))")) {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public static ClientDao getInstance() {
-        return INSTANCE;
     }
 
     @Override
@@ -49,7 +44,7 @@ public class ClientDBDao implements ClientDao {
         List<Client> clients = new ArrayList<>();
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM CLIENTS"); ResultSet resultSet = statement.executeQuery()) {
+                     "SELECT * FROM CLIENTS"); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 clients.add(getClient(resultSet));
             }
@@ -80,7 +75,7 @@ public class ClientDBDao implements ClientDao {
     public long findByPhone(String phone) {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                "SELECT ID FROM CLIENTS WHERE PHONE = ?")) {
+                     "SELECT ID FROM CLIENTS WHERE PHONE = ?")) {
             statement.setString(1, phone);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -124,7 +119,7 @@ public class ClientDBDao implements ClientDao {
     public boolean modify(Client client) {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                "UPDATE CLIENTS SET NAME = ?, SURNAME = ?, AGE = ?, PHONE = ?, EMAIL = ? WHERE ID = ?")) {
+                     "UPDATE CLIENTS SET NAME = ?, SURNAME = ?, AGE = ?, PHONE = ?, EMAIL = ? WHERE ID = ?")) {
             setStatementParams(client, statement);
             statement.setLong(6, client.getId());
             return statement.executeUpdate() != 0;

@@ -1,7 +1,6 @@
 package com.shevtsov.services.impl;
 
 import com.shevtsov.dao.ClientDao;
-import com.shevtsov.dao.impl.ClientDBDao;
 import com.shevtsov.domain.Client;
 import com.shevtsov.exceptions.BusinessException;
 import com.shevtsov.exceptions.ObjectNotFoundExeption;
@@ -10,15 +9,17 @@ import com.shevtsov.validators.ValidationService;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class ClientServiceImpl implements ClientService {
-    private final AuthorisationImpl authorisation = AuthorisationImpl.getInstance();
-    private final ClientDao clientDao = ClientDBDao.getInstance();
+    private AuthorisationImpl authorisation;
+    private ClientDao clientDao;
     private final ValidationService validationService;
 
-    public ClientServiceImpl(ValidationService validationService) {
+    public ClientServiceImpl(ValidationService validationService, ClientDao clientDao, AuthorisationImpl
+            authorisation) {
         this.validationService = validationService;
+        this.clientDao = clientDao;
+        this.authorisation = authorisation;
     }
 
     @Override
@@ -39,9 +40,7 @@ public class ClientServiceImpl implements ClientService {
             Client client = getClientForModifying(newName, newSurname, newAge, newPhone, newEmail);
             if (client != null) {
                 client.setId(id);
-                if (clientDao.modify(client)) {
-                    return true;
-                }
+                return clientDao.modify(client);
             }
         } else {
             System.out.println("log: Modify has not been done!!!");

@@ -1,5 +1,7 @@
 package com.shevtsov.domain;
 
+import java.util.Objects;
+
 public class Client implements Comparable<Client> {
     private Long id;
     private String name;
@@ -88,5 +90,23 @@ public class Client implements Comparable<Client> {
     @Override
     public int compareTo(Client o) {
         return surname.compareToIgnoreCase(o.surname);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Client)) return false;
+        Client client = (Client) o;
+        return Objects.equals(getId(), client.getId()) &&
+                Objects.equals(getName(), client.getName()) &&
+                Objects.equals(getSurname(), client.getSurname()) &&
+                Objects.equals(getAge(), client.getAge()) &&
+                Objects.equals(getEmail(), client.getEmail()) &&
+                Objects.equals(getPhone(), client.getPhone());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getSurname(), getAge(), getEmail(), getPhone());
     }
 }

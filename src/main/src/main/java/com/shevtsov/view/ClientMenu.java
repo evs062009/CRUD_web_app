@@ -13,14 +13,15 @@ public class ClientMenu {
     private final ProductService productService;
     private final OrderService orderService;
     private final EditOrderMenu editOrderMenu;
-    private final AuthorisationImpl authorisation = AuthorisationImpl.getInstance();
+    private /*final */AuthorisationImpl authorisation /*= AuthorisationImpl.getInstance()*/;
 
     public ClientMenu(ClientService clientService, ProductService productService, OrderService orderService,
-                      EditOrderMenu editOrderMenu) {
+                      EditOrderMenu editOrderMenu, AuthorisationImpl authorisation) {
         this.clientService = clientService;
         this.productService = productService;
         this.orderService = orderService;
         this.editOrderMenu = editOrderMenu;
+        this.authorisation = authorisation;
     }
 
     MenuStatus show() {
