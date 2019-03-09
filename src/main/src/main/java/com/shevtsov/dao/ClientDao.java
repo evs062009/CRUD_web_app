@@ -35,7 +35,7 @@ public interface ClientDao {
      *
      * @return collection of Client-objects from storage.
      */
-    List<Client> gatAll();
+    List<Client> getAll();
 
     /**
      * Searches client in storage by phone number.

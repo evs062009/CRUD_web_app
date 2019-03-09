@@ -5,17 +5,26 @@ import com.shevtsov.exceptions.BusinessException;
 import com.shevtsov.validators.ValidationService;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import static org.mockito.Mockito.mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
+
+import static org.mockito.ArgumentMatchers.anyString;
 
 @RunWith(JUnit4.class)
 public class ValidationServiceImplTest {
     private ValidationService validationService;
 
-    private ClientDao clientDao = mock(ClientDao.class);
+    @Mock
+    private ClientDao clientDao;
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Before
     public void setUp() {
@@ -23,7 +32,7 @@ public class ValidationServiceImplTest {
     }
 
     @Test
-    public void validateAgeGetValidValue() throws BusinessException {
+    public void validateAgeWithValidParameters() throws BusinessException {
         //GIVEN
         int age = 50;
         //WHEN
@@ -31,7 +40,7 @@ public class ValidationServiceImplTest {
     }
 
     @Test(expected = BusinessException.class)
-    public void validateAgeGetMoreThanMaximum() throws BusinessException {
+    public void validateAgeWithMoreThanValid() throws BusinessException {
         //GIVEN
         int ageMoreMaximum = 201;
         //WHEN
@@ -39,7 +48,7 @@ public class ValidationServiceImplTest {
     }
 
     @Test(expected = BusinessException.class)
-    public void validateAgeGetLessThenMinimum() throws BusinessException {
+    public void validateAgeWithLessThenValid() throws BusinessException {
         //GIVEN
         int ageLessMinimum = -1;
         //WHEN
@@ -47,7 +56,7 @@ public class ValidationServiceImplTest {
     }
 
     @Test
-    public void validatePhoneFormatGetValidValue() throws BusinessException {
+    public void validatePhoneFormatWithValidParameters() throws BusinessException {
         //GIVEN
         String phone = "0501111111";
         //WHEN
@@ -55,13 +64,13 @@ public class ValidationServiceImplTest {
     }
 
     @Test(expected = BusinessException.class)
-    public void validatePhoneFormatGetNULL() throws BusinessException {
+    public void validatePhoneFormatWithNULL() throws BusinessException {
         //WHEN
         validationService.validatePhoneFormat(null);
     }
 
     @Test(expected = BusinessException.class)
-    public void validatePhoneFormatGetLessThenTenChars() throws BusinessException {
+    public void validatePhoneFormatWithLessCharsThenValid() throws BusinessException {
         //GIVEN
         String phoneLessYenChars = "123456789";
         //WHEN
@@ -69,7 +78,7 @@ public class ValidationServiceImplTest {
     }
 
     @Test(expected = BusinessException.class)
-    public void validatePhoneFormatGetWrongCode() throws BusinessException {
+    public void validatePhoneFormatWithInvalidCode() throws BusinessException {
         //GIVEN
         String wrongCode = "111";
         //WHEN
@@ -77,25 +86,28 @@ public class ValidationServiceImplTest {
     }
 
     @Test
-    public void validatePhoneUniqUniqueNumber() throws BusinessException {
+    public void validatePhoneUniqWithUniqueNumber() throws BusinessException {
         //GIVEN
-        String uniqueNumber = "someUniqueNumber";
+        String uniqueNumber = anyString();
         Mockito.when(clientDao.findByPhone(uniqueNumber)).thenReturn(-1L);
         //WHEN
         validationService.validatePhoneUniq(uniqueNumber);
+        //THEN
+        Mockito.verify(clientDao, Mockito.times(1)).findByPhone(uniqueNumber);
+        Mockito.verifyNoMoreInteractions(clientDao);
     }
 
-    @Test (expected = BusinessException.class)
-    public void validatePhoneUniqNotUniqueNumber() throws BusinessException {
+    @Test(expected = BusinessException.class)
+    public void validatePhoneUniqWithNonUniqueNumber() throws BusinessException {
         //GIVEN
-        String notUniqueNumber = "someNonUniqueNumber";
+        String notUniqueNumber = anyString();
         Mockito.when(clientDao.findByPhone(notUniqueNumber)).thenReturn(0L);
         //WHEN
         validationService.validatePhoneUniq(notUniqueNumber);
     }
 
     @Test
-    public void validateEmailGetValidValue() throws BusinessException {
+    public void validateEmailWithValidParameters() throws BusinessException {
         //GIVEN
         String email = "111@test.com";
         //WHEN
@@ -103,7 +115,7 @@ public class ValidationServiceImplTest {
     }
 
     @Test(expected = BusinessException.class)
-    public void validateEmailGetWrongFormat() throws BusinessException {
+    public void validateEmailWithInvalidFormat() throws BusinessException {
         //GIVEN
         String wrongEmail = "123";
         //WHEN

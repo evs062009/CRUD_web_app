@@ -40,7 +40,7 @@ public class ClientDBDao implements ClientDao {
     }
 
     @Override
-    public List<Client> gatAll() {
+    public List<Client> getAll() {
         List<Client> clients = new ArrayList<>();
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(

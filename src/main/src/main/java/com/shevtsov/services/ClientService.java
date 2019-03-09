@@ -49,19 +49,6 @@ public interface ClientService {
     List<Client> getAll();
 
     /**
-     * Defines current user id and transmit the data of current user for modification.
-     *
-     * @param newName    new name current user.
-     * @param newSurname new surname current user.
-     * @param newAge     new age of current user.
-     * @param newPhone   new phone number of current user.
-     * @param newEmail   new email of current user.
-     * @return false if there is no such user (client) in the storage, or true otherwise.
-     */
-    boolean modifyAccount(String newName, String newSurname, int newAge, String newPhone,
-                          String newEmail);
-
-    /**
      * Gets from dao and returns the Client-object, what has specified id.
      * @param id the id of the client, which is searched.
      * @return Client-object, if such was found, or null otherwise.

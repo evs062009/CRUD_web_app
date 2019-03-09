@@ -42,16 +42,9 @@ public class ClientServiceImpl implements ClientService {
                 client.setId(id);
                 return clientDao.modify(client);
             }
-        } else {
-            System.out.println("log: Modify has not been done!!!");
         }
+        System.out.println("log: Modify has not been done!!!");
         return false;
-    }
-
-    @Override
-    public boolean modifyAccount(String newName, String newSurname, int newAge, String newPhone,
-                                 String newEmail) {
-        return modify(authorisation.getCurrentUserID(), newName, newSurname, newAge, newPhone, newEmail);
     }
 
     @Override
@@ -97,7 +90,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<Client> getAll() {
-        List<Client> clients = clientDao.gatAll();
+        List<Client> clients = clientDao.getAll();
         if (clients != null) {
             Collections.sort(clients);
         }

@@ -83,7 +83,8 @@ public class ClientMenu {
 
     private void modifyAccount() {
         try {
-            Client client = clientService.getClient(authorisation.getCurrentUserID());
+            long currentUserID = authorisation.getCurrentUserID();
+            Client client = clientService.getClient(currentUserID);
             System.out.println(client);
             System.out.println("Input new name");
             String newName = ViewUtilities.inputString();
@@ -95,7 +96,7 @@ public class ClientMenu {
             String newPhone = ViewUtilities.inputString();
             System.out.println("Input email:");
             String newEmail = ViewUtilities.inputString();
-            if (clientService.modifyAccount(newName, newSurname, newAge, newPhone, newEmail)) {
+            if (clientService.modify(currentUserID, newName, newSurname, newAge, newPhone, newEmail)) {
                 System.out.println("Information modified");
             }
         } catch (Exception e ){
