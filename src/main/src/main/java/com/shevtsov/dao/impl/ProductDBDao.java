@@ -23,16 +23,18 @@ public class ProductDBDao implements ProductDao {
     }
 
     @Override
-    public void save(Product product) {
+    public boolean save(Product product) {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "INSERT INTO PRODUCTS (NAME, PRICE) VALUES (?, ?)")) {
             statement.setString(1, product.getName());
             statement.setBigDecimal(2, product.getPrice());
-            statement.execute();
+            statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
@@ -97,15 +99,17 @@ public class ProductDBDao implements ProductDao {
     }
 
     @Override
-    public void remove(long id) {
+    public boolean remove(long id) {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "DELETE FROM PRODUCTS WHERE ID = ?")) {
             statement.setLong(1, id);
-            statement.execute();
+            statement.executeUpdate();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     private Product getProduct(ResultSet resultSet) throws SQLException {

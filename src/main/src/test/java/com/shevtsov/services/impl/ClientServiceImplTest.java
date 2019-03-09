@@ -16,6 +16,7 @@ import org.mockito.junit.MockitoRule;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -150,7 +151,7 @@ public class ClientServiceImplTest {
     public void getClientWithValidParameters() {
         //GIVEN
         Client expected = new Client(id, name, surname, age, phone, email);
-        Mockito.when(clientDao.findByID(id)).thenReturn(java.util.Optional.of(expected));
+        Mockito.when(clientDao.findByID(id)).thenReturn(Optional.of(expected));
         //WHEN
         Client actual = clientService.getClient(id);
         //THEN

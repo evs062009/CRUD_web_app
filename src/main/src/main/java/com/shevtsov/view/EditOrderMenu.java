@@ -16,7 +16,7 @@ public class EditOrderMenu {
     void show() {
         while (true) {
             System.out.println("Goods in stock:");
-            ViewUtilities.showList(productService.gatAll());
+            ViewUtilities.showList(productService.getAll());
             System.out.println("Goods in order:");
             ViewUtilities.showList(orderService.getDraftProducts());
 

@@ -35,7 +35,7 @@ public class MenuWorkWithProducts {
                     remove();
                     break;
                 case "4":
-                    ViewUtilities.showList(productService.gatAll());
+                    ViewUtilities.showList(productService.getAll());
                     break;
                 case "R":
                     return MenuStatus.CONTINUE_WORK;

@@ -42,7 +42,7 @@ public interface ProductService {
      * Returns sorted by natural comparison method list of all products.
      * @return list of all products.
      */
-    List<Product> gatAll();
+    List<Product> getAll();
 
     /**
      * Gets from dao and returns the Product-object, what has specified id.

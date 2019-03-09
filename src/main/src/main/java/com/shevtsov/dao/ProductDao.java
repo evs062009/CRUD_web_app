@@ -11,15 +11,17 @@ public interface ProductDao {
      * Saves the Product-object to storage.
      *
      * @param product the Product-object, which is saved.
+     * @return true if client is saved successfully, ot false otherwise.
      */
-    void save(Product product);
+    boolean save(Product product);
 
     /**
      * Removes Product-object in storage.
      *
      * @param id the id of Product-object, which is removed.
+     * @return true if client is removed successfully, ot false otherwise.
      */
-    void remove(long id);
+    boolean remove(long id);
 
     /**
      * Creates and returns collection of Product-objects from storage.

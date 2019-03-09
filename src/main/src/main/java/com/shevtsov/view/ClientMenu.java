@@ -37,7 +37,7 @@ public class ClientMenu {
 
             switch (ViewUtilities.inputString()) {
                 case "1":
-                    ViewUtilities.showList(productService.gatAll());
+                    ViewUtilities.showList(productService.getAll());
                     break;
                 case "2":
                     createOrder();
