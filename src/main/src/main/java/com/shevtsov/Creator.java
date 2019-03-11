@@ -6,6 +6,7 @@ import com.shevtsov.dao.ProductDao;
 import com.shevtsov.dao.impl.ClientDBDao;
 import com.shevtsov.dao.impl.OrderDBDao;
 import com.shevtsov.dao.impl.ProductDBDao;
+import com.shevtsov.domain.Order;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
@@ -17,6 +18,8 @@ import com.shevtsov.validators.ValidationService;
 import com.shevtsov.validators.impl.ValidationServiceImpl;
 import com.shevtsov.view.*;
 
+import java.util.ArrayList;
+
 public class Creator {
     public MainMenu create(){
         ClientDao clientDao = new ClientDBDao();
@@ -26,7 +29,8 @@ public class Creator {
         AuthorisationImpl authorisation = new AuthorisationImpl(clientDao);
         ClientService clientService = new ClientServiceImpl(validationService, clientDao, authorisation);
         ProductService productService = new ProductServiceImpl(productDao);
-        OrderService orderService = new OrderServiceImpl(clientDao, authorisation, orderDao, productDao);
+        OrderService orderService = new OrderServiceImpl(clientDao, authorisation, orderDao, productDao,
+                new Order(-1, null, new ArrayList<>()));
         EditOrderMenu editOrderMenu = new EditOrderMenu(orderService, productService);
         MenuWorkWithClients menuWorkWithClients = new MenuWorkWithClients(clientService);
         MenuWorkWithProducts menuWorkWithProducts = new MenuWorkWithProducts(productService);

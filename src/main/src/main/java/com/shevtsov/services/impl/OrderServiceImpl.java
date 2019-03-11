@@ -21,12 +21,12 @@ public class OrderServiceImpl implements OrderService {
     private Order draft;
 
     public OrderServiceImpl(ClientDao clientDao, AuthorisationImpl authorisation, OrderDao orderDao, ProductDao
-                            productDao) {
+                            productDao, Order draft) {
         this.clientDao = clientDao;
         this.authorisation = authorisation;
         this.orderDao = orderDao;
         this.productDao = productDao;
-        draft = new Order(-1, null, new ArrayList<>());
+        this.draft = draft;
     }
 
     @Override

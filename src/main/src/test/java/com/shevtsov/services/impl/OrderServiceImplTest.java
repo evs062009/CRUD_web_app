@@ -40,7 +40,7 @@ public class OrderServiceImplTest {
 
     @Before
     public void setUp() {
-        orderService = new OrderServiceImpl(clientDao, authorisation, orderDao, productDao);
+        orderService = new OrderServiceImpl(clientDao, authorisation, orderDao, productDao, draft);
         id = 1;
     }
 
@@ -63,28 +63,26 @@ public class OrderServiceImplTest {
     @Test
     public void saveDoSave() {
         //GIVEN
-        List<Product> products = new ArrayList<>();
-        products.add(new Product(1, "name", BigDecimal.valueOf(10)));
-        Mockito.when(draft.getProducts()).thenReturn(products);
+        Mockito.when(draft.getId()).thenReturn(-1L);
+        saveTest();
+        Mockito.verify(orderDao, times(1)).save(draft);
+    }
 
-        //
-        System.out.println("isempty - " + draft.getProducts().isEmpty());
-        //
-
-        //WHEN
-        boolean actual = orderService.save();
-        //THEN
-//        Mockito.verifyZeroInteractions(draft);
-//        Mockito.verifyZeroInteractions(orderDao);
-        Assert.assertTrue(actual);
+    @Test
+    public void saveDoModify() {
+        //GIVEN
+        Mockito.when(draft.getId()).thenReturn(1L);
+        saveTest();
+        Mockito.verify(orderDao, times(1)).modify(draft);
     }
 
     @Test
     public void saveWithEmptyProductsList() {
+        //GIVEN
+        Mockito.when(draft.getProducts()).thenReturn(new ArrayList<>());
         //WHEN
         boolean actual = orderService.save();
         //THEN
-        Mockito.verifyZeroInteractions(draft);
         Mockito.verifyZeroInteractions(orderDao);
         Assert.assertFalse(actual);
     }
@@ -152,7 +150,21 @@ public class OrderServiceImplTest {
         boolean actual = orderService.addProductToDraft(productID);
         //THEN
         Mockito.verify(productDao, times(1)).findByID(productID);
+        Mockito.verifyZeroInteractions(draft);
         Assert.assertFalse(actual);
+    }
+
+    @Test
+    public void removeProductFromDraftWithValidParameters() {
+        //GIVEN
+        long productID = 1;
+        List<Product> products = new ArrayList<>();
+        products.add(new Product(1, "name", BigDecimal.valueOf(10)));
+        Mockito.when(draft.getProducts()).thenReturn(products);
+        //WHEN
+        boolean actual = orderService.removeProductFromDraft(productID);
+        //THEN
+        Assert.assertTrue(actual);
     }
 
     @Test
@@ -208,5 +220,15 @@ public class OrderServiceImplTest {
         List<?> actual = orderService.getDraftProducts();
         //THEN
         Assert.assertNotNull(actual);
+    }
+
+    private void saveTest() {
+        List<Product> products = new ArrayList<>();
+        products.add(new Product(1, "name", BigDecimal.valueOf(10)));
+        Mockito.when(draft.getProducts()).thenReturn(products);
+        //WHEN
+        boolean actual = orderService.save();
+        //THEN
+        Assert.assertTrue(actual);
     }
 }
