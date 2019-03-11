@@ -60,19 +60,24 @@ public class OrderServiceImplTest {
         Assert.assertNotNull(actual);
     }
 
-//    @Test
-//    public void saveDoSave() {
-//        //GIVEN
-//        List<Product> products = new ArrayList<>();
-//        products.add(new Product(1, "name", BigDecimal.valueOf(10)));
-//        Mockito.when(draft.getProducts()).thenReturn(products);
-//        //WHEN
-//        boolean actual = orderService.save();
-//        //THEN
-////        Mockito.verifyZeroInteractions(draft);
-////        Mockito.verifyZeroInteractions(orderDao);
-//        Assert.assertTrue(actual);
-//    }
+    @Test
+    public void saveDoSave() {
+        //GIVEN
+        List<Product> products = new ArrayList<>();
+        products.add(new Product(1, "name", BigDecimal.valueOf(10)));
+        Mockito.when(draft.getProducts()).thenReturn(products);
+
+        //
+        System.out.println("isempty - " + draft.getProducts().isEmpty());
+        //
+
+        //WHEN
+        boolean actual = orderService.save();
+        //THEN
+//        Mockito.verifyZeroInteractions(draft);
+//        Mockito.verifyZeroInteractions(orderDao);
+        Assert.assertTrue(actual);
+    }
 
     @Test
     public void saveWithEmptyProductsList() {
@@ -151,7 +156,7 @@ public class OrderServiceImplTest {
     }
 
     @Test
-    public void removeProductFromDraftWithValidParameters() {
+    public void removeProductFromDraftWithInvalidID() {
         //GIVEN
         long productID = -1;
         //WHEN
