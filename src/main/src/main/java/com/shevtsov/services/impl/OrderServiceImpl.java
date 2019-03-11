@@ -9,6 +9,7 @@ import com.shevtsov.domain.Product;
 import com.shevtsov.exceptions.ObjectNotFoundExeption;
 import com.shevtsov.services.OrderService;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class OrderServiceImpl implements OrderService {
         this.authorisation = authorisation;
         this.orderDao = orderDao;
         this.productDao = productDao;
+        draft = new Order(-1, null, new ArrayList<>());
     }
 
     @Override
@@ -72,7 +74,6 @@ public class OrderServiceImpl implements OrderService {
             Collections.sort(orders);
         }
         return orders;
-
     }
 
     @Override

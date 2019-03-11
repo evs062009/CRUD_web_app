@@ -211,7 +211,7 @@ public class ClientServiceImplTest {
         //WHEN
         boolean actual = clientService.create(name, surname, age, phone, email);
         //THEN
-        Mockito.verifyNoMoreInteractions(clientDao);
+        Mockito.verifyZeroInteractions(clientDao);
         Assert.assertFalse(actual);
     }
 
