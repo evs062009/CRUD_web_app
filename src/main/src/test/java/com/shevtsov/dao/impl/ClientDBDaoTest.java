@@ -105,7 +105,7 @@ public class ClientDBDaoTest {
         try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM CLIENTS WHERE ID = ?")) {
             statement.setLong(1, client.getId());
             try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()){
+                if (resultSet.next()) {
                     Assert.fail();
                 }
             }

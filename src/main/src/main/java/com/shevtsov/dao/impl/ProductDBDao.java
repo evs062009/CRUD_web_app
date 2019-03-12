@@ -94,7 +94,7 @@ public class ProductDBDao implements ProductDao {
             statement.setString(1, product.getName());
             statement.setBigDecimal(2, product.getPrice());
             statement.setLong(3, product.getId());
-            return statement.execute();
+            return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,8 +107,7 @@ public class ProductDBDao implements ProductDao {
              PreparedStatement statement = connection.prepareStatement(
                      "DELETE FROM PRODUCTS WHERE ID = ?")) {
             statement.setLong(1, id);
-            statement.executeUpdate();
-            return true;
+            return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
