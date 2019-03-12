@@ -1,5 +1,6 @@
 package com.shevtsov.dao.impl;
 
+import com.shevtsov.dao.DBConnection;
 import com.shevtsov.dao.OrderDao;
 import com.shevtsov.domain.Client;
 import com.shevtsov.domain.Order;
@@ -12,9 +13,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class OrderDBDao implements OrderDao {
+    private DBConnection dbConnection;
 
-    public OrderDBDao() {
-        try (Connection connection = DBConnection.getConnection();
+    public OrderDBDao(DBConnection dbConnection) {
+        this.dbConnection = dbConnection;
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "CREATE TABLE IF NOT EXISTS ORDERS (ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
                              "CLIENT_ID BIGINT);" +
@@ -28,7 +31,7 @@ public class OrderDBDao implements OrderDao {
 
     @Override
     public void save(Order order) {
-        try (Connection connection = DBConnection.getConnection();
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "INSERT INTO ORDERS (CLIENT_ID) VALUES (?)", Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, order.getClient().getId());
@@ -54,7 +57,7 @@ public class OrderDBDao implements OrderDao {
     @Override
     public List<Order> getAll() {
         List<Order> orders = new ArrayList<>();
-        try (Connection connection = DBConnection.getConnection();
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT ORDERS.ID, CLIENT_ID, NAME, SURNAME, AGE, PHONE, EMAIL FROM ORDERS LEFT JOIN CLIENTS " +
                              "ON CLIENT_ID = CLIENTS.ID"); ResultSet resultSet = statement.executeQuery()) {
@@ -70,7 +73,7 @@ public class OrderDBDao implements OrderDao {
     @Override
     public List<Order> getUserOrders(long currentUserID) {
         List<Order> userOreders = new ArrayList<>();
-        try (Connection connection = DBConnection.getConnection();
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT ORDERS.ID, CLIENT_ID, NAME, SURNAME, AGE, PHONE, EMAIL FROM ORDERS LEFT JOIN CLIENTS " +
                              "ON CLIENT_ID = CLIENTS.ID WHERE CLIENTS.ID = ?")) {
@@ -88,7 +91,7 @@ public class OrderDBDao implements OrderDao {
 
     @Override
     public Optional<Order> findByID(long id) {
-        try (Connection connection = DBConnection.getConnection();
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT ORDERS.ID, CLIENT_ID, NAME, SURNAME, AGE, PHONE, EMAIL FROM ORDERS LEFT JOIN CLIENTS " +
                              "ON CLIENT_ID = CLIENTS.ID WHERE ORDERS.ID = ?")) {
@@ -106,7 +109,7 @@ public class OrderDBDao implements OrderDao {
 
     @Override
     public void modify(Order draft) {
-        try (Connection connection = DBConnection.getConnection()) {
+        try (Connection connection = dbConnection.getConnection()) {
             deleteOrderSpecification(draft.getId(), connection);
             addOrderSpecification(draft.getId(), draft.getProducts(), connection);
         } catch (SQLException e) {
@@ -116,7 +119,7 @@ public class OrderDBDao implements OrderDao {
 
     @Override
     public void remove(long id) {
-        try (Connection connection = DBConnection.getConnection();
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "DELETE FROM ORDERS WHERE ID = ?")) {
             statement.setLong(1, id);

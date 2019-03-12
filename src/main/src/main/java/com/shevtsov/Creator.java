@@ -1,9 +1,11 @@
 package com.shevtsov;
 
 import com.shevtsov.dao.ClientDao;
+import com.shevtsov.dao.DBConnection;
 import com.shevtsov.dao.OrderDao;
 import com.shevtsov.dao.ProductDao;
 import com.shevtsov.dao.impl.ClientDBDao;
+import com.shevtsov.dao.impl.DBConnectionWorkDB;
 import com.shevtsov.dao.impl.OrderDBDao;
 import com.shevtsov.dao.impl.ProductDBDao;
 import com.shevtsov.domain.Order;
@@ -22,9 +24,10 @@ import java.util.ArrayList;
 
 public class Creator {
     public MainMenu create(){
-        ClientDao clientDao = new ClientDBDao();
-        ProductDao productDao = new ProductDBDao();
-        OrderDao orderDao = new OrderDBDao();
+        DBConnection dbConnection = new DBConnectionWorkDB();
+        ClientDao clientDao = new ClientDBDao(dbConnection);
+        ProductDao productDao = new ProductDBDao(dbConnection);
+        OrderDao orderDao = new OrderDBDao(dbConnection);
         ValidationService validationService = new ValidationServiceImpl(clientDao);
         AuthorisationImpl authorisation = new AuthorisationImpl(clientDao);
         ClientService clientService = new ClientServiceImpl(validationService, clientDao, authorisation);

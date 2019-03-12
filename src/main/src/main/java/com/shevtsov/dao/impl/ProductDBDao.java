@@ -1,5 +1,6 @@
 package com.shevtsov.dao.impl;
 
+import com.shevtsov.dao.DBConnection;
 import com.shevtsov.dao.ProductDao;
 import com.shevtsov.domain.Product;
 
@@ -10,9 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class ProductDBDao implements ProductDao {
+    private DBConnection dbConnection;
 
-    public ProductDBDao() {
-        try (Connection connection = DBConnection.getConnection();
+    public ProductDBDao(DBConnection dbConnection) {
+        this.dbConnection = dbConnection;
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "CREATE TABLE IF NOT EXISTS PRODUCTS (ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
                              "NAME VARCHAR(20), PRICE DECIMAL)")) {
@@ -24,7 +27,7 @@ public class ProductDBDao implements ProductDao {
 
     @Override
     public boolean save(Product product) {
-        try (Connection connection = DBConnection.getConnection();
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "INSERT INTO PRODUCTS (NAME, PRICE) VALUES (?, ?)")) {
             statement.setString(1, product.getName());
@@ -40,7 +43,7 @@ public class ProductDBDao implements ProductDao {
     @Override
     public List<Product> getAll() {
         List<Product> products = new ArrayList<>();
-        try (Connection connection = DBConnection.getConnection();
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT * FROM PRODUCTS"); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
@@ -54,7 +57,7 @@ public class ProductDBDao implements ProductDao {
 
     @Override
     public Optional<Product> findByID(long id) {
-        try (Connection connection = DBConnection.getConnection();
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT * FROM PRODUCTS WHERE ID = ?")) {
             statement.setLong(1, id);
@@ -71,7 +74,7 @@ public class ProductDBDao implements ProductDao {
 
     @Override
     public boolean isContainsKey(long id) {
-        try (Connection connection = DBConnection.getConnection();
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT ID FROM PRODUCTS WHERE ID = ?")) {
             statement.setLong(1, id);
@@ -86,8 +89,8 @@ public class ProductDBDao implements ProductDao {
 
     @Override
     public boolean modify(Product product) {
-        try (Connection connection = DBConnection.getConnection(); PreparedStatement statement = connection.prepareStatement(
-                "UPDATE PRODUCTS SET NAME = ?, PRICE = ? WHERE ID = ?")) {
+        try (Connection connection = dbConnection.getConnection(); PreparedStatement statement =
+                connection.prepareStatement("UPDATE PRODUCTS SET NAME = ?, PRICE = ? WHERE ID = ?")) {
             statement.setString(1, product.getName());
             statement.setBigDecimal(2, product.getPrice());
             statement.setLong(3, product.getId());
@@ -100,7 +103,7 @@ public class ProductDBDao implements ProductDao {
 
     @Override
     public boolean remove(long id) {
-        try (Connection connection = DBConnection.getConnection();
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "DELETE FROM PRODUCTS WHERE ID = ?")) {
             statement.setLong(1, id);
