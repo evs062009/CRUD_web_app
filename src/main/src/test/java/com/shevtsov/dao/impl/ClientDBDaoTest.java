@@ -23,7 +23,6 @@ public class ClientDBDaoTest {
     public void setUp() {
         clientDao = new ClientDBDao(dbConnection);
         client = new Client(1, "name", "surname", 0, "phone", "email");
-
         try {
             connection = dbConnection.getConnection();
             try (PreparedStatement statement = connection.prepareStatement(
@@ -107,6 +106,7 @@ public class ClientDBDaoTest {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     Assert.fail();
+                    return;
                 }
             }
         } catch (SQLException e) {
@@ -128,6 +128,7 @@ public class ClientDBDaoTest {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (!resultSet.next()) {
                     Assert.fail();
+                    return;
                 }
                 Assert.assertEquals((long)modifiedClient.getId(), resultSet.getLong("ID"));
                 Assert.assertEquals(modifiedClient.getName(), resultSet.getString("NAME"));

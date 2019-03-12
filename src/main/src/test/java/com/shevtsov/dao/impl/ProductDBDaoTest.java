@@ -61,6 +61,7 @@ public class ProductDBDaoTest {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (!resultSet.next()) {
                     Assert.fail();
+                    return;
                 }
                 Assert.assertEquals((long) product.getId(), resultSet.getLong("ID"));
                 Assert.assertEquals(product.getName(), resultSet.getString("NAME"));
@@ -117,6 +118,7 @@ public class ProductDBDaoTest {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (!resultSet.next()) {
                     Assert.fail();
+                    return;
                 }
                 Assert.assertEquals((long) modifiedProduct.getId(), resultSet.getLong("ID"));
                 Assert.assertEquals(modifiedProduct.getName(), resultSet.getString("NAME"));
@@ -140,6 +142,7 @@ public class ProductDBDaoTest {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     Assert.fail();
+                    return;
                 }
             }
         } catch (SQLException e) {
