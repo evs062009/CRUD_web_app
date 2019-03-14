@@ -4,15 +4,12 @@ import com.shevtsov.dao.ClientDao;
 import com.shevtsov.dao.DBConnection;
 import com.shevtsov.domain.Client;
 import org.junit.*;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@RunWith(JUnit4.class)
 public class ClientDBDaoTest {
     private DBConnection dbConnection = new DBConnectionInMemory();
     private Connection connection;

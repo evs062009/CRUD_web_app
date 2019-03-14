@@ -9,8 +9,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -18,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@RunWith(JUnit4.class)
 public class OrderDBDaoTest {
     private OrderDao orderDao;
     private DBConnection dbConnection = new DBConnectionInMemory();
