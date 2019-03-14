@@ -14,6 +14,11 @@ public class ClientDBDao implements ClientDao {
 
     public ClientDBDao(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
+        try {
+            Class.forName("org.h2.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "CREATE TABLE IF NOT EXISTS CLIENTS (ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
