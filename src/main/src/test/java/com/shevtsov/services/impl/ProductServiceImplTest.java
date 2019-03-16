@@ -6,11 +6,9 @@ import com.shevtsov.exceptions.ObjectNotFoundExeption;
 import com.shevtsov.services.ProductService;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -19,13 +17,11 @@ import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
-@RunWith(JUnit4.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ProductServiceImplTest {
     @Mock
     ProductDao productDao;
     private ProductService productService;
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
     private long id;
     private String name;
     private BigDecimal price;
@@ -36,11 +32,6 @@ public class ProductServiceImplTest {
         id = 1;
         name = "name";
         price = BigDecimal.valueOf(10L);
-    }
-
-    @After
-    public void tearDown() {
-        productService = null;
     }
 
     @Test

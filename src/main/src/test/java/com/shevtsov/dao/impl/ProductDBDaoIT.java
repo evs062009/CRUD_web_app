@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ProductDBDaoTest {
+public class ProductDBDaoIT {
     private ProductDao productDao;
     private DBConnection dbConnection = new DBConnectionInMemory();
     private Connection connection;

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class OrderDBDaoTest {
+public class OrderDBDaoIT {
     private OrderDao orderDao;
     private DBConnection dbConnection = new DBConnectionInMemory();
     private Connection connection;
@@ -190,7 +190,7 @@ public class OrderDBDaoTest {
 
     private void addClient() throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO CLIENTS (NAME, SURNAME, AGE, PHONE, EMAIL) VALUES(?, ?, ?, ?, ?)");) {
+                "INSERT INTO CLIENTS (NAME, SURNAME, AGE, PHONE, EMAIL) VALUES(?, ?, ?, ?, ?)")) {
             statement.setString(1, client.getName());
             statement.setString(2, client.getSurname());
             statement.setInt(3, client.getAge());

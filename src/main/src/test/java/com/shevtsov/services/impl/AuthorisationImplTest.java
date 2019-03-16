@@ -3,30 +3,21 @@ package com.shevtsov.services.impl;
 import com.shevtsov.dao.ClientDao;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.times;
 
-@RunWith(JUnit4.class)
+@RunWith(MockitoJUnitRunner.class)
 public class AuthorisationImplTest {
     private AuthorisationImpl authorisation;
     @Mock
     private ClientDao clientDao;
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Before
     public void init() {
         authorisation = new AuthorisationImpl(clientDao);
-    }
-
-    @After
-    public void tearDown() {
-        authorisation = null;
     }
 
     @Test

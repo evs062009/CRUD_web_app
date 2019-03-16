@@ -3,28 +3,20 @@ package com.shevtsov.validators.impl;
 import com.shevtsov.dao.ClientDao;
 import com.shevtsov.exceptions.BusinessException;
 import com.shevtsov.validators.ValidationService;
-import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Matchers.anyString;
 
-@RunWith(JUnit4.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ValidationServiceImplTest {
     private ValidationService validationService;
-
     @Mock
     private ClientDao clientDao;
-
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Before
     public void setUp() {
@@ -120,10 +112,5 @@ public class ValidationServiceImplTest {
         String wrongEmail = "123";
         //WHEN
         validationService.validateEmail(wrongEmail);
-    }
-
-    @After
-    public void tearDown() {
-        validationService = null;
     }
 }

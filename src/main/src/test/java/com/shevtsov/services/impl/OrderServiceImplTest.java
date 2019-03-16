@@ -8,10 +8,10 @@ import com.shevtsov.domain.Order;
 import com.shevtsov.domain.Product;
 import com.shevtsov.services.OrderService;
 import org.junit.*;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ import java.util.Optional;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.times;
 
+@RunWith(MockitoJUnitRunner.class)
 public class OrderServiceImplTest {
     private OrderService orderService;
     @Mock
@@ -33,8 +34,6 @@ public class OrderServiceImplTest {
     AuthorisationImpl authorisation;
     @Mock
     Order draft;
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     private long id;
 
@@ -42,11 +41,6 @@ public class OrderServiceImplTest {
     public void setUp() {
         orderService = new OrderServiceImpl(clientDao, authorisation, orderDao, productDao, draft);
         id = 1;
-    }
-
-    @After
-    public void tearDown() {
-        orderService = null;
     }
 
     @Test

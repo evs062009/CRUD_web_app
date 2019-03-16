@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ClientDBDaoTest {
+public class ClientDBDaoIT {
     private DBConnection dbConnection = new DBConnectionInMemory();
     private Connection connection;
     private ClientDao clientDao;
@@ -103,7 +103,6 @@ public class ClientDBDaoTest {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     Assert.fail();
-                    return;
                 }
             }
         } catch (SQLException e) {

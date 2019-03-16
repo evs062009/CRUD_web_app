@@ -8,11 +8,9 @@ import com.shevtsov.services.ClientService;
 import com.shevtsov.validators.ValidationService;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +18,7 @@ import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
-@RunWith(JUnit4.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ClientServiceImplTest {
 
     @Mock
@@ -29,8 +27,6 @@ public class ClientServiceImplTest {
     private ClientDao clientDao;
     @Mock
     private AuthorisationImpl authorisation;
-    @Rule
-    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     private ClientService clientService;
     private String name;
@@ -221,10 +217,5 @@ public class ClientServiceImplTest {
         Mockito.verify(clientDao, times(1)).isContainsKey(id);
         Mockito.verifyNoMoreInteractions(clientDao);
         Assert.assertFalse(actual);
-    }
-
-    @After
-    public void tearDown() {
-        clientService = null;
     }
 }
