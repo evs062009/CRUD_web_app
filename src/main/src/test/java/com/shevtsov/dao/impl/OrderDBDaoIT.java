@@ -225,15 +225,4 @@ public class OrderDBDaoIT {
             statement.executeUpdate();
         }
     }
-
-//    private void showTables() {
-//        try (PreparedStatement statement = connection.prepareStatement("SHOW TABLES");
-//        ResultSet resultSet = statement.executeQuery()) {
-//            while (resultSet.next()){
-//                System.out.println(resultSet.getString(1));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
