@@ -43,7 +43,7 @@ public class ClientServiceImpl implements ClientService {
                 return clientDao.modify(client);
             }
         }
-        System.out.println("log: Modify has not been done!!!");
+        System.out.println("log: Modifying has not been done!!!");
         return false;
     }
 
