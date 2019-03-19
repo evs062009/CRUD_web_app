@@ -20,8 +20,6 @@ import com.shevtsov.validators.ValidationService;
 import com.shevtsov.validators.impl.ValidationServiceImpl;
 import com.shevtsov.view.*;
 
-import java.util.ArrayList;
-
 public class Creator {
     public MainMenu create(){
         DBConnection dbConnection = new DBConnectionWorkDB();
@@ -32,8 +30,7 @@ public class Creator {
         AuthorisationImpl authorisation = new AuthorisationImpl(clientDao);
         ClientService clientService = new ClientServiceImpl(validationService, clientDao, authorisation);
         ProductService productService = new ProductServiceImpl(productDao);
-        OrderService orderService = new OrderServiceImpl(clientDao, authorisation, orderDao, productDao,
-                new Order(-1, null, new ArrayList<>()));
+        OrderService orderService = new OrderServiceImpl(clientDao, authorisation, orderDao, productDao, new Order());
         EditOrderMenu editOrderMenu = new EditOrderMenu(orderService, productService);
         MenuWorkWithClients menuWorkWithClients = new MenuWorkWithClients(clientService);
         MenuWorkWithProducts menuWorkWithProducts = new MenuWorkWithProducts(productService);

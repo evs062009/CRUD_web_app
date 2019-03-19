@@ -9,6 +9,12 @@ public class Order implements Comparable<Order> {
     private Client client;
     private List<Product> products;
 
+    public Order(){
+        id = -1L;
+        client = null;
+        products = new ArrayList<>();
+    }
+
     public Order(Client client) {
         this.client = client;
         products = new ArrayList<>();

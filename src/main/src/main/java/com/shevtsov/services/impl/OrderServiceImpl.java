@@ -9,7 +9,6 @@ import com.shevtsov.domain.Product;
 import com.shevtsov.exceptions.ObjectNotFoundExeption;
 import com.shevtsov.services.OrderService;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,6 +18,10 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
     private AuthorisationImpl authorisation;
     private Order draft;
+
+    public AuthorisationImpl getAuthorisation() {
+        return authorisation;
+    }
 
     public OrderServiceImpl(ClientDao clientDao, AuthorisationImpl authorisation, OrderDao orderDao, ProductDao
                             productDao, Order draft) {

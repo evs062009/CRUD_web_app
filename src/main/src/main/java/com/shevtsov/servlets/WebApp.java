@@ -2,14 +2,19 @@ package com.shevtsov.servlets;
 
 import com.shevtsov.dao.ClientDao;
 import com.shevtsov.dao.DBConnection;
+import com.shevtsov.dao.OrderDao;
 import com.shevtsov.dao.ProductDao;
 import com.shevtsov.dao.impl.ClientDBDao;
 import com.shevtsov.dao.impl.DBConnectionWorkDB;
+import com.shevtsov.dao.impl.OrderDBDao;
 import com.shevtsov.dao.impl.ProductDBDao;
+import com.shevtsov.domain.Order;
 import com.shevtsov.services.ClientService;
+import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
 import com.shevtsov.services.impl.AuthorisationImpl;
 import com.shevtsov.services.impl.ClientServiceImpl;
+import com.shevtsov.services.impl.OrderServiceImpl;
 import com.shevtsov.services.impl.ProductServiceImpl;
 import com.shevtsov.validators.ValidationService;
 import com.shevtsov.validators.impl.ValidationServiceImpl;
@@ -31,6 +36,9 @@ public class WebApp implements ServletContextListener {
         ClientService clientService = new ClientServiceImpl(validationService, clientDao, authorisation);
         ProductDao productDao = new ProductDBDao(dbConnection);
         ProductService productService = new ProductServiceImpl(productDao);
+        OrderDao orderDao = new OrderDBDao(dbConnection);
+        Order draft = new Order();
+        OrderService orderService = new OrderServiceImpl(clientDao, authorisation, orderDao, productDao, draft);
 
 
         ServletContext servletContext = sce.getServletContext();
@@ -38,6 +46,8 @@ public class WebApp implements ServletContextListener {
                 addMapping("/clients/*");
         servletContext.addServlet("ProductServlet", new ProductServlet(productService)).
                 addMapping("/products/*");
+        servletContext.addServlet("OrderServlet", new OrderServlet(orderService)).
+                addMapping("/orders/*");
     }
 
     @Override
