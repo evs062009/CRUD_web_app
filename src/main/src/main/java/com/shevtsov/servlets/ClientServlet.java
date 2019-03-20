@@ -1,10 +1,13 @@
 package com.shevtsov.servlets;
 
 import com.shevtsov.domain.Client;
+import com.shevtsov.dto.ClientDto;
 import com.shevtsov.services.ClientService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Optional;
 
 public class ClientServlet extends AbstractServlet<Client> {
     private ClientService clientService;
@@ -19,17 +22,27 @@ public class ClientServlet extends AbstractServlet<Client> {
     }
 
     @Override
-    protected boolean create(HttpServletRequest req) throws NumberFormatException {
-        String[] parameters = getParameters(req);
-        return clientService.create(parameters[0], parameters[1], Integer.parseInt(parameters[2]), parameters[3],
-                parameters[4]);
+    protected boolean create(HttpServletRequest req, HttpServletResponse resp) {
+        Optional<ClientDto> optional = getParameters(req, resp);
+        if(optional.isPresent()) {
+            ClientDto clientDto = optional.get();
+            return clientService.create(clientDto.getName(), clientDto.getSurname(), clientDto.getAge(),
+                    clientDto.getPhone(), clientDto.getEmail());
+        } else {
+            return false;
+        }
     }
 
     @Override
-    protected boolean modify(HttpServletRequest req, long id) throws NumberFormatException {
-        String[] parameters = getParameters(req);
-        return clientService.modify(id, parameters[0], parameters[1], Integer.parseInt(parameters[2]), parameters[3],
-                parameters[4]);
+    protected boolean modify(HttpServletRequest req, HttpServletResponse resp, long id) {
+        Optional<ClientDto> optional = getParameters(req, resp);
+        if (optional.isPresent()){
+            ClientDto clientDto = optional.get();
+            return clientService.modify(id, clientDto.getName(), clientDto.getSurname(), clientDto.getAge(),
+                    clientDto.getPhone(), clientDto.getEmail());
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -37,13 +50,16 @@ public class ClientServlet extends AbstractServlet<Client> {
         return clientService.remove(id);
     }
 
-    private String[] getParameters(HttpServletRequest req) {
-        String[] parameters = new String[5];
-        parameters[0] = req.getParameter("name");
-        parameters[1] = req.getParameter("surname");
-        parameters[2] = req.getParameter("age");
-        parameters[3] = req.getParameter("phone");
-        parameters[4] = req.getParameter("email");
-        return parameters;
+    private Optional<ClientDto> getParameters(HttpServletRequest req, HttpServletResponse resp) {
+        int age;
+        try {
+            age = Integer.parseInt(req.getParameter("age"));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            ServletUtilities.printMsg(resp, "Invalid age input!!!");
+            return Optional.empty();
+        }
+        return Optional.of(new ClientDto(req.getParameter("name"), req.getParameter("surname"),
+                age, req.getParameter("phone"), req.getParameter("email")));
     }
 }

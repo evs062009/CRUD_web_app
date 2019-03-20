@@ -1,11 +1,14 @@
 package com.shevtsov.servlets;
 
 import com.shevtsov.domain.Product;
+import com.shevtsov.dto.ProductDto;
 import com.shevtsov.services.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductServlet extends AbstractServlet<Product> {
     private ProductService productService;
@@ -20,15 +23,25 @@ public class ProductServlet extends AbstractServlet<Product> {
     }
 
     @Override
-    protected boolean create(HttpServletRequest req) throws NumberFormatException {
-        String[] parameters = getParameters(req);
-        return productService.create(parameters[0], BigDecimal.valueOf(Long.parseLong(parameters[1])));
+    protected boolean create(HttpServletRequest req, HttpServletResponse resp) {
+        Optional<ProductDto> optional = getParameters(req, resp);
+        if (optional.isPresent()) {
+            ProductDto productDto = optional.get();
+            return productService.create(productDto.getName(), productDto.getPrice());
+        } else {
+            return false;
+        }
     }
 
     @Override
-    protected boolean modify(HttpServletRequest req, long id) throws NumberFormatException {
-        String[] parameters = getParameters(req);
-        return productService.modify(id, parameters[0], BigDecimal.valueOf(Long.parseLong(parameters[1])));
+    protected boolean modify(HttpServletRequest req, HttpServletResponse resp, long id) {
+        Optional<ProductDto> optional = getParameters(req, resp);
+        if (optional.isPresent()) {
+            ProductDto productDto = optional.get();
+            return productService.modify(id, productDto.getName(), productDto.getPrice());
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -36,10 +49,15 @@ public class ProductServlet extends AbstractServlet<Product> {
         return productService.remove(id);
     }
 
-    private String[] getParameters(HttpServletRequest req) {
-        String[] parameters = new String[2];
-        parameters[0] = req.getParameter("name");
-        parameters[1] = req.getParameter("price");
-        return parameters;
+    private Optional<ProductDto> getParameters(HttpServletRequest req, HttpServletResponse resp) {
+        BigDecimal price;
+        try {
+            price = BigDecimal.valueOf(Long.parseLong(req.getParameter("price")));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            ServletUtilities.printMsg(resp, "Invalid price input!!!");
+            return Optional.empty();
+        }
+        return Optional.of(new ProductDto(req.getParameter("name"), price));
     }
 }

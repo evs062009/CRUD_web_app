@@ -5,6 +5,7 @@ import com.shevtsov.services.OrderService;
 import com.shevtsov.services.impl.OrderServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class OrderServlet extends AbstractServlet<Order> {
@@ -20,20 +21,20 @@ public class OrderServlet extends AbstractServlet<Order> {
     }
 
     @Override
-    protected boolean create(HttpServletRequest req) throws NumberFormatException {
+    protected boolean create(HttpServletRequest req, HttpServletResponse resp) {
         String currentUserPhone = req.getParameter("phone");
         OrderServiceImpl orderServiceImpl = (OrderServiceImpl) orderService;
         if (orderServiceImpl.getAuthorisation().authorizeClient(currentUserPhone)) {
             orderService.createDraft();
-            return saveNewOrderSpecification(req);
+            return saveNewOrderSpecification(req, resp);
         }
         return false;
     }
 
     @Override
-    protected boolean modify(HttpServletRequest req, long id) throws NumberFormatException {
+    protected boolean modify(HttpServletRequest req, HttpServletResponse resp, long id) {
         if (orderService.copyOrderToDraft(id)) {
-            return saveNewOrderSpecification(req);
+            return saveNewOrderSpecification(req, resp);
         }
         return false;
     }
@@ -43,10 +44,15 @@ public class OrderServlet extends AbstractServlet<Order> {
         return orderService.remove(id);
     }
 
-    private boolean saveNewOrderSpecification(HttpServletRequest req) throws NumberFormatException {
-        String productID = req.getParameter("productID");
-        if (orderService.addProductToDraft(Long.parseLong(productID))) {
-            return orderService.save();
+    private boolean saveNewOrderSpecification(HttpServletRequest req, HttpServletResponse resp) {
+        try {
+            long productID = Long.parseLong(req.getParameter("productID"));
+            if (orderService.addProductToDraft(productID)){
+                return orderService.save();
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            ServletUtilities.printMsg(resp, "Invalid product ID!!!");
         }
         return false;
     }

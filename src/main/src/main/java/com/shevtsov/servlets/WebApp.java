@@ -25,7 +25,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 @WebListener
-public class WebApp implements ServletContextListener {
+    public class WebApp implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -39,7 +39,6 @@ public class WebApp implements ServletContextListener {
         OrderDao orderDao = new OrderDBDao(dbConnection);
         Order draft = new Order();
         OrderService orderService = new OrderServiceImpl(clientDao, authorisation, orderDao, productDao, draft);
-
 
         ServletContext servletContext = sce.getServletContext();
         servletContext.addServlet("ClientServlet", new ClientServlet(clientService)).

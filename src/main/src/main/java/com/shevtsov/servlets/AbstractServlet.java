@@ -21,55 +21,41 @@ public abstract class AbstractServlet<E> extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-        try {
-            if (create(req)) {
-                return;
-            }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+        if (!create(req, resp)) {
+            ServletUtilities.printMsg(resp, "Creating has not been done.");
         }
-        printMsg(resp, "Creating has not been done.");
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) {
-        String id = req.getParameter("id");
-        try {
-            if (modify(req, Long.parseLong(id))) {
-                return;
-            }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+        if (!modify(req, resp, getID(req, resp))) {
+            ServletUtilities.printMsg(resp, "Modifying has not been done.");
         }
-        printMsg(resp, "Modifying has not been done.");
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
-        String id = req.getParameter("id");
-        try {
-            if (remove(Long.parseLong(id))) {
-                return;
-            }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+        if (!remove(getID(req, resp))) {
+            ServletUtilities.printMsg(resp, "Removing has not been done.");
         }
-        printMsg(resp, "Removing has not been done.");
     }
 
-    private void printMsg(HttpServletResponse resp, String msg) {
-        try (PrintWriter printWriter = resp.getWriter()) {
-            printWriter.println("<h5>" + msg + "<h5>");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     protected abstract List<E> getAll();
 
-    protected abstract boolean create(HttpServletRequest req);
+    protected abstract boolean create(HttpServletRequest req, HttpServletResponse resp);
 
-    protected abstract boolean modify(HttpServletRequest req, long id);
+    protected abstract boolean modify(HttpServletRequest req, HttpServletResponse resp, long id);
 
     protected abstract boolean remove(long id);
+
+    private long getID(HttpServletRequest req, HttpServletResponse resp) {
+        try {
+            return Long.parseLong(req.getParameter("id"));
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            ServletUtilities.printMsg(resp, "Invalid ID input!!!");
+        }
+        return -1;
+    }
 }
