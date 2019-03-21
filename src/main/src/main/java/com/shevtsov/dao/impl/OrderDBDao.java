@@ -5,6 +5,8 @@ import com.shevtsov.dao.OrderDao;
 import com.shevtsov.domain.Client;
 import com.shevtsov.domain.Order;
 import com.shevtsov.domain.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -12,9 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class OrderDBDao implements OrderDao {
     private DBConnection dbConnection;
 
+    @Autowired
     public OrderDBDao(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
         try (Connection connection = dbConnection.getConnection();

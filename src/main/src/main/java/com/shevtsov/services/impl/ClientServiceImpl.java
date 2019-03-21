@@ -6,15 +6,19 @@ import com.shevtsov.exceptions.BusinessException;
 import com.shevtsov.exceptions.ObjectNotFoundExeption;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.validators.ValidationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public class ClientServiceImpl implements ClientService {
     private AuthorisationImpl authorisation;
     private ClientDao clientDao;
     private final ValidationService validationService;
 
+    @Autowired
     public ClientServiceImpl(ValidationService validationService, ClientDao clientDao, AuthorisationImpl
             authorisation) {
         this.validationService = validationService;

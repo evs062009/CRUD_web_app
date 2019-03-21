@@ -4,12 +4,16 @@ import com.shevtsov.domain.Product;
 import com.shevtsov.services.ProductService;
 import com.shevtsov.view.viewEnums.MenuStatus;
 import com.shevtsov.view.viewUtilities.ViewUtilities;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 
+@Controller
 public class MenuWorkWithProducts {
     private final ProductService productService;
 
+    @Autowired
     public MenuWorkWithProducts(ProductService productService) {
         this.productService = productService;
     }
@@ -73,7 +77,7 @@ public class MenuWorkWithProducts {
             if (productService.modify(productID, newName, newPrice)) {
                 System.out.println("Product modified");
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

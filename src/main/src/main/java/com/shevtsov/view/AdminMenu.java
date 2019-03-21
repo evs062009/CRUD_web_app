@@ -2,12 +2,16 @@ package com.shevtsov.view;
 
 import com.shevtsov.view.viewUtilities.ViewUtilities;
 import com.shevtsov.view.viewEnums.MenuStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class AdminMenu {
     private final MenuWorkWithClients menuWorkWithClients;
     private final MenuWorkWithProducts menuWorkWithProducts;
     private final MenuWorkWithOrders menuWorkWithOrders;
 
+    @Autowired
     public AdminMenu(MenuWorkWithClients menuWorkWithClients, MenuWorkWithProducts menuWorkWithProducts,
                      MenuWorkWithOrders menuWorkWithOrders) {
         this.menuWorkWithClients = menuWorkWithClients;

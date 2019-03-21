@@ -8,10 +8,13 @@ import com.shevtsov.domain.Order;
 import com.shevtsov.domain.Product;
 import com.shevtsov.exceptions.ObjectNotFoundExeption;
 import com.shevtsov.services.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public class OrderServiceImpl implements OrderService {
     private ClientDao clientDao;
     private ProductDao productDao;
@@ -19,10 +22,7 @@ public class OrderServiceImpl implements OrderService {
     private AuthorisationImpl authorisation;
     private Order draft;
 
-    public AuthorisationImpl getAuthorisation() {
-        return authorisation;
-    }
-
+    @Autowired
     public OrderServiceImpl(ClientDao clientDao, AuthorisationImpl authorisation, OrderDao orderDao, ProductDao
                             productDao, Order draft) {
         this.clientDao = clientDao;
@@ -30,6 +30,10 @@ public class OrderServiceImpl implements OrderService {
         this.orderDao = orderDao;
         this.productDao = productDao;
         this.draft = draft;
+    }
+
+    public AuthorisationImpl getAuthorisation() {
+        return authorisation;
     }
 
     @Override

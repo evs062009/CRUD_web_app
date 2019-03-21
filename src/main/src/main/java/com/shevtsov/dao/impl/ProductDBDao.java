@@ -3,6 +3,8 @@ package com.shevtsov.dao.impl;
 import com.shevtsov.dao.DBConnection;
 import com.shevtsov.dao.ProductDao;
 import com.shevtsov.domain.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -10,9 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class ProductDBDao implements ProductDao {
     private DBConnection dbConnection;
 
+    @Autowired
     public ProductDBDao(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
         try (Connection connection = dbConnection.getConnection();

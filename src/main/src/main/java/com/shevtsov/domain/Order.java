@@ -1,9 +1,12 @@
 package com.shevtsov.domain;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Component
 public class Order implements Comparable<Order> {
     private Long id;
     private Client client;

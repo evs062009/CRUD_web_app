@@ -3,15 +3,19 @@ package com.shevtsov.dao.impl;
 import com.shevtsov.dao.ClientDao;
 import com.shevtsov.dao.DBConnection;
 import com.shevtsov.domain.Client;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class ClientDBDao implements ClientDao {
     private DBConnection dbConnection;
 
+    @Autowired
     public ClientDBDao(DBConnection dbConnection) {
         this.dbConnection = dbConnection;
         try {
