@@ -3,6 +3,8 @@ package com.shevtsov.servlets;
 import com.shevtsov.domain.Order;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.impl.OrderServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

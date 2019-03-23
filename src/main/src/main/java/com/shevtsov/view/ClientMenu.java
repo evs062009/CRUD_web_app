@@ -10,7 +10,6 @@ import com.shevtsov.view.viewEnums.MenuStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-@Controller
 public class ClientMenu {
     private final ClientService clientService;
     private final ProductService productService;
@@ -18,7 +17,6 @@ public class ClientMenu {
     private final EditOrderMenu editOrderMenu;
     private /*final */AuthorisationImpl authorisation /*= AuthorisationImpl.getInstance()*/;
 
-    @Autowired
     public ClientMenu(ClientService clientService, ProductService productService, OrderService orderService,
                       EditOrderMenu editOrderMenu, AuthorisationImpl authorisation) {
         this.clientService = clientService;

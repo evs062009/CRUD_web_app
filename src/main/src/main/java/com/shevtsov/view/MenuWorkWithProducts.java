@@ -9,11 +9,9 @@ import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 
-@Controller
 public class MenuWorkWithProducts {
     private final ProductService productService;
 
-    @Autowired
     public MenuWorkWithProducts(ProductService productService) {
         this.productService = productService;
     }

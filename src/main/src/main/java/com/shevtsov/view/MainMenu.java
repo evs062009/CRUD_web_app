@@ -7,14 +7,12 @@ import com.shevtsov.view.viewEnums.MenuStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-@Controller
 public class MainMenu {
     private final Authorisation authorisation;
     private final AdminMenu adminMenu;
     private final ClientMenu clientMenu;
     private final ClientService clientService;
 
-    @Autowired
     public MainMenu(Authorisation authorisation, AdminMenu adminMenu, ClientMenu clientMenu,
                     ClientService clientService) {
         this.authorisation = authorisation;

@@ -1,10 +1,18 @@
-<!--<?xml version="1.0" encoding="UTF-8"?>-->
-<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
-       <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
-       <!--xsi:schemaLocation="-->
-        <!--http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">-->
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--<bean id="dbConnection" class="com.shevtsov.dao.impl.DBConnectionWorkDB" autowire="constructor"/>-->
+    <!--set params for DB connection-->
+    <!--<context:property-placeholder location="classpath:app.properties"/>-->
+
+    <!--<bean id="dbConnection" class="com.shevtsov.dao.impl.DBConnectionWorkDB">-->
+        <!--<constructor-arg name="url" value="${url}"/>-->
+        <!--<constructor-arg name="login" value="${login}"/>-->
+        <!--<constructor-arg name="password" value="${password}"/>-->
+    <!--</bean>-->
     <!--<bean id="draft" class="com.shevtsov.domain.Order" autowire="constructor"/>-->
     <!--<bean id="clientDao" class="com.shevtsov.dao.impl.ClientDBDao" autowire="constructor"/>-->
     <!--<bean id="productDao" class="com.shevtsov.dao.impl.ProductDBDao" autowire="constructor"/>-->
@@ -21,4 +29,4 @@
     <!--<bean id="clientMenu" class="com.shevtsov.view.ClientMenu" autowire="constructor"/>-->
     <!--<bean id="adminMenu" class="com.shevtsov.view.AdminMenu" autowire="constructor"/>-->
     <!--<bean id="mainMenu" class="com.shevtsov.view.MainMenu" autowire="constructor"/>-->
-<!--</beans>-->
+</beans>
