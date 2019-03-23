@@ -11,26 +11,7 @@
     <context:annotation-config/>
     <context:component-scan base-package="com.shevtsov"/>
     <bean id="" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="prefix" value="WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-
-    <!--<bean id="dbConnection" class="com.shevtsov.dao.impl.DBConnectionWorkDB" autowire="constructor"/>-->
-    <!--<bean id="draft" class="com.shevtsov.domain.Order" autowire="constructor"/>-->
-    <!--<bean id="clientDao" class="com.shevtsov.dao.impl.ClientDBDao" autowire="constructor"/>-->
-    <!--<bean id="productDao" class="com.shevtsov.dao.impl.ProductDBDao" autowire="constructor"/>-->
-    <!--<bean id="orderDao" class="com.shevtsov.dao.impl.OrderDBDao" autowire="constructor"/>-->
-    <!--<bean id="validationService" class="com.shevtsov.validators.impl.ValidationServiceImpl" autowire="constructor"/>-->
-    <!--<bean id="authorisation" class="com.shevtsov.services.impl.AuthorisationImpl" autowire="constructor"/>-->
-    <!--<bean id="clientService" class="com.shevtsov.services.impl.ClientServiceImpl" autowire="constructor"/>-->
-    <!--<bean id="productService" class="com.shevtsov.services.impl.ProductServiceImpl" autowire="constructor"/>-->
-    <!--<bean id="orderServiceImpl" class="com.shevtsov.services.impl.OrderServiceImpl" autowire="constructor"/>-->
-
-    <!--&lt;!&ndash;<bean id="menuWorkWithClients" class="com.shevtsov.view.MenuWorkWithClients" autowire="constructor"/>&ndash;&gt;-->
-    <!--&lt;!&ndash;<bean id="menuWorkWithProducts" class="com.shevtsov.view.MenuWorkWithProducts" autowire="constructor"/>&ndash;&gt;-->
-    <!--&lt;!&ndash;<bean id="ьenuWorkWithOrders" class="com.shevtsov.view.MenuWorkWithOrders" autowire="constructor"/>&ndash;&gt;-->
-    <!--&lt;!&ndash;<bean id="уditOrderMenu" class="com.shevtsov.view.EditOrderMenu" autowire="constructor"/>&ndash;&gt;-->
-    <!--&lt;!&ndash;<bean id="clientMenu" class="com.shevtsov.view.ClientMenu" autowire="constructor"/>&ndash;&gt;-->
-    <!--&lt;!&ndash;<bean id="adminMenu" class="com.shevtsov.view.AdminMenu" autowire="constructor"/>&ndash;&gt;-->
-    <!--&lt;!&ndash;<bean id="mainMenu" class="com.shevtsov.view.MainMenu" autowire="constructor"/>&ndash;&gt;-->
 </beans>
