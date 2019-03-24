@@ -1,36 +1,35 @@
 package com.shevtsov.controllers;
 
-import com.shevtsov.services.ClientService;
+import com.shevtsov.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @Controller
-@RequestMapping("/clients")
-public class ClientController {
-    private ClientService clientService;
-    private static final String JSP_NAME = "clients";
+@RequestMapping("/products")
+public class ProductController {
+    private ProductService productService;
+    private static final String JSP_NAME = "products";
 
     @Autowired
-    public ClientController(ClientService clientService) {
-        this.clientService = clientService;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping
     public String showAll(ModelMap modelMap) {
-        return ControllerUtilities.printMsg(modelMap, clientService.getAll(), JSP_NAME);
+        return ControllerUtilities.printMsg(modelMap, productService.getAll(), JSP_NAME);
     }
 
     @PostMapping
     public void add(ModelMap modelMap,
                     @RequestParam String name,
-                    @RequestParam String surname,
-                    @RequestParam String age,
-                    @RequestParam String phone,
-                    @RequestParam String email) {
+                    @RequestParam String price) {
         try {
-            if (!clientService.create(name, surname, Integer.parseInt(age), phone, email)) {
+            if (!productService.create(name, BigDecimal.valueOf(Long.parseLong(price)))) {
                 ControllerUtilities.printMsg(modelMap, "Creating has not been done.", JSP_NAME);
             }
         } catch (NumberFormatException e) {
@@ -43,12 +42,9 @@ public class ClientController {
     public void modify(ModelMap modelMap,
                        @RequestParam String id,
                        @RequestParam String name,
-                       @RequestParam String surname,
-                       @RequestParam String age,
-                       @RequestParam String phone,
-                       @RequestParam String email) {
+                       @RequestParam String price) {
         try {
-            if (!clientService.modify(Long.parseLong(id), name, surname, Integer.parseInt(age), phone, email)) {
+            if (!productService.modify(Long.parseLong(id), name, BigDecimal.valueOf(Long.parseLong(price)))) {
                 ControllerUtilities.printMsg(modelMap, "Modifying has not been done.", JSP_NAME);
             }
         } catch (NumberFormatException e) {
@@ -58,9 +54,10 @@ public class ClientController {
     }
 
     @DeleteMapping
-    public void remove(ModelMap modelMap, @RequestParam String id) {
+    public void remove(ModelMap modelMap,
+                       @RequestParam String id) {
         try {
-            if (!clientService.remove(Long.parseLong(id))) {
+            if (!productService.remove(Long.parseLong(id))) {
                 ControllerUtilities.printMsg(modelMap, "Removing has not been done.", JSP_NAME);
             }
         } catch (NumberFormatException e) {
