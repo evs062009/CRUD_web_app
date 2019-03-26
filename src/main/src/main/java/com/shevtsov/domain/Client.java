@@ -13,7 +13,6 @@ public class Client implements Comparable<Client> {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
-//    @Column
     private String name;
     private String surname;
     private Integer age;

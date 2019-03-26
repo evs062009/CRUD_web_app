@@ -57,32 +57,6 @@ public class ClientServiceImpl implements ClientService {
         return clientDao.findByID(id).orElseThrow(() -> new ObjectNotFoundExeption(id));
     }
 
-    private Client getClientForModifying(String name, String surname, int age, String phone, String email) {
-        try {
-            validationService.validateAge(age);
-            validationService.validatePhoneFormat(phone);
-            validationService.validateEmail(email);
-            return new Client(name, surname, age, phone, email);
-        } catch (BusinessException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private Client getClientForCreating(String name, String surname, int age, String phone, String email) {
-        Client client = getClientForModifying(name, surname, age, phone, email);
-        if (client != null) {
-            try {
-                validationService.validatePhoneUniq(phone);
-                client.setId(-1L);
-                return client;
-            } catch (BusinessException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
     @Override
     public boolean remove(long id) {
         if (clientDao.isContainsKey(id)) {
@@ -100,5 +74,30 @@ public class ClientServiceImpl implements ClientService {
             Collections.sort(clients);
         }
         return clients;
+    }
+
+    private Client getClientForModifying(String name, String surname, int age, String phone, String email) {
+        try {
+            validationService.validateAge(age);
+            validationService.validatePhoneFormat(phone);
+            validationService.validateEmail(email);
+            return new Client(name, surname, age, phone, email);
+        } catch (BusinessException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private Client getClientForCreating(String name, String surname, int age, String phone, String email) {
+        Client client = getClientForModifying(name, surname, age, phone, email);
+        if (client != null) {
+            try {
+                validationService.validatePhoneUniq(phone);
+                return client;
+            } catch (BusinessException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }

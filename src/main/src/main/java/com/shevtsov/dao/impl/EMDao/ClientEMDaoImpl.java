@@ -30,7 +30,6 @@ public class ClientEMDaoImpl implements ClientDao {
         entityManager.getTransaction().begin();
         entityManager.persist(client);
         entityManager.getTransaction().commit();
-        entityManager.close();
         return client.getId();
     }
 
@@ -51,10 +50,10 @@ public class ClientEMDaoImpl implements ClientDao {
 
     @Override
     public long findByPhone(String phone) {
-        try{
+        try {
             return entityManager.createQuery("FROM Client WHERE phone = :phone", Client.class).
                     setParameter("phone", phone).getSingleResult().getId();
-        } catch (NoResultException e){
+        } catch (NoResultException e) {
             return -1;
         }
     }
