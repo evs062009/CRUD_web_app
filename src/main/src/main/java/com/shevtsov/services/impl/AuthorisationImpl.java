@@ -3,6 +3,7 @@ package com.shevtsov.services.impl;
 import com.shevtsov.dao.ClientDao;
 import com.shevtsov.services.Authorisation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,7 +12,7 @@ public class AuthorisationImpl implements Authorisation {
     private long currentUserID = -1;
 
     @Autowired
-    public AuthorisationImpl(ClientDao clientDao) {
+    public AuthorisationImpl(@Qualifier(value = "clientEMDaoImpl") ClientDao clientDao) {
         this.clientDao = clientDao;
     }
 

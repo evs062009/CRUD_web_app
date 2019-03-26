@@ -9,6 +9,7 @@ import com.shevtsov.domain.Product;
 import com.shevtsov.exceptions.ObjectNotFoundExeption;
 import com.shevtsov.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -23,8 +24,8 @@ public class OrderServiceImpl implements OrderService {
     private Order draft;
 
     @Autowired
-    public OrderServiceImpl(ClientDao clientDao, AuthorisationImpl authorisation, OrderDao orderDao, ProductDao
-                            productDao, Order draft) {
+    public OrderServiceImpl(@Qualifier(value = "clientEMDaoImpl") ClientDao clientDao, AuthorisationImpl authorisation,
+                            OrderDao orderDao, ProductDao productDao, Order draft) {
         this.clientDao = clientDao;
         this.authorisation = authorisation;
         this.orderDao = orderDao;

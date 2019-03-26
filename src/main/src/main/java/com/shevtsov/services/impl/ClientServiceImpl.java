@@ -7,6 +7,7 @@ import com.shevtsov.exceptions.ObjectNotFoundExeption;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.validators.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -19,8 +20,8 @@ public class ClientServiceImpl implements ClientService {
     private final ValidationService validationService;
 
     @Autowired
-    public ClientServiceImpl(ValidationService validationService, ClientDao clientDao, AuthorisationImpl
-            authorisation) {
+    public ClientServiceImpl(ValidationService validationService, @Qualifier(value = "clientEMDaoImpl") ClientDao
+            clientDao, AuthorisationImpl authorisation) {
         this.validationService = validationService;
         this.clientDao = clientDao;
         this.authorisation = authorisation;

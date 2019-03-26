@@ -2,6 +2,7 @@ package com.shevtsov.dao.impl;
 
 import com.shevtsov.dao.ClientDao;
 import com.shevtsov.dao.DBConnection;
+import com.shevtsov.dao.impl.DBDao.ClientDBDao;
 import com.shevtsov.domain.Client;
 import org.junit.*;
 

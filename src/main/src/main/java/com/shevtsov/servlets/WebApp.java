@@ -4,10 +4,10 @@
 //import com.shevtsov.dao.DBConnection;
 //import com.shevtsov.dao.OrderDao;
 //import com.shevtsov.dao.ProductDao;
-//import com.shevtsov.dao.impl.ClientDBDao;
-//import com.shevtsov.dao.impl.DBConnectionWorkDB;
-//import com.shevtsov.dao.impl.OrderDBDao;
-//import com.shevtsov.dao.impl.ProductDBDao;
+//import ClientDBDao;
+//import DBConnectionWorkDB;
+//import OrderDBDao;
+//import ProductDBDao;
 //import com.shevtsov.domain.Order;
 //import com.shevtsov.services.ClientService;
 //import com.shevtsov.services.OrderService;

@@ -1,14 +1,28 @@
 package com.shevtsov.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "CLIENTS")
 public class Client implements Comparable<Client> {
+
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
+//    @Column
     private String name;
     private String surname;
     private Integer age;
-    private String email;
     private String phone;
+    private String email;
+
+    public Client() {
+        //for Hiber
+    }
 
     public Client(String name, String surname, String phone) {
         this.name = name;

@@ -57,9 +57,15 @@
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring>5.1.5.RELEASE</spring>
+        <hibernate-core.version>5.4.2.Final</hibernate-core.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate-core.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>

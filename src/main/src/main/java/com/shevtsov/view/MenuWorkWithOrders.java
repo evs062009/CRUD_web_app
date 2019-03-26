@@ -10,10 +10,12 @@ import org.springframework.stereotype.Controller;
 import java.util.Comparator;
 import java.util.List;
 
+@Controller
 public class MenuWorkWithOrders {
     private final OrderService orderService;
     private final EditOrderMenu editOrderMenu;
 
+    @Autowired
     public MenuWorkWithOrders(OrderService orderService, EditOrderMenu editOrderMenu) {
         this.orderService = orderService;
         this.editOrderMenu = editOrderMenu;

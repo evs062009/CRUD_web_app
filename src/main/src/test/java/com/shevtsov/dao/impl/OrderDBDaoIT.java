@@ -2,6 +2,7 @@ package com.shevtsov.dao.impl;
 
 import com.shevtsov.dao.DBConnection;
 import com.shevtsov.dao.OrderDao;
+import com.shevtsov.dao.impl.DBDao.OrderDBDao;
 import com.shevtsov.domain.Client;
 import com.shevtsov.domain.Order;
 import com.shevtsov.domain.Product;

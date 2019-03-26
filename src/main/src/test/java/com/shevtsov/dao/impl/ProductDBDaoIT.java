@@ -2,6 +2,7 @@ package com.shevtsov.dao.impl;
 
 import com.shevtsov.dao.DBConnection;
 import com.shevtsov.dao.ProductDao;
+import com.shevtsov.dao.impl.DBDao.ProductDBDao;
 import com.shevtsov.domain.Product;
 import org.junit.After;
 import org.junit.Assert;

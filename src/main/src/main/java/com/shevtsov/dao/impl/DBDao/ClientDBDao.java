@@ -1,4 +1,4 @@
-package com.shevtsov.dao.impl;
+package com.shevtsov.dao.impl.DBDao;
 
 import com.shevtsov.dao.ClientDao;
 import com.shevtsov.dao.DBConnection;

@@ -4,17 +4,18 @@ import com.shevtsov.dao.ClientDao;
 import com.shevtsov.exceptions.BusinessException;
 import com.shevtsov.validators.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
 @Service
 public class ValidationServiceImpl implements ValidationService {
-    private /*final */ClientDao clientDao/* = ClientDBDao.getInstance()*/;
+    private ClientDao clientDao;
     private static final String[] OPERATOR_CODES = {"067", "097", "050"};
 
     @Autowired
-    public ValidationServiceImpl(ClientDao clientDao) {
+    public ValidationServiceImpl(@Qualifier(value = "clientEMDaoImpl") ClientDao clientDao) {
         this.clientDao = clientDao;
     }
 
