@@ -52,7 +52,7 @@ public class ClientServiceImplTest {
         //WHEN
         boolean actual = clientService.create(name, surname, age, phone, email);
         //THEN
-        Mockito.verify(clientDao, times(1)).save(any(Client.class));
+        Mockito.verify(clientDao, times(1)).saveClient(any(Client.class));
         Assert.assertTrue(actual);
     }
 

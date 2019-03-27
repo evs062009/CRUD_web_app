@@ -31,7 +31,7 @@ public class ClientServiceImpl implements ClientService {
     public boolean create(String name, String surname, int age, String phone, String email) {
         Client client = getClientForCreating(name, surname, age, phone, email);
         if (client != null) {
-            authorisation.setCurrentUserID(clientDao.save(client));
+            authorisation.setCurrentUserID(clientDao.saveClient(client));
             return true;
         }
         System.out.println("log: Creating has not been done.");

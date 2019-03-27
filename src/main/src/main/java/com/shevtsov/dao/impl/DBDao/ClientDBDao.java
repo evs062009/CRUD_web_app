@@ -34,7 +34,7 @@ public class ClientDBDao implements ClientDao {
     }
 
     @Override
-    public long save(Client client) {
+    public long saveClient(Client client) {
         try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement("INSERT INTO CLIENTS (NAME, SURNAME, AGE," +
                      "PHONE,EMAIL) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {

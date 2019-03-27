@@ -34,7 +34,7 @@ public class OrderDBDao implements OrderDao {
     }
 
     @Override
-    public void save(Order order) {
+    public boolean save(Order order) {
         try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "INSERT INTO ORDERS (CLIENT_ID) VALUES (?)", Statement.RETURN_GENERATED_KEYS)) {
@@ -50,12 +50,14 @@ public class OrderDBDao implements OrderDao {
                             statement1.setLong(2, product.getId());
                             statement1.executeUpdate();
                         }
+                        return true;
                     }
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override

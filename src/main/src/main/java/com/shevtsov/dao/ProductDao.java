@@ -11,7 +11,7 @@ public interface ProductDao {
      * Saves the Product-object to storage.
      *
      * @param product the Product-object, which is saved.
-     * @return true if client is saved successfully, ot false otherwise.
+     * @return true if product is saved successfully, ot false otherwise.
      */
     boolean save(Product product);
 

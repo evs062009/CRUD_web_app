@@ -45,7 +45,7 @@ public class ClientDBDaoIT {
     @Test
     public void save() {
         //WHEN
-        long actual = clientDao.save(client);
+        long actual = clientDao.saveClient(client);
         //THEN
         Assert.assertEquals(1, actual);
     }

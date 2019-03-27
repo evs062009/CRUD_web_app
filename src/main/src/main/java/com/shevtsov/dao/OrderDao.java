@@ -26,8 +26,9 @@ public interface OrderDao {
      * Calculates id if needed (if current id = -1), assigns it to Order-object and saves the object to storage.
      *
      * @param order the Order-object, which is saved.
+     * @return true if order is saved successfully, ot false otherwise.
      */
-    void save(Order order);
+    boolean save(Order order);
 
     /**
      * Removes Order-object in storage.

@@ -13,7 +13,7 @@ public interface ClientDao {
      * @param client the Client-object, which is saved.
      * @return the id of client, which was saved or -1 if saving is not finished successfully.
      */
-    long save(Client client);
+    long saveClient(Client client);
 
     /**
      * Searches for client by id in the storage.
