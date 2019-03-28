@@ -1,14 +1,28 @@
 package com.shevtsov.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@Entity
+@Table(name = "PRODUCTS")
 public class Product implements Comparable<Product> {
+
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
+
     private String name;
     private BigDecimal price;
 
+    public Product() {
+    }
+
     public Product(String name, BigDecimal price) {
+        this();
         this.name = name;
         this.price = price;
     }

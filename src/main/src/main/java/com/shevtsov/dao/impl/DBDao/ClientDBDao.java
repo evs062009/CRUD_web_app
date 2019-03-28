@@ -116,15 +116,16 @@ public class ClientDBDao implements ClientDao {
     }
 
     @Override
-    public void remove(long id) {
+    public boolean remove(long id) {
         try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "DELETE FROM CLIENTS WHERE ID = ?")) {
             statement.setLong(1, id);
-            statement.execute();
+            return statement.executeUpdate() != 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override

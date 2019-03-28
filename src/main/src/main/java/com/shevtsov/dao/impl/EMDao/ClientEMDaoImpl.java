@@ -19,8 +19,16 @@ public class ClientEMDaoImpl extends AbstractEMDaoImpl<Client> implements Client
     public ClientEMDaoImpl() {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistence-unit");
         this.entityManager = factory.createEntityManager();
-        entityClass = Client.class;
-        queryFrom = "FROM Client";
+    }
+
+    @Override
+    Class<Client> getEntityClass() {
+        return Client.class;
+    }
+
+    @Override
+    String queryFrom() {
+        return "FROM Client";
     }
 
     @Override
@@ -35,8 +43,11 @@ public class ClientEMDaoImpl extends AbstractEMDaoImpl<Client> implements Client
     @Override
     public long findByPhone(String phone) {
         try {
-            return entityManager.createQuery(queryFrom + " WHERE phone = :phone", Client.class).
+//            entityManager.getTransaction().begin();
+            Long id = entityManager.createQuery(queryFrom() + " WHERE phone = :phone", getEntityClass()).
                     setParameter("phone", phone).getSingleResult().getId();
+//            entityManager.getTransaction().commit();
+            return id;
         } catch (NoResultException e) {
             e.getMessage();
         } catch (Exception e) {

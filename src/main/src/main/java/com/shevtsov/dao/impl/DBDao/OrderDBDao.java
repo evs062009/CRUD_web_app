@@ -114,26 +114,32 @@ public class OrderDBDao implements OrderDao {
     }
 
     @Override
-    public void modify(Order draft) {
+    public boolean modify(Order draft) {
         try (Connection connection = dbConnection.getConnection()) {
             deleteOrderSpecification(draft.getId(), connection);
             addOrderSpecification(draft.getId(), draft.getProducts(), connection);
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
-    public void remove(long id) {
+    public boolean remove(long id) {
         try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "DELETE FROM ORDERS WHERE ID = ?")) {
             statement.setLong(1, id);
-            statement.execute();
-            deleteOrderSpecification(id, connection);
+            boolean isRemoveSuccess = statement.executeUpdate() != 0;
+            if (isRemoveSuccess) {
+                deleteOrderSpecification(id, connection);
+            }
+            return isRemoveSuccess;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     private Order getOrder(Connection connection, ResultSet resultSet) throws SQLException {

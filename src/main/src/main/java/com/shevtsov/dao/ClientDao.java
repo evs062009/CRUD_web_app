@@ -27,8 +27,9 @@ public interface ClientDao {
      * Removes client in storage.
      *
      * @param id the id of the client, which is removed.
+     * @return true if client is deleted successfully, ot false otherwise.
      */
-    void remove(long id);
+    boolean remove(long id);
 
     /**
      * Creates and returns collection of Client-objects from storage.
@@ -55,6 +56,7 @@ public interface ClientDao {
 
     /**
      * Modifies the Client-object data in storage.
+     *
      * @param client the Client-object, which is modified.
      * @return true if client is modified successfully, ot false otherwise.
      */

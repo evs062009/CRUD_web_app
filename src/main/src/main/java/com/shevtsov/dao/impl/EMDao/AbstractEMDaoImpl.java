@@ -8,12 +8,14 @@ import java.util.List;
 import java.util.Optional;
 
 /*
- * Abstract Dao for Hiber (AbstractEntity Manager - EM)
+ * Abstract Dao for Hiber (Entity Manager - EM)
  */
 public abstract class AbstractEMDaoImpl<T> {
     EntityManager entityManager;
-    Class<T> entityClass;
-    String queryFrom;
+
+    abstract Class<T> getEntityClass();
+
+    abstract String queryFrom();
 
     public boolean save(T entity) {
         try {
@@ -30,33 +32,39 @@ public abstract class AbstractEMDaoImpl<T> {
     public Optional<T> findByID(long id) {
         Optional<T> optional = Optional.empty();
         try {
-            T entity = entityManager.find(entityClass, id);
+//            entityManager.getTransaction().begin();
+            T entity = entityManager.find(getEntityClass(), id);
             if (entity != null) {
                 optional = Optional.of(entity);
             }
+//            entityManager.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return optional;
     }
 
-    public void remove(long id) {
+    public boolean remove(long id) {
         Optional<T> optional = findByID(id);
         if (optional.isPresent()) {
             try {
                 entityManager.getTransaction().begin();
                 entityManager.remove(optional.get());
                 entityManager.getTransaction().commit();
+                return true;
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        return false;
     }
 
     public List<T> getAll() {
         List<T> entities = new ArrayList<>();
         try {
-            entities = entityManager.createQuery(queryFrom, entityClass).getResultList();
+            entityManager.getTransaction().begin();
+            entities = entityManager.createQuery(queryFrom(), getEntityClass()).getResultList();
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -64,7 +72,10 @@ public abstract class AbstractEMDaoImpl<T> {
     }
 
     public boolean isContainsKey(long id) {
-        return findByID(id).isPresent();
+//        entityManager.getTransaction().begin();
+        boolean present = findByID(id).isPresent();
+//        entityManager.getTransaction().commit();
+        return present;
     }
 
     public boolean modify(T entity) {

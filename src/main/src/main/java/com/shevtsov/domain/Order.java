@@ -1,26 +1,39 @@
 package com.shevtsov.domain;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Component
+@Entity
+@Table(name = "ORDERS")
 public class Order implements Comparable<Order> {
-    private Long id;
-    private Client client;
-    private List<Product> products;
 
-    public Order(){
-        id = -1L;
-        client = null;
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "CLIENT_ID")
+    private Client client;
+
+    @ManyToMany
+    @JoinTable(name = "SPECIFICATIONS", joinColumns = @JoinColumn(name = "ORDER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
+    private List<Product> products;         //for Hiber
+
+    public Order() {
         products = new ArrayList<>();
     }
 
     public Order(Client client) {
+        this();
         this.client = client;
-        products = new ArrayList<>();
     }
 
     public Order(long id, Client client, List<Product> products) {
@@ -30,9 +43,9 @@ public class Order implements Comparable<Order> {
     }
 
     public Order(Order baseOrder) {
+        this();
         this.id = baseOrder.id;
         this.client = baseOrder.client;
-        products = new ArrayList<>();
         products.addAll(baseOrder.products);
     }
 

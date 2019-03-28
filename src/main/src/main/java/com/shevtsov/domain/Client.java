@@ -13,17 +13,18 @@ public class Client implements Comparable<Client> {
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
+
     private String name;
     private String surname;
     private Integer age;
     private String phone;
     private String email;
 
-    public Client() {
-        //for Hiber
+    public Client() {                   //for Hiber
     }
 
     public Client(String name, String surname, String phone) {
+        this();
         this.name = name;
         this.surname = surname;
         this.phone = phone;

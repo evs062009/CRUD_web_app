@@ -25,7 +25,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     public OrderServiceImpl(@Qualifier(value = "clientEMDaoImpl") ClientDao clientDao, AuthorisationImpl authorisation,
-                            OrderDao orderDao, ProductDao productDao, Order draft) {
+                            @Qualifier(value = "orderEMDaoImpl") OrderDao orderDao,
+                            @Qualifier(value = "productEMDaoImpl") ProductDao productDao, Order draft) {
         this.clientDao = clientDao;
         this.authorisation = authorisation;
         this.orderDao = orderDao;
@@ -50,12 +51,13 @@ public class OrderServiceImpl implements OrderService {
     public boolean save() {
         List<Product> products = draft.getProducts();
         if (!products.isEmpty()) {
-            if (draft.getId() == -1){
-                orderDao.save(draft);
+            boolean done;
+            if (draft.getId() == 0){
+                done = orderDao.save(draft);
             } else {
-                orderDao.modify(draft);
+                done = orderDao.modify(draft);
             }
-            return true;
+            return done;
         }
         System.out.println("log: Saving has not been done!!! (there is no product in the order)");
         return false;

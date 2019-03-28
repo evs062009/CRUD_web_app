@@ -16,7 +16,7 @@ public class ClientMenu {
     private final ProductService productService;
     private final OrderService orderService;
     private final EditOrderMenu editOrderMenu;
-    private /*final */AuthorisationImpl authorisation /*= AuthorisationImpl.getInstance()*/;
+    private AuthorisationImpl authorisation;
 
     @Autowired
     public ClientMenu(ClientService clientService, ProductService productService, OrderService orderService,

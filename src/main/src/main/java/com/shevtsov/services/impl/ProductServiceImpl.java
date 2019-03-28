@@ -5,6 +5,7 @@ import com.shevtsov.domain.Product;
 import com.shevtsov.exceptions.ObjectNotFoundExeption;
 import com.shevtsov.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -16,14 +17,13 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 
     @Autowired
-    public ProductServiceImpl(ProductDao productDao) {
+    public ProductServiceImpl(@Qualifier(value = "productEMDaoImpl") ProductDao productDao) {
         this.productDao = productDao;
     }
 
     @Override
     public boolean create(String name, BigDecimal price) {
         Product product = new Product(name, price);
-        product.setId(-1L);
         boolean result = productDao.save(product);
         if (!result){
             System.out.println("log: Creating has not been done");

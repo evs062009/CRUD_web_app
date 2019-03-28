@@ -6,12 +6,15 @@
 
     <persistence-unit name="persistence-unit">
         <class>com.shevtsov.domain.Client</class>
+        <class>com.shevtsov.domain.Product</class>
+        <class>com.shevtsov.domain.Order</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/LuxoftShop"/>
             <property name="javax.persistence.jdbc.user" value="test"/>
             <property name="javax.persistence.jdbc.password" value="test"/>
             <property name="show_sql" value="true"/>
+            <property name="hbm2ddl.auto" value="create"/>
         </properties>
     </persistence-unit>
 </persistence>
