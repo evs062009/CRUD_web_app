@@ -26,15 +26,17 @@ public interface OrderDao {
      * Calculates id if needed (if current id = -1), assigns it to Order-object and saves the object to storage.
      *
      * @param order the Order-object, which is saved.
+     * @return true if order is saved successfully, ot false otherwise.
      */
-    void save(Order order);
+    boolean save(Order order);
 
     /**
      * Removes Order-object in storage.
      *
      * @param id the id of Order-object, which is removed.
+     * @return true if order is removed successfully, ot false otherwise.
      */
-    void remove(long id);
+    boolean remove(long id);
 
     /**
      * Creates and returns collection of orders, which owner id matches to currentUserID.
@@ -48,6 +50,7 @@ public interface OrderDao {
      * Modifies the products of Order in storage.
      *
      * @param draft the order, contains new list of products
+     * @return true if order is modified successfully, ot false otherwise.
      */
-    void modify(Order draft);
+    boolean modify(Order draft);
 }

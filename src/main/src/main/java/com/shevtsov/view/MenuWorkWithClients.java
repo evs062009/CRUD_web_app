@@ -4,10 +4,14 @@ import com.shevtsov.domain.Client;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.view.viewEnums.MenuStatus;
 import com.shevtsov.view.viewUtilities.ViewUtilities;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class MenuWorkWithClients {
     private final ClientService clientService;
 
+    @Autowired
     public MenuWorkWithClients(ClientService clientService) {
         this.clientService = clientService;
     }

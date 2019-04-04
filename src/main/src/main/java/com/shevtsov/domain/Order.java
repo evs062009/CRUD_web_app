@@ -1,16 +1,39 @@
 package com.shevtsov.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+@Component
+@Entity
+@Table(name = "ORDERS")
 public class Order implements Comparable<Order> {
+
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "CLIENT_ID")
     private Client client;
-    private List<Product> products;
+
+    @ManyToMany
+    @JoinTable(name = "SPECIFICATIONS", joinColumns = @JoinColumn(name = "ORDER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "PRODUCT_ID"))
+    private List<Product> products;         //for Hiber
+
+    public Order() {
+        products = new ArrayList<>();
+    }
 
     public Order(Client client) {
+        this();
         this.client = client;
-        products = new ArrayList<>();
     }
 
     public Order(long id, Client client, List<Product> products) {
@@ -20,9 +43,9 @@ public class Order implements Comparable<Order> {
     }
 
     public Order(Order baseOrder) {
+        this();
         this.id = baseOrder.id;
         this.client = baseOrder.client;
-        products = new ArrayList<>();
         products.addAll(baseOrder.products);
     }
 
@@ -62,5 +85,20 @@ public class Order implements Comparable<Order> {
     @Override
     public int compareTo(Order o) {
         return (int) (id - o.id);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+        Order order = (Order) o;
+        return Objects.equals(getId(), order.getId()) &&
+                Objects.equals(getClient(), order.getClient()) &&
+                Objects.equals(getProducts(), order.getProducts());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getClient(), getProducts());
     }
 }

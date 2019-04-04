@@ -3,11 +3,15 @@ package com.shevtsov.view;
 import com.shevtsov.services.OrderService;
 import com.shevtsov.services.ProductService;
 import com.shevtsov.view.viewUtilities.ViewUtilities;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class EditOrderMenu {
     private final OrderService orderService;
     private final ProductService productService;
 
+    @Autowired
     public EditOrderMenu(OrderService orderService, ProductService productService) {
         this.orderService = orderService;
         this.productService = productService;
@@ -16,7 +20,7 @@ public class EditOrderMenu {
     void show() {
         while (true) {
             System.out.println("Goods in stock:");
-            ViewUtilities.showList(productService.gatAll());
+            ViewUtilities.showList(productService.getAll());
             System.out.println("Goods in order:");
             ViewUtilities.showList(orderService.getDraftProducts());
 

@@ -7,20 +7,25 @@ import com.shevtsov.services.ProductService;
 import com.shevtsov.services.impl.AuthorisationImpl;
 import com.shevtsov.view.viewUtilities.ViewUtilities;
 import com.shevtsov.view.viewEnums.MenuStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class ClientMenu {
     private final ClientService clientService;
     private final ProductService productService;
     private final OrderService orderService;
     private final EditOrderMenu editOrderMenu;
-    private final AuthorisationImpl authorisation = AuthorisationImpl.getInstance();
+    private AuthorisationImpl authorisation;
 
+    @Autowired
     public ClientMenu(ClientService clientService, ProductService productService, OrderService orderService,
-                      EditOrderMenu editOrderMenu) {
+                      EditOrderMenu editOrderMenu, AuthorisationImpl authorisation) {
         this.clientService = clientService;
         this.productService = productService;
         this.orderService = orderService;
         this.editOrderMenu = editOrderMenu;
+        this.authorisation = authorisation;
     }
 
     MenuStatus show() {
@@ -36,7 +41,7 @@ public class ClientMenu {
 
             switch (ViewUtilities.inputString()) {
                 case "1":
-                    ViewUtilities.showList(productService.gatAll());
+                    ViewUtilities.showList(productService.getAll());
                     break;
                 case "2":
                     createOrder();
@@ -82,7 +87,8 @@ public class ClientMenu {
 
     private void modifyAccount() {
         try {
-            Client client = clientService.getClient(authorisation.getCurrentUserID());
+            long currentUserID = authorisation.getCurrentUserID();
+            Client client = clientService.getClient(currentUserID);
             System.out.println(client);
             System.out.println("Input new name");
             String newName = ViewUtilities.inputString();
@@ -94,7 +100,7 @@ public class ClientMenu {
             String newPhone = ViewUtilities.inputString();
             System.out.println("Input email:");
             String newEmail = ViewUtilities.inputString();
-            if (clientService.modifyAccount(newName, newSurname, newAge, newPhone, newEmail)) {
+            if (clientService.modify(currentUserID, newName, newSurname, newAge, newPhone, newEmail)) {
                 System.out.println("Information modified");
             }
         } catch (Exception e ){

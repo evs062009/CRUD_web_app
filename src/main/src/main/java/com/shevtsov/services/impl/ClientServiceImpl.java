@@ -1,31 +1,37 @@
 package com.shevtsov.services.impl;
 
 import com.shevtsov.dao.ClientDao;
-import com.shevtsov.dao.impl.ClientDBDao;
 import com.shevtsov.domain.Client;
 import com.shevtsov.exceptions.BusinessException;
 import com.shevtsov.exceptions.ObjectNotFoundExeption;
 import com.shevtsov.services.ClientService;
 import com.shevtsov.validators.ValidationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
+@Service
 public class ClientServiceImpl implements ClientService {
-    private final AuthorisationImpl authorisation = AuthorisationImpl.getInstance();
-    private final ClientDao clientDao = ClientDBDao.getInstance();
+    private AuthorisationImpl authorisation;
+    private ClientDao clientDao;
     private final ValidationService validationService;
 
-    public ClientServiceImpl(ValidationService validationService) {
+    @Autowired
+    public ClientServiceImpl(ValidationService validationService, @Qualifier(value = "clientEMDaoImpl") ClientDao
+            clientDao, AuthorisationImpl authorisation) {
         this.validationService = validationService;
+        this.clientDao = clientDao;
+        this.authorisation = authorisation;
     }
 
     @Override
     public boolean create(String name, String surname, int age, String phone, String email) {
         Client client = getClientForCreating(name, surname, age, phone, email);
         if (client != null) {
-            authorisation.setCurrentUserID(clientDao.save(client));
+            authorisation.setCurrentUserID(clientDao.saveClient(client));
             return true;
         }
         System.out.println("log: Creating has not been done.");
@@ -39,25 +45,35 @@ public class ClientServiceImpl implements ClientService {
             Client client = getClientForModifying(newName, newSurname, newAge, newPhone, newEmail);
             if (client != null) {
                 client.setId(id);
-                if (clientDao.modify(client)) {
-                    return true;
-                }
+                return clientDao.modify(client);
             }
-        } else {
-            System.out.println("log: Modify has not been done!!!");
         }
+        System.out.println("log: Modifying has not been done!!!");
         return false;
-    }
-
-    @Override
-    public boolean modifyAccount(String newName, String newSurname, int newAge, String newPhone,
-                                 String newEmail) {
-        return modify(authorisation.getCurrentUserID(), newName, newSurname, newAge, newPhone, newEmail);
     }
 
     @Override
     public Client getClient(long id) {
         return clientDao.findByID(id).orElseThrow(() -> new ObjectNotFoundExeption(id));
+    }
+
+    @Override
+    public boolean remove(long id) {
+        if (clientDao.isContainsKey(id)) {
+            clientDao.remove(id);
+            return true;
+        }
+        System.out.println("log: Removing has not been done (there is no such client)");
+        return false;
+    }
+
+    @Override
+    public List<Client> getAll() {
+        List<Client> clients = clientDao.getAll();
+        if (clients != null) {
+            Collections.sort(clients);
+        }
+        return clients;
     }
 
     private Client getClientForModifying(String name, String surname, int age, String phone, String email) {
@@ -77,31 +93,11 @@ public class ClientServiceImpl implements ClientService {
         if (client != null) {
             try {
                 validationService.validatePhoneUniq(phone);
-                client.setId(-1L);
                 return client;
             } catch (BusinessException e) {
                 e.printStackTrace();
             }
         }
         return null;
-    }
-
-    @Override
-    public boolean remove(long id) {
-        if (clientDao.isContainsKey(id)) {
-            clientDao.remove(id);
-            return true;
-        }
-        System.out.println("log: Removing has not been done (there is no such client)");
-        return false;
-    }
-
-    @Override
-    public List<Client> getAll() {
-        List<Client> clients = clientDao.gatAll();
-        if (clients != null) {
-            Collections.sort(clients);
-        }
-        return clients;
     }
 }

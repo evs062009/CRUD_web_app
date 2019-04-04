@@ -1,14 +1,30 @@
 package com.shevtsov.domain;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.util.Objects;
+
+@Entity
+@Table(name = "CLIENTS")
 public class Client implements Comparable<Client> {
+
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
+
     private String name;
     private String surname;
     private Integer age;
-    private String email;
     private String phone;
+    private String email;
+
+    public Client() {                   //for Hiber
+    }
 
     public Client(String name, String surname, String phone) {
+        this();
         this.name = name;
         this.surname = surname;
         this.phone = phone;
@@ -88,5 +104,23 @@ public class Client implements Comparable<Client> {
     @Override
     public int compareTo(Client o) {
         return surname.compareToIgnoreCase(o.surname);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Client)) return false;
+        Client client = (Client) o;
+        return Objects.equals(getId(), client.getId()) &&
+                Objects.equals(getName(), client.getName()) &&
+                Objects.equals(getSurname(), client.getSurname()) &&
+                Objects.equals(getAge(), client.getAge()) &&
+                Objects.equals(getEmail(), client.getEmail()) &&
+                Objects.equals(getPhone(), client.getPhone());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getSurname(), getAge(), getEmail(), getPhone());
     }
 }

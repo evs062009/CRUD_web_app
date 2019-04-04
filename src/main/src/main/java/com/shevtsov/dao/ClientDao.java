@@ -11,9 +11,9 @@ public interface ClientDao {
      * Saves the Client-object to storage.
      *
      * @param client the Client-object, which is saved.
-     * @return the id of client, which was saved.
+     * @return the id of client, which was saved or -1 if saving is not finished successfully.
      */
-    long save(Client client);
+    long saveClient(Client client);
 
     /**
      * Searches for client by id in the storage.
@@ -27,15 +27,16 @@ public interface ClientDao {
      * Removes client in storage.
      *
      * @param id the id of the client, which is removed.
+     * @return true if client is deleted successfully, ot false otherwise.
      */
-    void remove(long id);
+    boolean remove(long id);
 
     /**
      * Creates and returns collection of Client-objects from storage.
      *
      * @return collection of Client-objects from storage.
      */
-    List<Client> gatAll();
+    List<Client> getAll();
 
     /**
      * Searches client in storage by phone number.
@@ -55,6 +56,7 @@ public interface ClientDao {
 
     /**
      * Modifies the Client-object data in storage.
+     *
      * @param client the Client-object, which is modified.
      * @return true if client is modified successfully, ot false otherwise.
      */

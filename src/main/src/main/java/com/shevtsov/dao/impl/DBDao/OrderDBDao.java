@@ -1,9 +1,12 @@
-package com.shevtsov.dao.impl;
+package com.shevtsov.dao.impl.DBDao;
 
+import com.shevtsov.dao.DBConnection;
 import com.shevtsov.dao.OrderDao;
 import com.shevtsov.domain.Client;
 import com.shevtsov.domain.Order;
 import com.shevtsov.domain.Product;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -11,11 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class OrderDBDao implements OrderDao {
-    private static final OrderDao INSTANCE = new OrderDBDao();
+    private DBConnection dbConnection;
 
-    private OrderDBDao() {
-        try (Connection connection = DBConnection.getConnection();
+    @Autowired
+    public OrderDBDao(DBConnection dbConnection) {
+        this.dbConnection = dbConnection;
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "CREATE TABLE IF NOT EXISTS ORDERS (ID BIGINT PRIMARY KEY AUTO_INCREMENT," +
                              "CLIENT_ID BIGINT);" +
@@ -27,15 +33,11 @@ public class OrderDBDao implements OrderDao {
         }
     }
 
-    public static OrderDao getInstance() {
-        return INSTANCE;
-    }
-
     @Override
-    public void save(Order order) {
-        try (Connection connection = DBConnection.getConnection();
+    public boolean save(Order order) {
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO ORDERS (CLIENT_ID) VALUES (?)", Statement.RETURN_GENERATED_KEYS)) {
+                     "INSERT INTO ORDERS (CLIENT_ID) VALUES (?)", Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, order.getClient().getId());
             statement.executeUpdate();
             try (ResultSet keys = statement.getGeneratedKeys()) {
@@ -48,18 +50,20 @@ public class OrderDBDao implements OrderDao {
                             statement1.setLong(2, product.getId());
                             statement1.executeUpdate();
                         }
+                        return true;
                     }
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
     public List<Order> getAll() {
         List<Order> orders = new ArrayList<>();
-        try (Connection connection = DBConnection.getConnection();
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT ORDERS.ID, CLIENT_ID, NAME, SURNAME, AGE, PHONE, EMAIL FROM ORDERS LEFT JOIN CLIENTS " +
                              "ON CLIENT_ID = CLIENTS.ID"); ResultSet resultSet = statement.executeQuery()) {
@@ -75,7 +79,7 @@ public class OrderDBDao implements OrderDao {
     @Override
     public List<Order> getUserOrders(long currentUserID) {
         List<Order> userOreders = new ArrayList<>();
-        try (Connection connection = DBConnection.getConnection();
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT ORDERS.ID, CLIENT_ID, NAME, SURNAME, AGE, PHONE, EMAIL FROM ORDERS LEFT JOIN CLIENTS " +
                              "ON CLIENT_ID = CLIENTS.ID WHERE CLIENTS.ID = ?")) {
@@ -93,7 +97,7 @@ public class OrderDBDao implements OrderDao {
 
     @Override
     public Optional<Order> findByID(long id) {
-        try (Connection connection = DBConnection.getConnection();
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "SELECT ORDERS.ID, CLIENT_ID, NAME, SURNAME, AGE, PHONE, EMAIL FROM ORDERS LEFT JOIN CLIENTS " +
                              "ON CLIENT_ID = CLIENTS.ID WHERE ORDERS.ID = ?")) {
@@ -110,26 +114,32 @@ public class OrderDBDao implements OrderDao {
     }
 
     @Override
-    public void modify(Order draft) {
-        try (Connection connection = DBConnection.getConnection()) {
+    public boolean modify(Order draft) {
+        try (Connection connection = dbConnection.getConnection()) {
             deleteOrderSpecification(draft.getId(), connection);
             addOrderSpecification(draft.getId(), draft.getProducts(), connection);
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
-    public void remove(long id) {
-        try (Connection connection = DBConnection.getConnection();
+    public boolean remove(long id) {
+        try (Connection connection = dbConnection.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "DELETE FROM ORDERS WHERE ID = ?")) {
             statement.setLong(1, id);
-            statement.execute();
-            deleteOrderSpecification(id, connection);
+            boolean isRemoveSuccess = statement.executeUpdate() != 0;
+            if (isRemoveSuccess) {
+                deleteOrderSpecification(id, connection);
+            }
+            return isRemoveSuccess;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     private Order getOrder(Connection connection, ResultSet resultSet) throws SQLException {

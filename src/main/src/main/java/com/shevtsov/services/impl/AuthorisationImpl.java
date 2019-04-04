@@ -1,19 +1,19 @@
 package com.shevtsov.services.impl;
 
 import com.shevtsov.dao.ClientDao;
-import com.shevtsov.dao.impl.ClientDBDao;
 import com.shevtsov.services.Authorisation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AuthorisationImpl implements Authorisation {
-    private final ClientDao clientDao = ClientDBDao.getInstance();
+    private ClientDao clientDao;
     private long currentUserID = -1;
-    private static final AuthorisationImpl INSTANCE = new AuthorisationImpl();
 
-    private AuthorisationImpl() {
-    }
-
-    public static AuthorisationImpl getInstance() {
-        return INSTANCE;
+    @Autowired
+    public AuthorisationImpl(@Qualifier(value = "clientEMDaoImpl") ClientDao clientDao) {
+        this.clientDao = clientDao;
     }
 
     public long getCurrentUserID() {

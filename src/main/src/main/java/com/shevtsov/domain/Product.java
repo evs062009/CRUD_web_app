@@ -1,13 +1,28 @@
 package com.shevtsov.domain;
 
-import java.math.BigDecimal;
+import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Objects;
+
+@Entity
+@Table(name = "PRODUCTS")
 public class Product implements Comparable<Product> {
+
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
     private Long id;
+
     private String name;
     private BigDecimal price;
 
+    public Product() {
+    }
+
     public Product(String name, BigDecimal price) {
+        this();
         this.name = name;
         this.price = price;
     }
@@ -53,5 +68,20 @@ public class Product implements Comparable<Product> {
     @Override
     public int compareTo(Product o) {
         return name.compareToIgnoreCase(o.name);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product product = (Product) o;
+        return Objects.equals(getId(), product.getId()) &&
+                Objects.equals(getName(), product.getName()) &&
+                Objects.equals(getPrice(), product.getPrice());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getPrice());
     }
 }

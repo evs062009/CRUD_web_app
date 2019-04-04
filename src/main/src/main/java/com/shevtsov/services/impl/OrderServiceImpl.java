@@ -3,22 +3,40 @@ package com.shevtsov.services.impl;
 import com.shevtsov.dao.ClientDao;
 import com.shevtsov.dao.OrderDao;
 import com.shevtsov.dao.ProductDao;
-import com.shevtsov.dao.impl.*;
 import com.shevtsov.domain.Client;
 import com.shevtsov.domain.Order;
 import com.shevtsov.domain.Product;
 import com.shevtsov.exceptions.ObjectNotFoundExeption;
 import com.shevtsov.services.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public class OrderServiceImpl implements OrderService {
-    private final ClientDao clientDao = ClientDBDao.getInstance();
-    private final ProductDao productDao = ProductDBDao.getInstance();
-    private final OrderDao orderDao = OrderDBDao.getInstance();
-    private final AuthorisationImpl authorisation = AuthorisationImpl.getInstance();
+    private ClientDao clientDao;
+    private ProductDao productDao;
+    private OrderDao orderDao;
+    private AuthorisationImpl authorisation;
     private Order draft;
+
+    @Autowired
+    public OrderServiceImpl(@Qualifier(value = "clientEMDaoImpl") ClientDao clientDao, AuthorisationImpl authorisation,
+                            @Qualifier(value = "orderEMDaoImpl") OrderDao orderDao,
+                            @Qualifier(value = "productEMDaoImpl") ProductDao productDao, Order draft) {
+        this.clientDao = clientDao;
+        this.authorisation = authorisation;
+        this.orderDao = orderDao;
+        this.productDao = productDao;
+        this.draft = draft;
+    }
+
+    public AuthorisationImpl getAuthorisation() {
+        return authorisation;
+    }
 
     @Override
     public List<Order> getAll() {
@@ -33,12 +51,13 @@ public class OrderServiceImpl implements OrderService {
     public boolean save() {
         List<Product> products = draft.getProducts();
         if (!products.isEmpty()) {
-            if (draft.getId() == -1){
-                orderDao.save(draft);
+            boolean done;
+            if (draft.getId() == 0){
+                done = orderDao.save(draft);
             } else {
-                orderDao.modify(draft);
+                done = orderDao.modify(draft);
             }
-            return true;
+            return done;
         }
         System.out.println("log: Saving has not been done!!! (there is no product in the order)");
         return false;
@@ -65,7 +84,6 @@ public class OrderServiceImpl implements OrderService {
             Collections.sort(orders);
         }
         return orders;
-
     }
 
     @Override
