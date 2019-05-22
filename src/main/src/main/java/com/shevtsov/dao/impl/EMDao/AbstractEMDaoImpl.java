@@ -72,10 +72,7 @@ public abstract class AbstractEMDaoImpl<T> {
     }
 
     public boolean isContainsKey(long id) {
-//        entityManager.getTransaction().begin();
-        boolean present = findByID(id).isPresent();
-//        entityManager.getTransaction().commit();
-        return present;
+        return findByID(id).isPresent();
     }
 
     public boolean modify(T entity) {
